@@ -1,0 +1,272 @@
+
+\usepackage{hyperref}
+\usepackage{color}
+
+\newcommand{\definition}[1]{ 
+\begin{quote} \item {\em #1} \end{quote}}
+\newcommand {\chaptersummary}[1] { \vspace{3cm} \hrule \vspace{0.5cm} {\em #1 } \vspace{0.5cm} \hrule \vspace{0.5cm} \newpage}
+\newcommand{\challenge}[1]{\paragraph {\bf \em [Challenge]} {\em #1}} 
+
+
+
+\newcommand{\chapquote}[1]{\em #1} 
+
+
+\newcommand{\quest}[1]{{\em ({\bf Mircea:} #1)}}
+\newcommand{\mir}[1]{{\em ({\bf Mircea:} #1)}}
+\newcommand{\mircea}[1]{{\em ({\bf Mircea:} #1)}}
+\newcommand{\Mircea}[1]{{\em ({\bf Mircea:} #1)}}
+
+\newcommand{\pg}[2]{#1 #2}
+%\newcommand{\pg}[2]{\paragraph {#1} {\small #2}}
+\newcommand{\mic}[1]{{\small #1}}
+
+\definecolor{lg}{rgb}{0.9,0.9,0.9}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.5}
+
+
+\newcommand{\cbar}{\vspace {1cm} \hrule }
+
+\newcommand{\concls}[1]{\titlebox{Facts and Limitations}{#1}}
+
+\newcommand{\titlebox}[2]{
+\vspace{1cm}
+\hrule
+\vspace{0.25cm}
+{\bf #1: }
+\vspace{0.25cm}
+\hrule
+#2
+\vspace{0.5cm}
+}
+
+
+% Utils
+
+\newcommand{\dpdef}[1]{\paragraph{Definition.} {\em #1}}
+\newcommand{\dpdisc}[1]{\paragraph {Discussion.} #1}
+\newcommand{\dpr}[1]{\paragraph {Rationale.} #1}
+\newcommand{\dpcat}[1]{\paragraph {Category:} #1}
+\newcommand{\dpcatage}{\dpcat{Age-related}}
+\newcommand{\dpcatdyn}{\dpcat{Dynamics-related}}
+\newcommand{\dpexample}[1]{\paragraph {Example.} #1}
+\newcommand{\dpp}[1]{\newpage\subsection{#1}}
+
+
+\newcommand{\pidea}[1]{#1.}
+\newcommand{\pideap}[1]{#1}
+%\newcommand{\pidea}[1]{\paragraph{#1.}}
+%\newcommand{\pideap}[1]{\paragraph{#1} }
+
+
+
+\newcommand{\flabel}[1]{\label{fig:#1}}
+\newcommand{\tlabel}[1]{\label{tab:#1}}
+\newcommand{\clabel}[1]{\label{c:#1}}
+\newcommand{\slab}[1]{\label{sec:#1}}
+
+\newcommand{\fref}[1]{Figure \ref{fig:#1}}
+\newcommand{\tref}[1]{Table \ref{tab:#1}}
+\newcommand{\sref}[1]{Section \ref{sec:#1}}
+\newcommand{\cref}[1]{Section \ref{c:#1}}
+
+% Font conventions
+\newcommand{\partref}[2]{{\bf Part \ref{p:#1}: #2}}
+\newcommand{\chap}[1]{\item {\bf Chapter \ref{c:#1}} {\footnotesize (p.\pageref{c:#1})}}
+\newcommand{\apdx}[1]{\item {\bf Appendix \ref{c:#1}} {\footnotesize (p.\pageref{c:#1})}}
+\newcommand{\spref}[1]{Section \ref{sec:#1} {\footnotesize (p.\pageref{sec:#1})}}
+
+\newcommand{\SOC}{\subsubsection* {Structure of the Chapter}}
+
+\newcommand{\q}[1]{``#1''}
+
+\newcommand{\tool}[1]{{\em #1}}
+\newcommand{\pnam}[1]{{\em #1}}
+\newcommand{\trm}[1]{{\em #1}}
+
+\newcommand{\art}[1]{{\em #1}}
+\newcommand{\book}[1]{{\em #1}}
+\newcommand{\cit}[1]{{\em ``#1''}}
+
+\newcommand{\proj}[1]{{\em #1}}
+\newcommand{\dev}[1]{{\em #1}}
+\newcommand{\term}[1]{{\em #1}}
+\newcommand{\class}[1]{{\em #1}}
+\newcommand{\method}[1]{{\em #1}}
+\newcommand{\met}[1]{{\em #1}}
+\newcommand{\pack}[1]{{\em #1}}
+\newcommand{\model}[1]{{\em #1}}
+\newcommand{\vp}[1]{{\em #1}}
+
+\newcommand{\metric}[1]{{\em #1}}
+
+\newcommand{\cod}[1]{{\em #1}}
+
+
+
+% Tables with metrics
+\newcommand{\metrictableh}[4]{
+\begin{table}[h!]
+%\footnotesize
+\centering
+\begin{tabular}{l l}
+#1
+\hline
+#2
+\hline
+\end{tabular}
+\caption{#3}\tlabel{#4}
+\end{table}
+}
+
+\newcommand{\metrictable}[3]{
+\metrictableh
+{Acronym & Name\\}{#1}{#2}{#3}
+}
+
+
+
+
+% viewpoint definitions
+\newcommand{\vpc}{black}
+\newcommand{\Goal}[1]{\subsubsection* {Goal} #1}
+\newcommand{\Cat}[1]{\subsubsection* {Category} #1}
+
+\newcommand{\Concerns}[1]{\paragraph{\textcolor{\vpc}{Concerns}} \begin{itemize}#1\end{itemize}}
+\newcommand{\Stakeholders}[1]{\paragraph{\textcolor{\vpc}{Stakeholders: }} #1}
+\newcommand{\Construction}[1]{\subsubsection* {Construction Principles } #1}
+\newcommand{\Navigation}[1]{\paragraph{\textcolor{\vpc}{Implementation in SPO.}}  #1}
+\newcommand{\Examples}{\subsubsection{\textcolor{\vpc}{Examples}}}
+\newcommand{\Discussion}[1]{\subsubsection{\textcolor{\vpc}{Discussion}} 
+\begin{description}
+#1
+\end{description}}
+\newcommand{\dpoint}[1]{\item {\em #1.} }
+\newcommand{\cpoint}[1]{\item {\bf #1.} }
+\newcommand{\cpointnp}[1]{\item {\bf #1} }
+
+
+
+% Frequently Used Terms
+% ---------------------
+
+\newcommand{\Revenge}{{Revenge}\xspace}
+\newcommand{\revenge}{{revenge}\xspace}
+\renewcommand{\v}{viewpoint\xspace}
+
+% Generic 
+\newcommand{\ie}{\textit{i.e.,}\xspace}
+\newcommand{\eg}{\textit{e.g.,}\xspace}
+\newcommand{\etc}{\textit{etc.}\xspace}
+\newcommand{\etal}{\textit{et al.}\xspace}
+
+
+% Super-repositories / Ecosystems
+\newcommand{\super}{super-repository\xspace}
+\newcommand{\Super}{Super-Repository\xspace}
+\newcommand{\Supers}{Super-Repositories\xspace}
+\newcommand{\supers}{super-repositories\xspace}
+\newcommand{\spo}{Small Project Observatory\xspace}
+\newcommand{\tspo}{The Small Project Observatory\xspace}
+\newcommand{\snaut}{Softwarenaut\xspace}
+\newcommand{\store}{Store\xspace}
+\newcommand{\svn}{SVN\xspace}
+\newcommand{\LEM}{{Lightweight Ecosystem Model}\xspace}
+\newcommand{\emlem}{{\em lightweight ecosystem model}\xspace}
+\newcommand{\lem}{{lightweight ecosystem model}\xspace}
+\newcommand{\emdpm}{{\em detailed project model}\xspace}
+\newcommand{\dpm}{{detailed project model}\xspace}
+\newcommand{\DPM}{{Detailed Project Model}\xspace}
+
+\newcommand{\treveale}{the REVEAL ecosystem \xspace}
+\newcommand{\reveal}{{REVEAL}\xspace}
+\newcommand{\scg}{{SCG}\xspace}
+\newcommand{\cincom}{{Cincom}\xspace}
+\newcommand{\soops}{{Soops}\xspace}
+\newcommand{\gnome}{{Gnome}\xspace}
+
+
+%~~~~~~~~~~
+%Viewpoints 
+%~~~~~~~~~~
+ \newcommand{\growth}{{Size Evolution}\xspace}
+ \newcommand{\vgrowth}{{Size Evolution}\xspace}
+ \newcommand{\vgrowthv}{{Size Evolution} viewpoint\xspace}
+
+ \newcommand{\vacti}{{Activity Evolution}\xspace}
+ \newcommand{\vactiv}{{Activity Evolution} viewpoint\xspace}
+
+ \newcommand{\vcol}{{Developer Collaboration}\xspace}
+ \newcommand{\vcolv}{{Developer Collaboration} viewpoint\xspace}
+
+ \newcommand{\varch}{{Project Architecture}\xspace}
+ \newcommand{\varchv}{{Project Architecture} viewpoint\xspace}
+
+ \newcommand{\vtimeline}{{Developer Timelines}\xspace}
+ \newcommand{\vtimelinev}{{Developer Timelines} viewpoint\xspace}
+
+ \newcommand{\vpdep}{{Project Dependency Map}\xspace}
+ \newcommand{\vpdepv}{{Project Dependency Map} viewpoint\xspace}
+
+ \newcommand{\vpmat}{{Project Dependency Matrix}\xspace}
+ \newcommand{\vpmatv}{{Project Dependency Matrix} viewpoint\xspace}
+
+
+
+%~~~~~~~~~~~~~~
+% Soops report
+%~~~~~~~~~~~~~~
+
+\newcommand{\soopsPart}[1]{\subsubsection* {\em #1}}
+
+
+
+
+
+%
+\newcommand{\s}{Softwarenaut\xspace}
+\newcommand{\shrimp}{SHriMP\xspace}
+
+% Package Patterns 
+\newcommand{\Autonomous}{Autonomous\xspace}
+\newcommand{\FallThrough}{Fall-Through\xspace}
+\newcommand{\Iceberg}{Iceberg\xspace}
+\newcommand{\Archipelago}{Archipelago\xspace}
+\newcommand{\vpsem}{{\em vertical package slices}\xspace}
+\newcommand{\vps}{vertical package slices\xspace}
+\newcommand{\Vps}{Vertical package slices\xspace}
+\newcommand{\VPS}{Vertical Package Slices\xspace}
+\newcommand{\VPSem}{{\em Vertical Package Slices}\xspace}
+
+% Dependency Evolution Patterns
+\newcommand{\sdm}{{\em Semantic Dependency Matrix}\xspace}
+\newcommand{\refil}{Relationship Evolution Filmstrip\xspace}
+
+
+
+
+% -----------------------------------------------
+
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+    unicode=false,          % non-Latin characters in Acrobat’s bookmarks
+    pdftoolbar=true,        % show Acrobat’s toolbar?
+    pdfmenubar=true,        % show Acrobat’s menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={Reverse Engineering Software Ecosystems},    % title
+    pdfauthor={Mircea Lungu},     		% author
+    pdfsubject={Doctoral Dissertation},   	% subject of the document
+    pdfcreator={Mircea Lungu},   		% creator of the document
+    pdfproducer={Mircea Lungu}, 		% producer of the document
+    pdfkeywords={keywords}, 			% list of keywords
+    pdfnewwindow=true,      			% links in new window
+    colorlinks=true,       			% false: boxed links; 
+    linkcolor=darkblue,          		% color of internal links
+    citecolor=darkblue,        			% color of links to bibliography
+    filecolor=magenta,      			% color of file links
+    urlcolor=cyan           			% color of external links
+}
+
+
+

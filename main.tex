@@ -76,8 +76,10 @@
 
 
 \journal{Science of Computer Programming}
+\input {utils}
 
 \begin{document}
+
 
 \begin{frontmatter}
 
@@ -133,27 +135,29 @@ Reverse Engineering \sep
 \section{Introduction}
 \label{sec:Introduction}
 
-Software systems are at the heart of our society and as the society changes they must change too. Since the direction and speed of societal change can not be predicted, maintaining a software system implies a continuous effort to keep it up to date with the unanticipated changes in its environment. Having an clear and up to date understanding of the architecture of the system is critical to maintaining and evolving that system [Pollet].
+No software system is an island entire of itself. Instead the system exists in an environment and when the environment changes the system should change itself or become obsolete. Since the direction and speed of societal change can not be predicted, maintaining a software system implies a continuous effort to keep it up to date with the unanticipated changes in its environment. Having an clear and up to date understanding of the architecture of the system is critical to maintaining and evolving that system \cite{Duca09c}.
 
-However, as the system evolves, the as-is architecture errodes [] and drifts from the as-defined architecture[]. One accompanying property of this continuous change and of the divergence between the system actual architecture and its initial defined architecture is an increasing brittleness of the system [Perry and Wolf]. 
+However, as the system evolves, the architecture erodes \cite{perry-foundations} and an architectural mismatch \cite{garlan-mismatch} appears between the as-defined and as-is architecture. One accompanying property of this continuous change and of the divergence between the system actual architecture and its initial defined architecture is an increasing brittleness of the system\cite{perry-foundations}.
 
-The main reason for the architectural erosion and drift phenomena is the lack in most of the widespread programming languages of dedicated constructions that express the architecture and the lack of tools that associate architectural decisions with the source code. The problem is a particular case of the documentation problem: it is well known that the documentation of the system becomes quickly obsolete unless conscientious effort is put towards keeping it up to date [Riva].
+The main reason for the architectural erosion and drift phenomena is widespread lack of programming language support for expressing the architecture as well as the lack of tools that associate architectural decisions with the source code. The problem is a particular case of the documentation problem: it is well known that the documentation of the system becomes quickly obsolete unless conscientious effort is put towards keeping it up to date \cite{riva-report}.
 
-Since having a clear and up to date understanding of the architecture of the system is critical to maintaining and evolving that system [Pollet] in every system at some point steps need to be taken towards making explicit the architecture of the system, or recovering a system’s architecture. Jazayeri defines architecture recovery as “the techniques and processes used to uncover a system’s architecture from available information” [Jazayeri]. 
+Since having a clear and up to date understanding of the architecture of the system is critical to maintaining and evolving that system \cite{pollet-sar}, in every system at some point steps need to be taken towards making explicit the architecture of the system, or recovering a system’s architecture. Jazayeri defines architecture recovery as ``the techniques and processes used to uncover a system’s architecture from available information'' \cite{jaza-archevo}.
 
-In this work, we consder software architecture to be defined by Bass and Clements: ”the structure or struc- tures of a system that consists of components, connections between them, and their properties”. As a result, recovering the architecture means recovering the components of a system, their relationsihps, and their properties. 
+In this work, we consider software architecture to be defined by Bass and Clements: ``the structure or structures of a system that consists of components, connections between them, and their properties'' \cite{bass-architecture}. As a result, recovering the architecture means recovering the components of a system, their relationships, and their properties. 
 
-There is consensus between the practitioners and researchers that architecture is to be expressed somehow visually and in the same time that it is too complex to be expressed in a single visual representation. As a result, architecture can only be expressed through multiple architectural views that correspond to multiple architectural viewpoints [catalogues]. Each viewpoint presents the system from a given perspective (e.g. deployment, phisical organization, code organization, etc.).
+There is consensus between the practitioners and researchers that architecture is to be expressed somehow visually and in the same time that it is too complex to be expressed in a single visual representation. As a result, architecture can only be expressed through multiple architectural views that correspond to multiple architectural viewpoints \cite{kruchten-4plus}. Each viewpoint presents the system from a given perspective (e.g. deployment, physical organization, code organization, etc.).
 
-When the system which is subject to the architecture recovery process is a large system the process needs to be supported by semi-automated {\em architecture recovery tools}. The goal of these tools is therefore to support the process of extracting information from the source code and other, aggregating, analyzing, and filtering this information, and eventually presenting {\em architectural views} which capture the architecture of the system. 
+When the system which is subject to the architecture recovery process is a large system the process needs to be supported by semi-automated {\em architecture recovery tools}. The goal of these tools is, once the information is extracted from the source code, to support the aggregation, analysis, and filtering of this information, and eventually to present {\em architectural views} which capture the architecture of the system. 
 
 In this article we present Softwarenaut, an architecture recovery tool that we have developed. Softwarenaut provides interactive exploration mechanisms that support the semi-automated discovery of architectural views of any system written in an object-oriented programming language. 
 
-\subsection*{Structure of this article.} The article is structured as follows: In the first section we talk about the way data is imported and modelled. Then we show that the data such imported needs to be aggregated and abstracted along a hierarchical decomposition of the sytem. We continue by presenting how Softwarenaut allows the interactive exploration of the model of the system. We discuss then the way in which the tool supports collaboration. We close with a discussion on related work and  quick glance on the future developments of the tool. 
+\subsection*{Structure of this article.} The article is structured as follows: In Section \ref{sec:facts} we talk about the way data is imported and modelled. In Section \ref{sec:org} we show that the data such imported needs to be aggregated and abstracted along a hierarchical decomposition of the system. We continue by presenting how Softwarenaut allows the interactive exploration of the model of the system in Section \ref{sec:interact}. We discuss then the way in which the tool supports collaboration \ref{sec:collab}. We close with a discussion in Section \ref{sec:disc} and position our work in the broader context of related work in Section \ref{sec:rel}. Finally in Section \ref{sec:conc} we conclude and provide a quick glance on the future development directions for the tool. 
 
 
 
+% FACTS
 \section {Fact Extraction}
+\label{sec:facts}
 
 The first step in architecture recovery is fact extraction. 
 
@@ -181,25 +185,30 @@ Hierarchical organization is one of the most powerful tools for managing complex
 At the architectural level, various languages provide different mechanisms for the hierarchical organization of the system. In C/C++ the organization is given by the directory structure of the project, in Java by the package hierarchy, in Cincom Smalltalk by the bundles hierarchy, etc. In the cases where there is no hierarchy in place one can be automatically generated by performing hierarchical clustering on the artefacts in the system [LunguKuhnLongTimeAgo]. 
 
 
+
+% ORGANIZATION
 \section {Knowledge Organization}
+\label{sec:org}
 
-Aggregating horizontal relationships between software artefacts along vertical  relationships is the fundamental technique that allows for abstraction in Softwarenaut. A data structure that allows for this is the higraph [Harel]. The higraph is formed by taking the graph of basic artefacts and horizontal relationships that exist between them and aggregating and propagating those relationships upwards along the hierarchical decomposition of the system. 
+Aggregating horizontal relationships between software artefacts along vertical relationships is the fundamental technique that allows for abstraction in Softwarenaut. A data structure that allows for this is the Higraph\cite{harel-visform}. The Higraph is a data structure formed by taking the graph of basic artefacts and horizontal relationships that exist between them and aggregating and propagating those relationships upwards along the hierarchical decomposition of the system. 
 
-Figure XXX presents the process through which the low-level relationships between the methods of classes in a Java system are aggregated up along the hierarchical decomposition of the system. There are two explicit horizontal dependencies that are extracted from the system: the method calls between mc1 and respectively mc2 and mc5. 
+Figure \ref{dep-agg} presents the process through which the low-level horizontal relationships between the methods of classes in a Java system are aggregated up along the hierarchical decomposition of the system. There are two explicit horizontal dependencies that are extracted from the system: the method calls between \cod{mc1} and respectively \cod{mc2} and \cod{mc5}. 
 The explicit dependencies are propagated as implicit relationships vertically along the vertical relationships mc1 -> c1 -> B -> A and mc5->c5->d->c and mc2->c2->d->c. The highest level implicit relationship is the one between A and C. 
 
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=\linewidth]{images/DependencyAggregation}
-\caption{}
-\label{}
+\caption{The aggregation of explicit dependencies into implicit ones along the vertical relationships between methods, classes, and packages in a Java system}
+\label{dep-agg}
 \end{center}
 \end{figure}
 When a hierarchical decomposition is not provided, we can automatically generate one using clustering techniques. We presented elsewhere an experiment with clustering the classes in a system based on the similarity in the natural language terms that are used in their definitions [LKGL05] and there is a rich literature on clustering software systems in general [Kosche, etc].
 
 
+% INTERACTION
 \section {Interactive Exploration}
+\label {sec:interact}
 
 Softwarenaut is an architecture recovery tool in which interactive exploration is the dominant technique through which the higraph that represents the software system is explored. The goal of the exploration process is discovering multiple architecturally relevant views. In this section we detail the intearctive tools that support this process: higraph navigation, rule-based filtering, first-class views, and details-on-demand.  
 
@@ -361,7 +370,10 @@ In our case, we allow the saving and restoring of views. Each view can then repr
 
 
 
+% COLLABORATION
 \section {Collaboration}
+\label {sec:collab}
+
 In Softwarenaut, views are entities that can be saved, and shared. One can publish a view in a view repository. Each view is associated with a system or a version of a system. Then, when some other user analyzes that specific system he can download other views that were saved for that system by other users. 
 
 The view repository is based on a Postgres SQL database and saves for each view the following:
@@ -406,7 +418,9 @@ The main use case in which this navigation is needed is when one wants to unders
 
 
 
+% DISC
 \section {Discussion}
+\label {sec:disc}
 \subsection {Evaluating the Usability and Usefulness of the Tool}
 We have tested the tool in two subsequent years with students in our Software Evolution master course. The experiment was a qualitative one where we gave the students an open-source system to analyze after a brief introduction to Softwarenaut. Our goal was to test and get feedback on the usability of the tool as well as its usefullness for reverse engineering large software systems. The students were grouped in pairs and had to analyze ArgoUML and provide a report which presented architectural aspects of the system. We analyzed the results ourselves and found them to be satisfactory of the limited amout of time the students had available. 
 
@@ -424,7 +438,9 @@ Softwarenaut also uses several of the views defined in Moose, like for example s
 One of the tools that was built on top of Softwarenaut is MARS: an automated architecture refactoring recommender tool. The tool starts from a given Softwarenaut view and tries to see whether move operations applied on classes can improve the architecture of the system by increasing coupling and decreasing cohesion. The work is still in progress and needs a formal validation. 
 
 
+% REL
 \section {Related Work}
+\label {sec:rel}
 \subsection {Collaboration.} The work of D’Ambros et. al on the Web-based analysis framework called Churrasco is related in a way to the collaboration part that we support with the architectural view sharing. 
 
 \subsection {Exploration and Navigation.} The first tool that supported this kind of top-down exploration was Shrimp by Storey. However, the tool was intended only for reverse engineering. Our tool, with the facility of first-class views makes a smooth transition towards integrating the views that are once recovered in the forward engineering process of the companies.
@@ -435,7 +451,9 @@ One of the tools that was built on top of Softwarenaut is MARS: an automated arc
 \subsection {Filtering.} Most of the architecture recovery tools support filtering. There was a paper that surveyed all the techniques. None of the tools however, allows for the users to customize and define filters themselves. That is part of our future work. 
 
 
+% CONC
 \section {Conclusions and Future Work}
+\label {sec:conc}
 The tool is available online at http://lungu.org/mircea/softwarenaut.
 
 
@@ -466,7 +484,7 @@ The tool is available online at http://lungu.org/mircea/softwarenaut.
 %% References with bibTeX database:
 
 \bibliographystyle{model1-num-names}
-\bibliography{<your-bib-database>}
+\bibliography{scg,thesis}
 
 %% Authors are advised to submit their bibtex database files. They are
 %% requested to list a bibtex style file in the manuscript if they do
