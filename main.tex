@@ -326,27 +326,28 @@ Having arrived at an architectural view, in Softwarenaut is the beginning of the
 
 
 \subsubsection {Details for Edges}
-They present the history of the edges, when multiple versions of the system are available (an example of a detailed view is the Evolution filmstrip \cite{lungu-relevo} that is presented in Figure XXX) and structural informations when a single version of the system is available. 
+They present structural information about the individual edges and also evolutionary information when multiple versions of the system are available for analysis. \fref{dedge} presents two such examples: 
+the Invoked Artifacts view presented at left and the Evolution filmstrip view \cite{lungu-relevo} presented at right 
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.85\linewidth]{images/DetailsForEdge}
+\includegraphics[width=0.8\linewidth]{images/DetailsForEdge}
 \caption{Details for an edge: (left) the invoked artifacts from the target of the edge; on the right the evolution of the relationship over multiple versions of the system}
-\label{}
+\flabel{dedge}
 \end{center}
 \end{figure}
-Figure XXZ presents a detailed view of the “Invoked Artefacts” detail view. The tree has on its first levels the names of the classes that are invoked in the invocations that are abstracted in the dependency. Besides each node is the number of methods that are invoked from that class. The figure also presents one node (Higraph) being expanded and it shows the individual methods that are invoked from that class. The method nodes can be further expanded and the call sites can then be revealed. 
+The Invoked Artefacts view lists all the artefacts that are affected by a given high-level dependency. The tree has on its first levels the names of the classes that are invoked. Besides each node is the number of methods that are invoked from that class. The children of a node are the individual methods that are invoked. \fref{dedge} shows one class node being expanded and the individual methods that are invoked from that class. The method nodes can be further expanded and the call sites can then be revealed. 
 
 
 \subsubsection {Details for Nodes}
 
-They present details about the selected node entity. The bottom part of Figure XXY presents the “Class Metrics” detail-view. It lists all the classes that are aggregated in a certain module and it can display metrics for them. The figure shows the list of classes in the SN-Model module that is part of the Softwarenaut itself. The classes are sorted based on their size. One can add new metrics that are visualized, or can navigate to the code of the individual classes from this panel.
+They present details about the selected node entity. The bottom part of \fref{dnode} presents the “Class Metrics” detail-view. It lists all the classes that are aggregated in a certain module and it can display metrics for them. The figure shows the list of classes in the \cod{SNModel} module that is part of the Softwarenaut itself. The classes are sorted based on their size. One can add new metrics that are visualized, or can navigate to the code of the individual classes from this panel.
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.5\linewidth]{images/DetailForNode.png}
 \caption{Details for a node. The contained artefacts and associated metrics}
-\label{}
+\flabel{dnode}
 \end{center}
 \end{figure}
 
@@ -405,13 +406,13 @@ Rule-based relationships are a powerful way of reducing information in the view.
 \item When assessing the quality of an architecture, the recent relationships are of higher interest. Since they were recently introduced, they are more likely to be contrary to the original intended architecture. They might be the result of archi- tectural decay or of changes to the system performed by new developers that are unaware of the architecture. Continuously monitoring these relationships can be a good quality assurance policy.
 \end{itemize}
 
-Figure 7.14 presents two views on the same set of modules as Figure 7.13. The left side presents all the 21 dependencies that existed between the displayed nodes in all the versions of the system. The right part of the figure presents the 36 dependencies that were introduced in the system in the latest version. Both the numbers are very low in comparison with the number of relationships that are present in the last version of the system so both can function as powerful filters.
+\fref{lvr} presents two views on the same set of modules as \fref{filpan}. The left side presents all the 21 dependencies that existed between the displayed nodes in all the versions of the system. The right part of the figure presents the 36 dependencies that were introduced in the system in the latest version. Both the numbers are very low in comparison with the number of relationships that are present in the last version of the system so both can function as powerful filters.
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.8\linewidth]{images/Architecture-LifetimeVsRecent}
 \caption{The left part of the figure shows the Lifetime relationships while the right part of the figure presents the Recent relationships in Azureus/Vuze}
-\label{}
+\flabel{lvr}
 \end{center}
 \end{figure}
 
@@ -423,20 +424,24 @@ Figure 7.14 presents two views on the same set of modules as Figure 7.13. The le
 \newpage
 \subsection {First-Class Views}
 
-Another technique used for avoiding views becoming too complex which can be used in combination with the previously presented techniques is saving views. In fact, there is little hope that a single view can present all the information that is needed for understanding of a complex system. If the designers need different types and multipe diagrams for their understanding, the more will the user that is trying to understand the system. 
+Another technique used for avoiding views becoming too complex which can be used in combination with the previously presented techniques is view persistence. There are two reasons why Softwarenaut makes views first class entities:
 
-There are different approaches that different tools use to cope with this problem. For example, Shrimp and Creole allow zooming in into individual nodes. 
+\begin{enumerate}
+\item A single view can not capture all the aspects of the architecture of a system. If the designers need different types and multiple diagrams for their understanding, the more will the user that is trying to understand the system. 
+\item A single view would overload the user with too much information: by using multiple views each one can present an aspect of the system.
+\end{enumerate}
 
-In our case, we allow the saving and restoring of views. Each view can then represent only one perspective on the system. 
+There are different approaches that different tools use to cope with the second problem. For example, Shrimp and Creole allow zooming in into individual nodes. In our case, we allow the saving and restoring of views. Each view can then represent only one perspective on the system. 
 
 Every view is defined by:
 
 \begin{itemize}
-\item the current working set
-\item the active node filters
-\item the active edge filters
-\item the current positions of all the visible nodes
+\item The current working set.
+\item The positions of all the nodes in the working set.
+\item The active node filters.
+\item The active edge filters.
 \end{itemize}
+
 
 \fref{viops} highlights the way the user can interact with the local views. He has a set of local views that he can save, load, delete locally. 
 
@@ -451,8 +456,9 @@ In Softwarenaut, views are entities that can be saved, and shared. One can publi
 The view repository is based on a Postgres SQL database and saves for each view the following:
 
 \begin{itemize}
-\item the creator
-\item the system and optionally version of the system for which the view was generated
+\item The creator
+\item The system 
+\item The version of the system 
 \end{itemize}
 
 Regarding the filters, at the moment they are predefined. In the future we plan to support user-defined filters and their publication together with the views. 
@@ -471,16 +477,13 @@ Regarding the filters, at the moment they are predefined. In the future we plan 
 Then each of these views he can push to the global view repository. From the global view repository he can pull views, or if he is the creator of such a view he can delete it from the global repository too. For every view the users can discuss and add comments. We have implemented recently the view sharing mechanism and we are eager to test it to see whether it is of such use as we imagine for architecture recovery. 
 
 \subsection {Softwarenaut Synergies}
-One of the tools that benefits from the Global View Repository is the Small Project Observatory (abbreviated as SPO). SPO is an ecosystem analysis tool that we have presented elsewhere [SPO]. The goal of SPO is to support the understanding of software ecosystems. We say that SPO works at an abstraction level which is above the architectural level of the individual system, the ecosystem abstraction level. However, in order to understand the  ecosystem the tool needs to support navigatinon between the two abstraction levels. 
-
-One of the tools that benefits from the Global View Repository is the Small Project Observatory (abbreviated as SPO). SPO is an ecosystem analysis tool that we have presented elsewhere [SPO]. The goal of SPO is to support the understanding of software ecosystems. We say that SPO works at an abstraction level which is above the architectural level of the individual system, the ecosystem abstraction level. However, in order to understand the  ecosystem the tool needs to support navigatinon between the two abstraction levels. 
-
+One of the tools that benefits from the Global View Repository is the Small Project Observatory (abbreviated as SPO). SPO is an ecosystem analysis tool that we have presented elsewhere \cite{lungu-spo}. The goal of SPO is to support the understanding of software ecosystems. We say that SPO works at an abstraction level which is above the architectural level of the individual system, the ecosystem abstraction level. However, in order to understand the  ecosystem the tool needs to support navigatinon between the two abstraction levels. 
 
 The main use case in which this navigation is needed is when one wants to understand a given system in the context of the ecosystem. In such a case SPO allows navigating down to the architectural level of the individual system, where it presents architectural views which are enriched with information from the ecosystem. The architectural views of the systems are obtained from the Global View Repository where they are published with Softwarenaut. In this way through the two tools can reuse information.
 
 \begin{figure}[th!]
 \begin{center}
-\includegraphics[width=\linewidth]{images/SpoArchitectural}
+\includegraphics[width=0.7\linewidth]{images/SpoArchitectural}
 \caption{The architectural views saved in Softwarenaut can be imported in SPO}
 \label{}
 \end{center}
@@ -493,8 +496,6 @@ The main use case in which this navigation is needed is when one wants to unders
 % DISC
 \section {Discussion}
 \label {sec:disc}
-\subsection {Beyond Reverse Engineering: Monitoring Software Evolution with Softwarenaut}
-This is the plan. The future. 
 
 \subsection {Evaluating the Usability and Usefulness of the Tool}
 We have tested the tool in two subsequent years with students in our Software Evolution master course. The experiment was a qualitative one where we gave the students an open-source system to analyze after a brief introduction to Softwarenaut. Our goal was to test and get feedback on the usability of the tool as well as its usefullness for reverse engineering large software systems. The students were grouped in pairs and had to analyze ArgoUML and provide a report which presented architectural aspects of the system. We analyzed the results ourselves and found them to be satisfactory of the limited amout of time the students had available. 
@@ -509,39 +510,37 @@ Softwarenaut was developed on top of the Moose Analysis Platform. The main featu
 Softwarenaut also uses several of the views defined in Moose, like for example some of the views that present entity metrics. Also, since behind any visual element of Softwarenaut lays a HiNode and behind it there is a FAMIX entity one can spawn other Moose analyses by selecting any of the elements of a Softwarenaut architectural view. For example, one can select a given module.
 
 
-\subsection {Beyond Understanding: Reengineering with Softwarenaut}
-One of the tools that was built on top of Softwarenaut is MARS: an automated architecture refactoring recommender tool. The tool starts from a given Softwarenaut view and tries to see whether move operations applied on classes can improve the architecture of the system by increasing coupling and decreasing cohesion. The work is still in progress and needs a formal validation. 
-
 
 % REL
 \section {Related Work}
 \label {sec:rel}
-\subsection {Collaboration.} The work of D’Ambros et. al on the Web-based analysis framework called Churrasco is related in a way to the collaboration part that we support with the architectural view sharing. 
 
-\subsection {Exploration and Navigation.} The first tool that supported this kind of top-down exploration was Shrimp by Storey. However, the tool was intended only for reverse engineering. Our tool, with the facility of first-class views makes a smooth transition towards integrating the views that are once recovered in the forward engineering process of the companies.
+\subsection {Exploration and Navigation.} Automatically aggregating the low-level relations, and then letting the user navigate from the highest abstraction level downwards is the main interaction approach in Softwarenaut. This is the exact opposite of the approach that M{\"u}ller proposed with Rigi \cite{muller-revengenv}. In their case, the user starts from the lowest-level facts and aggregates them as he climbs up in the abstraction hierarchy. Their approach does not scale when analyzing very large systems because the number of low-level artifacts is too large. Storey took the same top-down navigation approach in her work on SHriMP \cite{storey-shrimp}.
 
-Automatically aggregating the low-level relations, and then letting the user navigate from the highest abstraction level downwards is the main interaction approach in Softwarenaut. This is the exact opposite of the approach that M{\"u}ller proposed with Rigi \cite{muller-revengenv}. In their case, the user starts from the lowest-level facts and aggregates them as he climbs up in the abstraction hierarchy. Their approach does not scale when analyzing very large systems because the number of low-level artifacts is too large. Storey took the same top-down navigation approach in her work on SHriMP \cite{storey-shrimp}.
+\subsection {Filtering.} Most of the architecture recovery tools support filtering. There was a paper that surveyed all the techniques. None of the tools however, allows for the users to customize and define filters themselves. That is part of our future work. 
 
 \subsection {First-Class Views.} The work of Storey et al. on Shrimp also allows for saving and restoring views. The views are saved inside a “Filmstrip” and then the filmstrip can be persisted and restored from the disk. Through the intermediation of the filmstrips the users can restore exploration sessions or even share certain views. This type of information allows people that know about each other to share information by emailing the files. The advantage of the Global View Repository is that it allows for discovering information that other users have discovered and about which the analysis is not aware. 
 %(http://www.thechiselgroup.org/shrimp_manual_filmstrip)
 
-\subsection {Filtering.} Most of the architecture recovery tools support filtering. There was a paper that surveyed all the techniques. None of the tools however, allows for the users to customize and define filters themselves. That is part of our future work. 
 
+\subsection {Collaboration.} The work of D’Ambros et. al on the Web-based analysis framework called Churrasco is related in a way to the collaboration part that we support with the architectural view sharing. 
 
+\newpage
 % CONC
 \section {Conclusions and Future Work}
 \label {sec:conc}
-The tool is available online at http://lungu.org/mircea/softwarenaut.
+
+In this article we have presented Softwarenaut, our tool which is state of the art in architecture recovery. The tool allows the recovery of architectural views of a software system and supports collaboration and integration with other tools. The tool is available online at http://lungu.org/mircea/softwarenaut.
+
+\subsection {Beyond Architecture Recovery(I): Reengineering}
+One of the tools that was built on top of Softwarenaut is MARS: an automated architecture refactoring recommender tool. The tool starts from a given Softwarenaut view and tries to see whether move operations applied on classes can improve the architecture of the system by increasing coupling and decreasing cohesion. The work is still in progress and needs a formal validation. 
+
+\subsection {Beyond Architecture Recovery (II): Monitoring Software Evolution}
+Once a set of architectural views is recovered with Softwarenaut these views can be used for monitoring the evolution of the system. Indeed the Softwarenaut views are not static but instead they present relationships between the components in a given version. If desired, the views can be used as a basis for monitoring the evolution of the system, and integrated into the continuous development of the system. As soon as a new version is rolled out the differences between the architecture of the two versions can be highlighted on the saved views.
 
 
 
-
-
-
-
-
-
-
+\newpage
 
 %% The Appendices part is started with the command \appendix;
 %% appendix sections are then done as normal sections
