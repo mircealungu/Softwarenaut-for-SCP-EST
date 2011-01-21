@@ -326,12 +326,12 @@ Having arrived at an architectural view, in Softwarenaut is the beginning of the
 
 
 \subsubsection {Details for Edges}
-They present the history of the edges, when multiple veresions of the system are available (an example of a detailed view is the Evolution filmstrip [EF06] that is presented in Figure XXX) and structural informations when a single version of the system is available. 
+They present the history of the edges, when multiple versions of the system are available (an example of a detailed view is the Evolution filmstrip \cite{lungu-relevo} that is presented in Figure XXX) and structural informations when a single version of the system is available. 
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.5\linewidth]{images/DetailForNode.png}
-\caption{}
+\includegraphics[width=0.85\linewidth]{images/DetailsForEdge}
+\caption{Details for an edge: (left) the invoked artifacts from the target of the edge; on the right the evolution of the relationship over multiple versions of the system}
 \label{}
 \end{center}
 \end{figure}
@@ -344,13 +344,14 @@ They present details about the selected node entity. The bottom part of Figure X
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.4\linewidth]{images/DetailForEdge.png}
-\caption{}
+\includegraphics[width=0.5\linewidth]{images/DetailForNode.png}
+\caption{Details for a node. The contained artefacts and associated metrics}
 \label{}
 \end{center}
 \end{figure}
 
 
+\newpage
 \subsection {Rule-Based Filtering}
 
 In the previous section we have introduced the Filter and Group operations which work on individual nodes. A complementary type of filtering is rule-based filtering. There are several types of such filters:
@@ -360,16 +361,9 @@ In the previous section we have introduced the Filter and Group operations which
 \item Type-based filters. Filtering entities or relations of a given type. One example of this is showing only inheritance relationships, or filtering out the classes in a system.
 \end{itemize}
 
-\begin{figure}[ht!]
-\begin{center}
-\includegraphics[width=0.7\linewidth]{images/Filmstrip}
-\caption{}
-\label{}
-\end{center}
-\end{figure}
 
 
-When it comes to filtering there are two types of filters: deep filters and shallow filters.
+When it comes to filtering there are two types of filters: low-level filters and high-level filters.
 
 \begin{itemize}
 
@@ -380,16 +374,17 @@ When it comes to filtering there are two types of filters: deep filters and shal
 \end{itemize}
 
 
-Figure A.7 presents the relation filtering panel as implemented in Softwarenaut. Several filters can be combined to obtain more powerful ones. During the exploration, the user generates many views. If a filter is active, each time a new view is generated, only those dependencies that the filter allows to be visible are visible.
+\fref{filpan} presents the relation filtering panel as implemented in Softwarenaut. Several filters can be combined to obtain more powerful ones. During the exploration, the user generates many views. If a filter is active, each time a new view is generated, only those dependencies that the filter allows to be visible are visible.
 
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=\linewidth]{images/SnautFilteringPanel}
+\includegraphics[width=0.8\linewidth]{images/SnautFilteringPanel}
 \caption{The UI for applying relationship filters in Softwarenaut}
-\label{}
+\flabel{filpan}
 \end{center}
 \end{figure}
+
 
 In the figure one can observe several types of high-level filters that apply on relationships: 
 
@@ -414,7 +409,7 @@ Figure 7.14 presents two views on the same set of modules as Figure 7.13. The le
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=\linewidth]{images/Architecture-LifetimeVsRecent}
+\includegraphics[width=0.8\linewidth]{images/Architecture-LifetimeVsRecent}
 \caption{The left part of the figure shows the Lifetime relationships while the right part of the figure presents the Recent relationships in Azureus/Vuze}
 \label{}
 \end{center}
@@ -443,8 +438,10 @@ Every view is defined by:
 \item the current positions of all the visible nodes
 \end{itemize}
 
+\fref{viops} highlights the way the user can interact with the local views. He has a set of local views that he can save, load, delete locally. 
 
 
+\newpage
 % COLLABORATION
 \section {Collaboration}
 \label {sec:collab}
@@ -460,16 +457,18 @@ The view repository is based on a Postgres SQL database and saves for each view 
 
 Regarding the filters, at the moment they are predefined. In the future we plan to support user-defined filters and their publication together with the views. 
 
-Figure XXX highlights the way the user can interact with the local views. He has a set of local views that he can save, load, delete locally. Then each of these views he can push to the global view repository. From the global view repository he can pull views, or if he is the creator of such a view he can delete it from the global repository too. For every view the users can discuss and add comments. We have implemented recently the view sharing mechanism and we are eager to test it to see whether it is of such use as we imagine for architecture recovery. 
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=\linewidth]{images/ViewOperations.png}
+\includegraphics[width=0.8\linewidth]{images/ViewOperations.pdf}
 \caption{}
-\label{}
+\flabel{viops}
 \end{center}
 \end{figure}
 
+
+
+Then each of these views he can push to the global view repository. From the global view repository he can pull views, or if he is the creator of such a view he can delete it from the global repository too. For every view the users can discuss and add comments. We have implemented recently the view sharing mechanism and we are eager to test it to see whether it is of such use as we imagine for architecture recovery. 
 
 \subsection {Softwarenaut Synergies}
 One of the tools that benefits from the Global View Repository is the Small Project Observatory (abbreviated as SPO). SPO is an ecosystem analysis tool that we have presented elsewhere [SPO]. The goal of SPO is to support the understanding of software ecosystems. We say that SPO works at an abstraction level which is above the architectural level of the individual system, the ecosystem abstraction level. However, in order to understand the  ecosystem the tool needs to support navigatinon between the two abstraction levels. 
@@ -490,6 +489,7 @@ The main use case in which this navigation is needed is when one wants to unders
 
 
 
+\newpage
 % DISC
 \section {Discussion}
 \label {sec:disc}
