@@ -135,13 +135,13 @@ Reverse Engineering
 \section{Introduction}
 \label{sec:Introduction}
 
-No software system is an island entire of itself. Instead the system exists and is tied to an environment, and when the environment changes the system must change too or become obsolete\cite{lehman-softev}. As a result, maintaining a software system implies a continuous effort to keep it up to date with the unanticipated changes in its environment. Having a clear and up to date understanding of the architecture of the system is critical to maintaining and evolving that system \cite{Duca09c}.
+No software system is an island entire of itself. Instead the system exists and functions in an environment, and when the environment changes the system must change too or become obsolete\cite{lehman-softev}. As a result, maintaining a software system implies a continuous effort to keep it up to date with the unanticipated changes in its environment. Having a clear and up to date understanding of the architecture of the system is critical to maintaining and evolving that system \cite{Duca09c}.
 
 
-However, as the system evolves, the architecture erodes \cite{perry-foundations} and an architectural mismatch appears between the as-defined and as-is architecture \cite{garlan-mismatch}.
+As the system evolves, the architecture erodes \cite{perry-foundations} and an architectural mismatch appears between the as-defined and as-is architecture \cite{garlan-mismatch}.
 One accompanying property of this continuous change and of the divergence between the system actual architecture and its initial defined architecture is an increasing brittleness of the system \cite{perry-foundations}.
 
-The main reason for the architectural erosion and drift phenomena is widespread lack of programming language support for expressing the architecture as well as the lack of tools that associate architectural decisions with the source code. The problem is a particular case of the documentation problem: it is well known that the documentation of the system becomes quickly obsolete unless developers dedicate conscientious effort towards keeping it up to date \cite{riva-report}.
+The main reason for the architectural erosion and drift phenomena is widespread lack of programming language support for expressing the architecture as well as the lack of tools that associate architectural decisions with the source code. The problem is an instance of the documentation problem: it is well known that the documentation of the system becomes quickly obsolete unless developers dedicate conscientious effort towards keeping it up to date \cite{riva-report}.
 
 Having a clear and up to date understanding of the architecture is critical to maintaining and evolving a system \cite{pollet-sar}. Sometimes developers need to take steps towards making explicit the architecture of the system. Jazayeri defines architecture recovery as ``{\em the techniques and processes used to uncover a system’s architecture from available information}'' \cite{jaza-archevo}.
 
@@ -166,7 +166,7 @@ In this article we present Softwarenaut - an architecture recovery tool that we 
 \section {A Quick Overview}
 \label{sec:over}
 
-Softwarenaut is an architecture recovery tool in which interactive exploration is the dominant technique through which the subject software system is explored. The goal of the exploration process the discovery of multiple architecturally relevant views \cite{lungu-packages}.
+Softwarenaut is an architecture recovery tool in which interactive exploration is the dominant analysis technique. The goal of the interactive exploration process the discovery of multiple architecturally relevant views \cite{lungu-packages}.
 
 Automatically aggregating the low-level relations, and then letting the user navigate from the highest abstraction level downwards is the main interaction approach in Softwarenaut. 
 
@@ -181,17 +181,17 @@ Automatically aggregating the low-level relations, and then letting the user nav
 The UI of Softwarenaut contains three linked complementary visual perspectives that present information about the system during the exploration. \fref{sos} presents Softwarenaut visualizing an architectural view of itself. The figure illustrates the three complementary views that the tool supports:
 
 \begin{enumerate}
-\item The Exploration View. The Exploration View is the main view in Softwarenaut. It is a graph-based representation of modules and their dependencies. The nodes in the graph represent modules and the edges represent the dependencies between the modules. Each dependency edge is an aggregation of low-level dependencies between the two associated modules. To represent the nodes and edges we use a polymetric view metaphor as introduced by Lanza \cite{lanza-pv, lanza-oomp}. 
+\item The Exploration is the main view in Softwarenaut. It is a graph-based representation of modules and their dependencies. The nodes in the graph represent modules and the edges represent the dependencies between the modules. Each dependency edge is an aggregation of low-level dependencies between the two associated modules. To represent the nodes and edges we use a polymetric view metaphor as introduced by Lanza \cite{lanza-pv, lanza-oomp}. 
 
-\item The Detail View. This view presents details for the entity that is selected in the Exploration View. The goal of this view is to provide insight into the details of the element selected in the exploration view. This view implements the ``details-on-demand'' part of the visualization mantra of Shneiderman \cite{shneid-eyes}.
+\item The Detail view presents details for the entity selected in the Exploration View. The goal of this view is to provide insight into the details of the element selected in the exploration view. This view implements the ``details-on-demand'' part of the visualization mantra of Shneiderman \cite{shneid-eyes}.
 
-\item The Overview View. The overview view presents the entire hierarchy of the system and highlights on it the modules that are visible in the exploration view. The Overview view presents a horizontal slice through the system \cite{wong-thesis}. %The view is interactive: the user can navigate to the details of the elements in the view, or select elements in the detailed view and have the selection propagate to the exploration view. 
+\item The Overview view presents the entire hierarchy of the system and highlights on it the modules that are visible in the exploration view. The Overview view presents a horizontal slice through the system \cite{wong-thesis}. %The view is interactive: the user can navigate to the details of the elements in the view, or select elements in the detailed view and have the selection propagate to the exploration view. 
 This view is significant because it offers a sense of orientation which is critical for successful navigation \cite{storey-awareness}.
 
 \end{enumerate}
 
 
-Like other architecture recovery tools \cite{pollet-sar}, Softwarenaut is organized along a classical extract-abstract-view workflow as presented in \fref{flow}.
+Like other architecture recovery tools \cite{pollet-sar}, Softwarenaut conforms to a classical extract-abstract-view architecture. Figure \fref{flow} presents the three main steps of this architecture:
 
 \begin{figure}[h]
 \begin{center}
@@ -212,40 +212,50 @@ Dedicated sections will treat each of the three steps of the workflow.
 \label{sec:facts}
 
 
-At the most basic level, in Softwarenaut a system is modeled using the Core of the FAMIX meta-model. The Core of FAMIX is a language independent meta-model that describes the static structure of object-oriented software systems. FAMIX was introduced by Tichelaar \cite{tichelaar-thesis} and has evolved since then through multiple versions, the latest one being FAMIX 3.0. 
+At the most basic level, Softwarenaut models a system using the Core of the FAMIX meta-model. The Core of FAMIX is a language independent meta-model that describes the static structure of object-oriented software systems. Since its introduction by Tichelaar \cite{tichelaar-thesis}, FAMIX has evolved through multiple versions, the latest one being FAMIX 3.0. 
 
-The transformation from the source code of the system to the FAMIX model of the system is performed by various third-party tools like McC \cite{pepi-mcc} or Columbus \cite{ferenc-columbus}. Given that the meta-model is independent of the language, all the analyses that Softwarenaut performs can be applied on any system written in an object-oriented language.
+
+
+%Columbus \cite{ferenc-columbus}. 
 
 \subsection {Entities and relationships in FAMIX}
-The main artifacts that are represented in FAMIX Core are namespaces, packages, classes, attributes, methods, fields. The main relationships between these entities are method invocations, variable accesses, class inheritances, package include relationships. 
+FAMIX Core represents both artifacts and relationships as first-class entities. The main artifacts are namespaces, packages, classes, attributes, methods, fields. The main relationships between these entities are method invocations, variable accesses, class inheritances, package include relationships \cite{tichelaar-thesis}.
 
 \subsection {Containment relationships}
-A type of relationships which have a special importance in Softwarenaut are the containment relationships which organize a software system in a vertical hierarchy: methods are contained in classes, classes are contained in modules, modules are contained in systems\footnote{Systems are contained in ecosystems \cite{lungu-thesis}}. 
+A type of relationships which have a special importance in Softwarenaut are the containment relationships which organize a software system in a vertical hierarchy: classes contain methods, modules contain classes, systems contain modules. This containment mechanism is a powerful way of coping with the complexity of large software systems.
 
-At the architectural level, various languages provide different mechanisms for the hierarchical organization of the system. In C/C++ the organization is given by the directory structure of the project, in Java by the package hierarchy, in Cincom Smalltalk by the bundles hierarchy, etc. In the cases where there is no hierarchy in place one can be automatically generated by performing hierarchical clustering on the artefacts in the system \cite{lungu-clust}. 
+At the architectural level, different languages provide different mechanisms for the hierarchical organization of the system. C/C++ developers use the directory structure to organize systems hierarchically; Java developers use the package hierarchy; Smalltalk developers use the bundles hierarchy, etc. 
 
+When a hierarchical decomposition is not provided, we can automatically generate one using clustering techniques \cite{koschke-thesis}. We presented elsewhere an experiment with clustering the classes in a system based on natural language similarity\cite{Lung05a}.
+
+\subsection {Language Independence}
+Given that the FAMIX meta-model is language independent Softwarenaut can analyze any system written in an object-oriented language. This requires fact extractors that analyze the source code and build the intermediary FAMIX model. For this we use various third-party tools like McC \cite{pepi-mcc} or inFusion \footnote{At the time of writing this at http://www.intooitus.com/inFusion}.
 
 
 \newpage
 % ORGANIZATION
-\section {Information Aggregation}
+\section {Information Abstraction}
 \label{sec:org}
 
 Aggregating horizontal relationships between software artefacts along the containment relationships is the fundamental technique that allows for abstraction in Softwarenaut. 
 
-\fref{dep-agg} presents an example of how the low-level horizontal relationships between the methods of classes in a Java system are aggregated up along the hierarchical decomposition of the system. There are two explicit horizontal dependencies that are extracted from the system: the method calls between \cod{mc1} and respectively \cod{mc2} and \cod{mc5}. 
-The explicit dependencies are propagated as implicit relationships vertically along the containment relationships \cod{mc1 -- c1 -- B -- A}, \cod{mc5 -- c5 -- d -- c} and \cod{mc2 -- c2 -- d --c}. The highest level implicit relationship is the one between A and C. 
+\fref{dep-agg} exemplifies the aggregation 
+of low-level relationships between methods and classes 
+along the containment hierarchy 
+of a Java system. The example contains two explicit low-level dependencies: 
+%of classes in a Java system are aggregated up along the hierarchical decomposition of the system. There are two explicit horizontal dependencies that are extracted from the system: 
+the method calls between \cod{mc1} and respectively \cod{mc2} and \cod{mc5}. 
+The explicit dependencies propagate as implicit relationships vertically along the containment relationships \cod{mc1 $\rightarrow$ c1 $\rightarrow$ B  $\rightarrow$A}, \cod{mc5 $\rightarrow$ c5 $\rightarrow$ d $\rightarrow$ c} and \cod{mc2 $\rightarrow$  c2 $\rightarrow$  d $\rightarrow$ c}. The highest level implicit relationship is the one between A and C. 
 
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.6\linewidth]{images/DependencyAggregation}
+\includegraphics[width=\linewidth]{images/DependencyAggregation}
 \caption{The aggregation of explicit dependencies into implicit ones along the containment relationships between methods, classes, and packages in a Java system}
 \flabel{dep-agg}
 \end{center}
 \end{figure}
 
-When a hierarchical decomposition is not provided, we can automatically generate one using clustering techniques. We presented elsewhere an experiment with clustering the classes in a system based on natural language similarity\cite{Lung05a} and there is a rich literature on clustering software systems in general \cite{koschke-thesis}.
 
 A data structure that allows for this is the Higraph introduced by Harel \cite{harel-visform}. In our case, the DPMHigraph\footnote{DPM stands for Detail Project Model} is a data structure formed by taking the graph of basic artefacts and relationships between them and aggregating them along the containment hierarchy of the system. 
 
@@ -263,8 +273,8 @@ The diagram from \fref{hmodel} presents two types of abstract entities and two t
 \begin{itemize}
 \item Leaf Entities. The leaf entities are the basic object-oriented programming building blocks used for the structuring of software. Depending on the analyzed relation- ship, the leaf entities can be either methods or classes.
 \item Composite Entities. The composite entities are containers for other entities. They can have direct mappings to programming language entities, such as classes, packages, namespaces or modules but can also represent abstract composites such as clusters.
-\item Explicit Relationships. These are the relations between two entities. They are extracted from the code. The ones that we are interested in are method invocations, class inheritance and field access.
-\item Implicit Relationships. The model admits relationships between any abstract entities. However, in software systems explicit relationships usually exist only be- tween the leaf entities. Therefore, the relations between the composite entities are inferred bottom-up from the relations existing between the leafs. The result is that between any two high-level components, we have a relation that represents a collection of all the relations between the leaf components aggregated in them.
+\item Explicit Relationships. These are the relations between two entities as they exist in the code. Softwarenaut models method invocations, class inheritance, and field access.
+\item Implicit Relationships. The model admits relationships between any abstract entities. However, in software systems explicit relationships usually exist only between the leaf entities. Therefore, the relations between the composite entities must be inferred bottom-up from the relations existing between the leafs. The result is that between any two high-level components, we have a relation that represents a collection of all the relations between the leaf components aggregated in them.
 \end{itemize}
 
 
@@ -298,36 +308,34 @@ The exploration operations supported by Softwarenaut are:
 
 \begin{itemize}
 
-\item Expand. By applying the expand operation to a node of the working set, the node is replaced in the working set with nodes representing its children. The operation can be defined as on operation on the working set (WS) in the following way:
+\item Expand. The expand operation applied to a node of the working set replaces in the working set the node with nodes that represent its children. We define the operation formally as follows: 
 
 \hspace{0.5cm} $ Expand_{N,HG} (WS) = WS - N + children (N, HG)$, 
 
 where $children(x,h)$ is a function which returns the children of node $x$ in higraph $h$.
 
-\item Collapse. By collapsing a node corresponding to a module, the node, together with all the nodes representing the siblings of the module are removed from the view and replaced with a node representing the parent module. Formally the operation is defined as follows:
+\item Collapse. The collapse operation applied to a module in the working set, removes the module and all its siblings from the view and replaces them their parent module. We define the operation formally as follows:
 
 \hspace{0.5cm} $ Collapse_{N,HG} (WS) = WS - N - siblings (N, HG) + parent (N, HG)$
 
 where $siblings(x,h)$ is a function which returns the nodes that have the same parent with $x$ in higraph $h$, and $parent(x,h)$ is a function which returns the parent of node $x$ in higraph $h$. 
 
 \item Filter.
-By filtering a node, that node (and implicitly its children) will be removed from the working set. Formally the operation is defined as follows:
+The filter operation applied to a node removes that node from the working set. We define the operation Formally as follows:
 
 $ Filter_{N,HG} (WS) = WS - N$
 
 \item Group.
-By grouping several nodes together the user can reduce the clutter in the view. Formally the group operation is defined as follows: 
+The group operation applied to several modules removes the modules from the view and replaces them with a new virtual module. By grouping several modules together the user reduces the clutter in the view. We define the group operation formally as follows: 
 
 $ Group_{N_{i},HG} = WS - N_i + NewGroupNode $
 
-where $N_i$ is the set of nodes that are to be removed from the working set.
+where $N_i$ is the set of nodes the user wants to group.
 
 
 \end{itemize}
 
-As the user refines the view, and climbs down in the hierarchy of the system, more and more elements are brought into the view. The user can use the Filter and Group operations on explicit sets of nodes to cope with the complexity of a graph with a large number of nodes and edges 
-
-One type of modules that must be filtered out are the {\em omnipresent modules} which contribute little to the understanding of the architecture of the system, and heavily clutter the view \cite{mitchell-bunch}.
+As the user refines the view, and climbs down in the hierarchy of the system, he brings more and more elements into the view. She can use the Filter and Group operations on explicit sets of nodes to decrease the number of nodes displayed on screen and therefore cope with the complexity of a graph with a large number of nodes and edges. One type of modules that benefit the user when filtered out are the {\em omnipresent modules} which contribute little to the understanding of the architecture of the system, and heavily clutter the view \cite{mitchell-bunch}.
 
 
 % DOD
@@ -338,12 +346,12 @@ One type of modules that must be filtered out are the {\em omnipresent modules} 
 
 The elements of every architectural view in Softwarenaut are nodes that represent modules and edges that represent relationships between them. For the user to be confident that he {\em understands} such a view he needs to understand the role of every node and the meaning of every edge. Metaphorically, if the view were a phrase, the nodes would be the nouns and the edges would be the verbs. Only when one has understood all the nouns and the verbs he has really understood the story of the view.  
 
-The Detail View panel of Softwarenaut is one of the ways in which one can understand the individual nodes and edges in an architectural view; it presents different detail views depending on the element that is selected in the exploration view. %There are therefore, two types of detail views: for nodes and for edges. 
+The Detail panel of Softwarenaut is one of the ways in which one can understand the individual nodes and edges in an architectural view; it presents different detail views depending on the selected element in the exploration view. %There are therefore, two types of detail views: for nodes and for edges. 
 
 
 
 \subsubsection {Detail Views for Modules}
-They present details about the selected module. \fref{dnode} presents, as an example, the {\em Class Metrics} detail view, a view which presents all the classes that are contained in a certain module and metrics for them. The set of displayed metrics can be customized, and one can navigate to the code of the individual classes. 
+They present details about the selected module. \fref{dnode} presents, as an example, the {\em Class Metrics} detail view, a view which presents all the classes contained in a certain module and metrics for them. The set of displayed metrics is customizable. One can navigate to the code of the individual classes. 
 
 \begin{figure}[h]
 \begin{center}
@@ -363,14 +371,14 @@ They present information about the selected relationships. Since understanding t
 
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=0.9\linewidth]{images/DetailsForEdge}
+\includegraphics[width=\linewidth]{images/DetailsForEdge}
 \caption{Two example detail views for a relationship: (left) the Invoked Artifacts detail view; (right) the Interactive Methods detail view}
 \flabel{dedge}
 \end{center}
 \end{figure}
-The Invoked Artefacts view lists all the artefacts that are called by the selected high-level dependency. The tree has on its first levels the names of the classes that are invoked. The children of every class node are the individual methods that are invoked. The method nodes can be further expanded and the call sites can then be revealed. 
+The Invoked Artefacts view lists all the artefacts invoked by the selected high-level dependency. The tree has on its first levels the names of the invoked classes. The children of every class node are the invoked methods. The method nodes can be further expanded and the call sites will be revealed. 
 
-The Interactive Methods detail view presents the call graph of the method calls that are abstracted in the selected high-level dependency. 
+The Interactive Methods detail view presents the call graph of the method calls abstracted in the selected high-level dependency. 
 
 
 
@@ -380,37 +388,36 @@ The Interactive Methods detail view presents the call graph of the method calls 
 \subsection {Rule-Based Filtering}
 \slab{filtering}
 
-In the previous section we have introduced the Filter operation which works on explicit sets of nodes, and such a filter operation is offered by most software architecture recovery tools \cite{aracic-filtering}. However, Softwarenaut implements several categories of more advanced, {\em rule-based filters} that can be applied either on nodes or on edges:
-
-\begin{itemize}
-\item Metric-based filters. They filter entities and relationships based on their properties as captured by software metrics. One example of this is filtering the weak dependencies or the very small modules in a view.
-\item Type-based filters. Filtering entities or relations of a given type. One example of this is showing only inheritance relationships in a view.
-\end{itemize}
-
-Softwarenaut also implements several advanced filters that can be applied only on edges \cite{lungu-relevo}:
-
-\begin{itemize}
-\item Age-based filters are defined based on the historical evolution of an inter-module relationship in the system. They can only be applied when models for multiple versions of a system are loaded. %Fossil, Old, Lifetime, and Recent are four age-based filters that correspond to relationships which have the properties suggested by their names. In Figure XXY the first relationship is an old one, while the second is a new one. 
-
-\item Dynamics-based filters are defined based on the dynamics of the relationship. Some relationships are stable across the versions while others are continuously changing. %Two such filters are Stable and Instable. In Figure XXY the first relatinoship is instable since all during the evolution of the system the types of relationships and their directions change while the second is stable.
-
-\item Directional filters are defined based on the direction of the relationship between two modules. For example, filtering out the unidirectional relationships from an architectural view is useful for highlighting the modules that have mutual dependencies between themselves. 
-\end{itemize}
-
-
-Softwarenaut actually supports two types of filters: low-level filters and high-level filters.
+In the previous section we have introduced the Filter operation which works on explicit sets of nodes. Most software architecture recovery tools offer such a filter operation \cite{aracic-filtering}. Softwarenaut implements several categories of more advanced {\em rule-based filters} for nodes and edges. At the most basic level, Softwarenaut supports two types of filters: low-level filters and high-level filters:
 
 \begin{itemize}
 
 \item Low-level filters act on the higraph itself. They remove from the higraph the low-level elements that match a given condition. For example, all the invocation relationships that go to polymorphic classes.
 %, will not remove the visual dependency between two modules if they contain other types of low-level dependencies.
 
-\item High-level filters act on the high-level elements and relationships between them in the working set. For example, removing from the view all the high-level dependencies that abstract less few low-level dependencies.
+\item High-level filters act on the high-level elements and relationships between them in the working set. For example, hiding all the high-level dependencies that abstract few low-level dependencies.
+\end{itemize}
+
+During exploration, the user interacts mostly with the High-level filters. There are two types of filters that apply to both artifacts and relationships: 
+
+\begin{itemize}
+\item Metric-based filters for entities and relationships are defined with respect to the metrics computed for artifacts. For example filtering out {\em the weak dependencies} or {\em the small modules} in a view.
+\item Type-based filters for entities and relationships are defined with respect to the type of the artifacts. For example showing {\em only inheritance relationships} or hiding {\em all the classes} from a view.
+\end{itemize}
+
+Softwarenaut also implements several advanced filters only for relationships:
+
+\begin{itemize}
+\item Evolutionary filters are defined based on the historical evolution of an inter-module relationship in the system\footnote{Evolution-based filters require models of multiple versions of a system loaded}. %Fossil, Old, Lifetime, and Recent are four age-based filters that correspond to relationships which have the properties suggested by their names. In Figure XXY the first relationship is an old one, while the second is a new one. 
+For example showing only the {\em relationships that existed in all the versions of a system} or hiding all the {\em unstable relationships} \cite{lungu-relevo}.
+
+% \item Dynamics-based filters are defined based on the dynamics of the relationship. Some relationships are stable across the versions while others are continuously changing. %Two such filters are Stable and Instable. In Figure XXY the first relatinoship is instable since all during the evolution of the system the types of relationships and their directions change while the second is stable.
+
+\item Directional filters are defined based on the direction of the relationship between two modules. For example, filtering out the unidirectional relationships from an architectural view is useful for highlighting the modules that have mutual dependencies between themselves. 
 \end{itemize}
 
 
-\fref{filpan} presents the relation filtering panel as implemented in Softwarenaut. Several filters can be combined to obtain more powerful ones. During the exploration, the user generates many views. If a filter is active, each time a new view is generated, only those dependencies that the filter allows to be visible are visible.
-
+\fref{filpan} presents the relation filtering panel as implemented in Softwarenaut. Several filters can be combined to obtain more powerful ones with either the ``and'' or the ``or'' operator. The elements that match the filter can be either ``shown'' or ``hidden''. The user can define new filters by writing simple scripts in Smalltalk. The system is fully reflective, and as soon as a new filter is defined, it will immediately appear in the list of available filters.
 
 \begin{figure}[h]
 \begin{center}
@@ -424,9 +431,9 @@ Softwarenaut actually supports two types of filters: low-level filters and high-
 Rule-based relationships are a powerful way of reducing information in the view. The principle is simple: not all the relationships are equally relevant for the task at hand. When analyzing a system with a specific goal, the analysis will focus first on those relationships that are most relevant for the chosen goal. Two different goals are architecture recovery and architecture quality assessment: 
 
 \begin{itemize}
-\item When recovering the architecture of a system, the lifetime and old relationships are more relevant. They represent the architectural backbone of the system and their stability over time insures that it is worth analyzing them first.
+\item When recovering the architecture of a system, the lifetime relationships are more relevant. They represent the architectural backbone of the system and their stability over time insures that it is worth analyzing them first.
 
-\item When assessing the quality of an architecture, the recent relationships are of higher interest. Since they were recently introduced, they are more likely to be contrary to the original intended architecture. They might be the result of archi- tectural decay or of changes to the system performed by new developers that are unaware of the architecture. Continuously monitoring these relationships can be a good quality assurance policy.
+\item When assessing the quality of an architecture, the recent relationships are of higher interest. Since they were recently introduced, they are more likely to be contrary to the original intended architecture. They might be the result of architectural decay or of changes to the system performed by new developers that are unaware of the architecture. Continuously monitoring these relationships can be a good quality assurance policy.
 \end{itemize}
 
 \fref{lvr} presents two views on the same modules that are also present in \fref{filpan} but with age-based filters activated. 
@@ -434,7 +441,7 @@ Rule-based relationships are a powerful way of reducing information in the view.
 \begin{itemize}
 \item 
 The left side presents only the Lifetime Relationships - 21 relationships that existed between the displayed modules in all the versions of the system. 
-\item The right side presents only the Recent Relationships - 36 relationships that were introduced in the system in the latest version. 
+\item The right side presents only the Recent Relationships - 36 relationships introduced in the system in the latest version. 
 \end{itemize}
 
 Both the numbers are very low in comparison with the total number of relationships that are present in the last version of the system; both function as powerful filters.
@@ -456,12 +463,12 @@ Both the numbers are very low in comparison with the total number of relationshi
 \subsection {First-Class Views}
 \slab{views}
 
-The designers of the system use multiple diagrams for the specification of the architecture of a system. Also the reverse engineers will need to recover multiple views when trying to understand the architecture of the system. Even if it was possible to present all the aspects of the architecture of a system in a single view, that view will overload the user with too much information.
+The designers of the system use multiple diagrams for the specification of the architecture of a system. Also the reverse engineers will need to recover multiple views when trying to understand the architecture of the system. If it was possible to present all the aspects of the architecture of a system in a single view such a view would overload the user with too much information.
 %: by using multiple views each one can present an aspect of the system.
 
-To avoid this cognitive overload, architecture recovery tools usually support some kind of semantic zooming \cite{storey-shrimp}. In our case we address this problem by directing the analysis towards the recovery of multiple architectural views. The technical detail that allows this is view persistence: in Softwarenaut one can save and restore any view during the exploration. This this allows for a {\em divide et impera} approach to architecture recovery and representation: each time a view risks becoming too complex it is saved and further exploration focuses only on a sub-part of the view. 
+To avoid this cognitive overload, architecture recovery tools usually support some kind of semantic zooming \cite{storey-shrimp}. We address this problem by directing the analysis towards the recovery of multiple architectural views. The technical detail that allows this is view persistence: in Softwarenaut one can save and restore any view during the exploration. This this allows for a {\em divide et impera} approach to architecture recovery and representation: each time a view risks becoming too complex the user saves it and the further exploration focuses only on a sub-part of the view. 
 
-When a view is persisted, it is defined by six chunks of information:
+View persistence requires six chunks of information:
 
 \begin{enumerate}
 \item The name of the system under analysis
@@ -472,7 +479,7 @@ When a view is persisted, it is defined by six chunks of information:
 \item A name and a description of the view
 \end{enumerate}
 
-The model of the system is not saved together with the view. We assume that model construction is deterministic and the name and version of the system will suffice for model reconstruction at a later time. Moreover, in most of the cases the views are reused locally.
+The model of the system is not saved together with the view. We assume that model construction is deterministic and the name and version of the system will suffice for model reconstruction at a later time. % Moreover, in most of the cases the views are reused locally.
 
 
 %The filters are predefined. In the future we plan to support user-defined filters and their publication together with the views. 
@@ -487,29 +494,31 @@ The model of the system is not saved together with the view. We assume that mode
 
 % We have shown that in Softwarenaut views are entities that can be saved and restored. In this section we talk about the possibility of sharing the views with other users. 
 
-Once published, a given version of a system never changes. It makes therefore sense to publish all the analyses regarding that version, such that when other users analyze the same version or system they can benefit from the previous work. In the context of architectural view recovery this means discovering architectural views that others have already defined. To support sharing architectural information we have created a {\em Global Architectural View Repository} (GVR) which is a public repository that indexes architectural views \footnote{If privacy is a concern, view repositories can be created at the organization level}.
+Once published, a given version of a system never changes. It makes therefore sense to publish all the analyses regarding that version, such that when other users analyze the same version or system they can benefit from the previous work. In the context of architectural view recovery this means discovering architectural views that others have already defined. To support sharing architectural information we have created a {\em Global Architectural View Repository} (GVR) -- a public repository that indexes architectural views \footnote{
+Organizations can create their own private view repositories if privacy is a concern}.
 
-As soon as a user starts the analysis of a given system, Softwarenaut checks the available view repositories and retrieves the list of views that are already defined for that system and/or version.
+
+As soon as a user starts the analysis of a given system Softwarenaut checks the available view repositories and retrieves the list of views that are already defined for that system and/or version.
 
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.8\linewidth]{images/ViewOperations.pdf}
+\includegraphics[width=\linewidth]{images/ViewOperations.pdf}
 \caption{Views are first-class entities in Softwarenaut. They can be saved, deleted locally, but also published and retrieved from public or private repositories}
 \flabel{viops}
 \end{center}
 \end{figure}
 
-\fref{viops} presents the UI through which Sofwarenaut allows view operations. The top part of the inset presents the views which the user has locally. They can be loaded, deleted, or pushed to the GVR. The bottom part presents the views which exist for the given system in the GVR. From the global view repository he can pull views in the local repository, or if he is the creator of such a view he can delete it from the global repository too. The view sharing mechanism is the latest addition to Softwarenaut and we are still waiting to test it with users. 
+\fref{viops} presents the view UI in Sofwarenaut. The top part of the inset presents the locally stored views which the user can loaded, delete, or push to the GVR. The bottom part presents the views which exist for the given system in the GVR. From the global view repository he can pull views in the local repository, or if he is the creator of such a view he can delete it from the global repository too. The view sharing mechanism is the latest addition to Softwarenaut and we are still waiting to test it with users. 
 
 
 \subsection {Softwarenaut Synergies}
-One of the tools that benefits from the Global View Repository is the Small Project Observatory (SPO), an ecosystem analysis tool that we have introduced elsewhere \cite{lungu-est}. SPO works at an abstraction level above the architectural level of individual systems, the {\em ecosystem abstraction level} \cite{lungu-thesis}. 
+One of the tools that benefits from the Global View Repository is the Small Project Observatory (SPO), an ecosystem analysis tool that we have introduced elsewhere \cite{lungu-est}. SPO works at an abstraction level above the architectural level of individual systems: the {\em ecosystem abstraction level} \cite{lungu-thesis}. 
 
 \begin{figure}[th!]
 \begin{center}
 \includegraphics[width=0.7\linewidth]{images/SpoArchitectural}
-\caption{The architectural views saved in Softwarenaut can be imported in SPO}
+\caption{SPO imports architectural views saved in Softwarenaut}
 \label{}
 \end{center}
 \end{figure}
@@ -517,7 +526,7 @@ One of the tools that benefits from the Global View Repository is the Small Proj
 
 % The main use case in which this navigation is needed is when one wants to understand a given system in the context of the ecosystem. 
 
-SPO needs to support navigation between the two abstraction levels to support the understanding of  the ecosystem abstraction level. When navigating from the ecosystem abstraction level down to the architectural level, SPO has to present architectural views of the individual systems. When they are available, the architectural views of the individual systems are obtained from the Global View Repository where they are published with Softwarenaut. In this way SPO can reuse information that was obtained by using Softwarenaut.
+SPO needs to support navigation between the two abstraction levels to support the understanding of  the ecosystem abstraction level. When navigating from the ecosystem abstraction level down to the architectural level SPO must present architectural views of the individual systems. When they are available, the architectural views of the individual systems are obtained from the Global View Repository. SPO can therefore reuse architectural information generated with Softwarenaut.
 
 % In such a case SPO allows navigating down to the architectural level of the individual system, where it presents architectural views which are enriched with information from the ecosystem. 
 
@@ -529,14 +538,15 @@ SPO needs to support navigation between the two abstraction levels to support th
 \label {sec:disc}
 
 \subsection {Evaluating the Usability and Usefulness of the Tool}
-We have tested Softwarenaut tool in two subsequent years with students in the Software Evolution master course at the University of Lugano. We organized a qualitative experiment: the students were asked to analyze a large software system that they have never seen before with the help of Softwarenaut and to produce an architectural report of the system as well as to fill some post-analysis forms. To make the assignment more engaging for them we grouped them in teams of two. 
+We have tested the Softwarenaut tool with students in the Software Evolution master course at the University of Lugano. In a qualitative experiment we asked the students to analyze a large software system they have never seen before with the help of Softwarenaut and to produce an architectural report. We also asked them to fill a post-analysis questionnaire. Our goal in organizing the experiment was to test Softwarenaut and get feedback on both the usability of the tool and its usefulness for architecture recovery in the context of large software systems. 
 
-Our goal in organizing the experiment was to test Softwarenaut and get feedback on both the usability of the tool and its usefulness for architecture recovery in the context of large software systems. We analyzed the reports ourselves and found them to be of various detail and quality. One observation that we made was that every group had come with a different perspective and set of different views on the system. We considered this to be an argument for supporting multiple views in architecture recovery. It might also be that ``{\em architecture is in the eye of the beholder}'' just as quality \cite{bass-architecture}.
+To make the assignment more engaging for the students we grouped them in teams of two. After the students submitted the reports, we analyzed them ourselves and found them to be of various detail and quality. We observed that every group came with a different perspective and with a set of different views on the system. We considered this to be an argument for supporting multiple views in architecture recovery. From our experiments we could conclude that ``{\em architecture is in the eye of the beholder}'' just as quality \cite{bass-architecture}.
 
 By analyzing the post-experiment questionnaire we made several observations:
 
 \begin{itemize}
-\item Most of the students thought that the tool was easy to use and they thought that the reports they generated with it were reliable. 
+\item Most of the students found the tool easy to use 
+\item Most of the students considered that the reports they generated were reliable and they got a better understanding of the system by using Softwarenaut
 \item The features that the students found most useful in their analysis were the details-on-demand views, and the predefined filters for both nodes and edges.
 \item The features that the students thought were missing were: undo/redo facilities, parametrizable filters, arbitrary and rule-based grouping of elements\footnote{Since then we have implemented most of the features that the students requested.}
 \end{itemize}
@@ -545,18 +555,19 @@ In the future we plan to empirically validate the usefulness of collaboration in
 
 
 \subsection {Integration with the Moose Analysis Platform}
-Softwarenaut was developed on top of the Moose Analysis Platform \cite{nier-story}. The main feature that the tool uses from Moose is the FAMIX Core meta-model for representing object-oriented systems. The reliance of Softwarenaut on the FAMIX Core meta-model allows it to be independent of the programming language: as long as there is a fact-extractor from a given language, systems written in that language can be imported and analyzed. 
+We built Softwarenaut on top of the Moose Analysis Platform \cite{nier-story}. The main feature that the tool uses from Moose is the FAMIX Core meta-model for representing object-oriented systems. The reliance of Softwarenaut on the FAMIX Core meta-model allows it to be independent of the programming language and analyze systems written in any language as long as there is a fact-extractor for that particular language. 
 
-Softwarenaut also uses several of the views defined in Moose, like for example some of the views that present entity metrics. Also, since behind any visual element of Softwarenaut lays a HiNode and behind it there is a FAMIX entity one can spawn other Moose analyses by selecting any of the elements of a Softwarenaut architectural view. 
+Softwarenaut makes uses of several of the views defined in Moose for the detail panel (e.g. the views that present entity metrics). Also, since behind any visual element of Softwarenaut lays a HiNode and behind it there is a FAMIX entity one can spawn other Moose analyses by selecting any of the elements of a Softwarenaut architectural view. 
 
 
 
 \subsection {Beyond Architecture Recovery(I): Reengineering}
-One of the tools that was built on top of Softwarenaut is MARS: an automated architecture refactoring recommender tool \cite{}. The tool starts from a given Softwarenaut view and tries to see whether move operations applied on classes can improve the architecture of the system by increasing coupling and decreasing cohesion. The preliminary results we obtained until show a good recall but a low precision of our automated refactoring recommendations. We plan to further study this phenomenon.
+One of the tools built on top of Softwarenaut is MARS: an automated architecture refactoring recommender tool \cite{bockmann-mars}. The tool starts from a given Softwarenaut view and checks whether move operations applied on classes can improve the architecture of the system by increasing coupling and decreasing cohesion. Preliminary results show a good recall but a low precision of the  automated refactoring recommendations generated by MARS. We plan to further study this phenomenon.
+
 
 \subsection {Beyond Architecture Recovery (II): Monitoring Software Evolution}
-Once a set of architectural views is recovered with Softwarenaut these views can be used for monitoring the evolution of the system. Indeed the Softwarenaut views are not static but instead they present relationships between the components in a given version. If desired, the views can be used as a basis for monitoring the evolution of the system, and integrated into the continuous development of the system. As soon as a new version is rolled out the differences between the architecture of the two versions can be highlighted on the saved views. Exploring ways in which the recovered views can be used as a live documentation of the evolution of the system is one of our future projects.
 
+One of our future projects is exploring ways in which the recovered views can function as a live documentation of an evolving system. The Softwarenaut views are not simple pictures but instead they code relationships between the modules of the system. A view recovered for a given version of the system can function as a reference point for presenting the future evolution of the system. After the publication of a new version of the system, Softwarenaut can automatically detect the views affected by the new changes, and visualize these changes on them.
 
 
 \newpage
@@ -571,19 +582,19 @@ Pollet et al. have presented a comprehensive overview of the work in architectur
 \subsection {Filtering.} 
 %Most of the architecture recovery tools support filtering \cite{aracic-filtering}. The majority of the tools allow for the explicit filtering of individual relations. 
 
-As far as we are aware we are the only ones to propose filters based on evolutionary aspects of the relationships in the context of software exploration. However, there are two works that are related. The first is Wierda et al. who recover the architectural decomposition of a system through clustering; they observe that if they use for clustering only those dependencies that were in the system in both the first and the last versions, the decompositions are more precise \cite{wierda-clustering}; this observation supports our approach of using the lifetime relationships as more architecturally relevant than the other relationships. 
+As far as we are aware we are the only ones to propose filters based on evolutionary aspects of the relationships in the context of software exploration. However, there are two related works. The first is Wierda et al. who recover the architectural decomposition of a system through clustering; they observe that if they use for clustering only those dependencies that were in the system in both the first and the last versions, the decompositions are more precise \cite{wierda-clustering}; this observation supports our approach of using the lifetime relationships as more architecturally relevant than the other relationships. 
 
 The second related work is of Abram Hindle et al. \cite{hindle-yarn} who introduce the YARN visualization prototype which animates the evolution of dependencies between the modules of a system. The main difference between our approach and theirs is that we work on a snapshot-based model and they work on a commit-based model. Their commit-based model is advantageous since they benefit from more detailed information about the system; the disadvantage is that the animation of all the commits is time consuming. They do not support a query mechanism for visualizing only special types of relations.
 
 
-\subsection {First-Class Views and Collaboration.} The work of Storey et al. on Shrimp also allows for saving and restoring views \cite{rayside-flow}. The views are saved inside a “Filmstrip” and then the filmstrip can be persisted and restored from the disk. Through the intermediation of the filmstrips the users can restore exploration sessions or even share certain views. This type of information allows people that know about each other to share information by emailing the files. The advantage of the Global View Repository is that it allows for discovering information that other users have discovered and about which the analysis is not aware. 
+\subsection {First-Class Views and Collaboration.} The work of Storey et al. on Shrimp also allows for saving and restoring views \cite{rayside-flow}. The views are saved inside a ``Filmstrip'' which is persistent. Through the intermediation of the filmstrips the users can restore exploration sessions or even share certain views. This type of information allows people that know about each other to share information by emailing the files. The advantage of the Global View Repository is that it allows for discovering information that other users have discovered and about which the analysis is not aware. 
 %(http://www.thechiselgroup.org/shrimp_manual_filmstrip)
 
 
 Relevant for the collaborative reverse engineering part of our work is the Churrasco work of D’Ambros et al. \cite{dambros-churrasco}. Churrasco supports software evolution modeling, visualization and analysis through a web interface. 
 Through an example scenario they show that Churrasco allows for collaborative software evolution analysis, and they attribute this to the availability on the web of the tool. The collaboration happens by annotating the various elements in the views of Churrasco. However, their tool presents a set of predefined views and they are not that much architectural views but rather design-level views. 
 
-One project which was started with collaboration support as the main goal is the Jazz IDE of IBM \cite{hupfer-jazz}. The goal of the Jazz ``collaborative development environment'' is to enhance and enrich collaboration in small, informal software development teams. Jazz has several features to support awareness of team member activities in addition to screen sharing such as local history of chats that are anchored in the code providing therefore context to the discussions. The main difference between their work and ours is the goal of the project.
+One project developed with collaboration support as the main goal is the Jazz IDE of IBM \cite{hupfer-jazz}. The goal of the Jazz ``collaborative development environment'' is to enhance and enrich collaboration in small, informal software development teams. Jazz has several features to support awareness of team member activities in addition to screen sharing such as local history of chats that are anchored in the code providing therefore context to the discussions. The main difference between their work and ours is the goal of the project.
 
 
 
