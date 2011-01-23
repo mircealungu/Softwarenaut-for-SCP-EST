@@ -11,6 +11,7 @@
 \global \let \hyper@last\relax 
 \fi
 
+\citation{lehman-softev}
 \citation{Duca09c}
 \citation{perry-foundations}
 \citation{garlan-mismatch}
@@ -23,7 +24,7 @@
 \citation{bass-architecture}
 \citation{kruchten-4plus}
 \citation{lungu-packages}
-\citation{lanza-pv}
+\citation{lanza-pv,lanza-oomp}
 \@writefile{toc}{\contentsline {section}{\numberline {2}A Quick Overview}{3}{section.2}}
 \newlabel{sec:over}{{2}{3}{A Quick Overview\relax }{section.2}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Softwarenaut uses linked views to present multiple perspectives on a software system at once}}{3}{figure.1}}
@@ -34,18 +35,22 @@
 \citation{pollet-sar}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Softwarenaut supports an extract-abstract-view workflow model}}{4}{figure.2}}
 \newlabel{fig:flow}{{2}{4}{Softwarenaut supports an extract-abstract-view workflow model\relax }{figure.2}{}}
+\citation{tichelaar-thesis}
+\citation{pepi-mcc}
+\citation{ferenc-columbus}
+\citation{lungu-thesis}
 \citation{lungu-clust}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Fact Extraction}{5}{section.3}}
-\newlabel{sec:facts}{{3}{5}{Fact Extraction\relax }{section.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Horizontal Relationships between Software Artefacts}{5}{subsection.3.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Vertical Relationships between software artifacts}{5}{subsection.3.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Fact Extraction and Modelling}{5}{section.3}}
+\newlabel{sec:facts}{{3}{5}{Fact Extraction and Modelling\relax }{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Entities and relationships in FAMIX}{5}{subsection.3.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Containment relationships}{5}{subsection.3.2}}
 \citation{Lung05a}
 \citation{koschke-thesis}
 \citation{harel-visform}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Information Aggregation}{6}{section.4}}
 \newlabel{sec:org}{{4}{6}{Information Aggregation\relax }{section.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The aggregation of explicit dependencies into implicit ones along the vertical relationships between methods, classes, and packages in a Java system}}{6}{figure.3}}
-\newlabel{fig:dep-agg}{{3}{6}{The aggregation of explicit dependencies into implicit ones along the vertical relationships between methods, classes, and packages in a Java system\relax }{figure.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The aggregation of explicit dependencies into implicit ones along the containment relationships between methods, classes, and packages in a Java system}}{6}{figure.3}}
+\newlabel{fig:dep-agg}{{3}{6}{The aggregation of explicit dependencies into implicit ones along the containment relationships between methods, classes, and packages in a Java system\relax }{figure.3}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces The DPMHigraph model is the core representation of a system in Softwarenaut}}{7}{figure.4}}
 \newlabel{fig:hmodel}{{4}{7}{The DPMHigraph model is the core representation of a system in Softwarenaut\relax }{figure.4}{}}
 \citation{robertson-conetrees}
@@ -97,7 +102,6 @@
 \citation{pollet-sar}
 \citation{muller-revengenv}
 \citation{storey-shrimp}
-\citation{aracic-filtering}
 \citation{wierda-clustering}
 \citation{hindle-yarn}
 \citation{rayside-flow}
@@ -105,42 +109,47 @@
 \newlabel{sec:rel}{{8}{20}{Related Work\relax }{section.8}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Exploration and Navigation.}{20}{subsection.8.1}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Filtering.}{20}{subsection.8.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}First-Class Views and Collaboration.}{20}{subsection.8.3}}
 \citation{dambros-churrasco}
 \citation{hupfer-jazz}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}First-Class Views and Collaboration.}{21}{subsection.8.3}}
 \@writefile{toc}{\contentsline {section}{\numberline {9}Conclusions and Future Work}{22}{section.9}}
 \newlabel{sec:conc}{{9}{22}{Conclusions and Future Work\relax }{section.9}{}}
 \bibstyle{model1-num-names}
 \bibdata{scg,thesis}
-\bibcite{Duca09c}{{1}{2009}{{Ducasse and Pollet}}{{}}}
-\bibcite{perry-foundations}{{2}{1992}{{Perry and Wolf}}{{}}}
-\bibcite{garlan-mismatch}{{3}{2009}{{Garlan et~al.}}{{Garlan, Allen, and Ockerbloom}}}
-\bibcite{riva-report}{{4}{2000}{{Riva}}{{}}}
-\bibcite{pollet-sar}{{5}{2007}{{Pollet et~al.}}{{Pollet, Ducasse, Poyet, Alloui, C\^impan, and Verjus}}}
-\bibcite{jaza-archevo}{{6}{2002}{{Jazayeri}}{{}}}
-\bibcite{bass-architecture}{{7}{1997}{{Bass et~al.}}{{Bass, Clements, and Kazman}}}
-\bibcite{kruchten-4plus}{{8}{1995}{{Kruchten}}{{}}}
-\bibcite{lungu-packages}{{9}{2006}{{Lungu et~al.}}{{Lungu, Lanza, and G\^irba}}}
-\bibcite{lanza-pv}{{10}{2003}{{Lanza and Ducasse}}{{}}}
-\bibcite{shneid-eyes}{{11}{1996}{{Shneiderman}}{{}}}
-\bibcite{wong-thesis}{{12}{2000}{{Wong}}{{}}}
-\bibcite{storey-awareness}{{13}{2005}{{Storey et~al.}}{{Storey, \v {C}ubrani\'{c}, and German}}}
-\bibcite{lungu-clust}{{14}{2005{}}{{Lungu et~al.}}{{Lungu, Kuhn, G\^irba, and Lanza}}}
-\bibcite{Lung05a}{{15}{2005{}}{{Lungu et~al.}}{{Lungu, Kuhn, G\^irba, and Lanza}}}
-\bibcite{koschke-thesis}{{16}{2002}{{Koschke}}{{}}}
-\bibcite{harel-visform}{{17}{1995}{{Harel}}{{}}}
-\bibcite{robertson-conetrees}{{18}{1991}{{Robertson et~al.}}{{Robertson, Mackinlay, and Card}}}
-\bibcite{mitchell-bunch}{{19}{2006}{{Mitchell and Mancoridis}}{{}}}
-\bibcite{lungu-cutedge}{{20}{2006}{{Lungu and Lanza}}{{}}}
-\bibcite{lungu-relevo}{{21}{2007}{{Lungu and Lanza}}{{}}}
-\bibcite{aracic-filtering}{{22}{2007}{{Aracic et~al.}}{{Aracic, Schaeffer, Mezini, and Osterman}}}
-\bibcite{storey-shrimp}{{23}{1995}{{Storey and M{\"u}ller}}{{}}}
-\bibcite{lungu-est}{{24}{2009}{{Lungu et~al.}}{{Lungu, G\^{\i }rba, and Lanza}}}
-\bibcite{lungu-thesis}{{25}{2009}{{Lungu}}{{}}}
-\bibcite{nier-story}{{26}{2005}{{Nierstrasz et~al.}}{{Nierstrasz, Ducasse, and Girba}}}
-\bibcite{muller-revengenv}{{27}{1992}{{M\"{u}ller et~al.}}{{M\"{u}ller, Tilley, Orgun, Corrie, and Madhavji}}}
-\bibcite{wierda-clustering}{{28}{2006}{{Wierda et~al.}}{{Wierda, Dortmans, and Lou~Somers}}}
-\bibcite{hindle-yarn}{{29}{2007}{{Hindle et~al.}}{{Hindle, Jiang, Koleilat, Godfrey, and Holt}}}
-\bibcite{rayside-flow}{{30}{2003}{{Rayside et~al.}}{{Rayside, Litoiu, Storey, Best, and Lintern}}}
-\bibcite{dambros-churrasco}{{31}{2008}{{D'Ambros and Lanza}}{{}}}
-\bibcite{hupfer-jazz}{{32}{2004}{{Hupfer et~al.}}{{Hupfer, Cheng, Ross, and Patterson}}}
+\bibcite{lehman-softev}{{1}{1980}{{Lehman}}{{}}}
+\bibcite{Duca09c}{{2}{2009}{{Ducasse and Pollet}}{{}}}
+\bibcite{perry-foundations}{{3}{1992}{{Perry and Wolf}}{{}}}
+\bibcite{garlan-mismatch}{{4}{2009}{{Garlan et~al.}}{{Garlan, Allen, and Ockerbloom}}}
+\bibcite{riva-report}{{5}{2000}{{Riva}}{{}}}
+\bibcite{pollet-sar}{{6}{2007}{{Pollet et~al.}}{{Pollet, Ducasse, Poyet, Alloui, C\^impan, and Verjus}}}
+\bibcite{jaza-archevo}{{7}{2002}{{Jazayeri}}{{}}}
+\bibcite{bass-architecture}{{8}{1997}{{Bass et~al.}}{{Bass, Clements, and Kazman}}}
+\bibcite{kruchten-4plus}{{9}{1995}{{Kruchten}}{{}}}
+\bibcite{lungu-packages}{{10}{2006}{{Lungu et~al.}}{{Lungu, Lanza, and G\^irba}}}
+\bibcite{lanza-pv}{{11}{2003}{{Lanza and Ducasse}}{{}}}
+\bibcite{lanza-oomp}{{12}{2006}{{Lanza and Marinescu}}{{}}}
+\bibcite{shneid-eyes}{{13}{1996}{{Shneiderman}}{{}}}
+\bibcite{wong-thesis}{{14}{2000}{{Wong}}{{}}}
+\bibcite{storey-awareness}{{15}{2005}{{Storey et~al.}}{{Storey, \v {C}ubrani\'{c}, and German}}}
+\bibcite{tichelaar-thesis}{{16}{2001}{{Tichelaar}}{{}}}
+\bibcite{pepi-mcc}{{17}{2007}{{Mihancea et~al.}}{{Mihancea, Ganea, Verebi, Marinescu, and Marinescu}}}
+\bibcite{ferenc-columbus}{{18}{2002}{{Ferenc et~al.}}{{Ferenc, Beszedes, Tarkiainen, and Gyim{\'o}thy}}}
+\bibcite{lungu-thesis}{{19}{2009}{{Lungu}}{{}}}
+\bibcite{lungu-clust}{{20}{2005{}}{{Lungu et~al.}}{{Lungu, Kuhn, G\^irba, and Lanza}}}
+\bibcite{Lung05a}{{21}{2005{}}{{Lungu et~al.}}{{Lungu, Kuhn, G\^irba, and Lanza}}}
+\bibcite{koschke-thesis}{{22}{2002}{{Koschke}}{{}}}
+\bibcite{harel-visform}{{23}{1995}{{Harel}}{{}}}
+\bibcite{robertson-conetrees}{{24}{1991}{{Robertson et~al.}}{{Robertson, Mackinlay, and Card}}}
+\bibcite{mitchell-bunch}{{25}{2006}{{Mitchell and Mancoridis}}{{}}}
+\bibcite{lungu-cutedge}{{26}{2006}{{Lungu and Lanza}}{{}}}
+\bibcite{lungu-relevo}{{27}{2007}{{Lungu and Lanza}}{{}}}
+\bibcite{aracic-filtering}{{28}{2007}{{Aracic et~al.}}{{Aracic, Schaeffer, Mezini, and Osterman}}}
+\bibcite{storey-shrimp}{{29}{1995}{{Storey and M{\"u}ller}}{{}}}
+\bibcite{lungu-est}{{30}{2009}{{Lungu et~al.}}{{Lungu, G\^{\i }rba, and Lanza}}}
+\bibcite{nier-story}{{31}{2005}{{Nierstrasz et~al.}}{{Nierstrasz, Ducasse, and Girba}}}
+\bibcite{muller-revengenv}{{32}{1992}{{M\"{u}ller et~al.}}{{M\"{u}ller, Tilley, Orgun, Corrie, and Madhavji}}}
+\bibcite{wierda-clustering}{{33}{2006}{{Wierda et~al.}}{{Wierda, Dortmans, and Lou~Somers}}}
+\bibcite{hindle-yarn}{{34}{2007}{{Hindle et~al.}}{{Hindle, Jiang, Koleilat, Godfrey, and Holt}}}
+\bibcite{rayside-flow}{{35}{2003}{{Rayside et~al.}}{{Rayside, Litoiu, Storey, Best, and Lintern}}}
+\bibcite{dambros-churrasco}{{36}{2008}{{D'Ambros and Lanza}}{{}}}
+\bibcite{hupfer-jazz}{{37}{2004}{{Hupfer et~al.}}{{Hupfer, Cheng, Ross, and Patterson}}}
