@@ -116,7 +116,14 @@
 \address{Software Composition Group\\University of Bern\\Switzerland}
 
 \begin{abstract}
-Softwarenaut is a collaborative architecture recovery tool.
+When the initial architecture of the system has eroded the 
+only solution is architecture recovery. However, when the 
+system under discussion is large, the user must use dedicated
+tools to support the recovery process. In this article we present 
+Softwarenaut -- a collaborative architecture recovery tool.
+Softwarenaut is built around the concept of interactive exploration
+and visualization and supports the recovery of multiple architectural
+views which can be shared with other users and tools. 
 \end{abstract}
 
 \begin{keyword}
@@ -138,24 +145,30 @@ Reverse Engineering
 No software system is an island entire of itself. Instead the system exists and functions in an environment, and when the environment changes the system must change too or become obsolete\cite{lehman-softev}. As a result, maintaining a software system implies a continuous effort to keep it up to date with the unanticipated changes in its environment. Having a clear and up to date understanding of the architecture of the system is critical to maintaining and evolving that system \cite{Duca09c}.
 
 
-As the system evolves, the architecture erodes \cite{perry-foundations} and an architectural mismatch appears between the as-defined and as-is architecture \cite{garlan-mismatch}.
-One accompanying property of this continuous change and of the divergence between the system actual architecture and its initial defined architecture is an increasing brittleness of the system \cite{perry-foundations}.
+As the system evolves, the architecture erodes \cite{perry-foundations} and an architectural mismatch appears between the {\em as-defined} and {\em as-is} architecture \cite{garlan-mismatch}.
+One accompanying property of this continuous drift between the actual architecture and the defined architecture of the system is an increasing brittleness of the system \cite{perry-foundations}. The main reason for the architectural erosion and drift phenomena is widespread lack of programming language support for expressing the architecture as well as the lack of tools that associate architectural decisions with the source code. The problem is an instance of the documentation problem: it is well known that the documentation of the system becomes quickly obsolete unless developers dedicate conscientious effort towards keeping it up to date \cite{riva-report}.
 
-The main reason for the architectural erosion and drift phenomena is widespread lack of programming language support for expressing the architecture as well as the lack of tools that associate architectural decisions with the source code. The problem is an instance of the documentation problem: it is well known that the documentation of the system becomes quickly obsolete unless developers dedicate conscientious effort towards keeping it up to date \cite{riva-report}.
-
-Having a clear and up to date understanding of the architecture is critical to maintaining and evolving a system \cite{pollet-sar}. Sometimes developers need to take steps towards making explicit the architecture of the system. Jazayeri defines architecture recovery as ``{\em the techniques and processes used to uncover a system’s architecture from available information}'' \cite{jaza-archevo}.
+Having a clear and up to date understanding of the architecture is critical to maintaining and evolving a system \cite{pollet-sar}. When the drift and erosion have brought the architecture too far from the initial, the solution is recovering the architecture of the system from the source code. Jazayeri defines architecture recovery as ``{\em the techniques and processes used to uncover a system’s architecture from available information}'' \cite{jaza-archevo}. 
 
 
-In this work, we consider software architecture to be, as defined by Bass and Clements,: ``{\em the structure or structures of a system that consists of components, connections between them, and their properties}'' \cite{bass-architecture}. 
-As a result, recovering the architecture means recovering the components of a system, their relationships, and their properties. 
+In the case of large software systems the architecture is specified through multiple architectural views that correspond to a set of given architectural viewpoints. An architectural viewpoint is a pattern or template from which to develop individual views by establishing the purposes and audience for a view and the techniques for its creation and analysis. Even if different authors propose different viewpoints \cite{bass-architecture, kruchten-4plus, hof-apparch} the consensus is that multiple viewpoints are necessary for capturing all the various facets of a system.
 
-Practitioners and researchers express architecture visually and often use multiple viewpoints to capture the various relevant aspects of the system \cite{kruchten-4plus}. Each viewpoint presents the system from a given perspective (e.g. deployment, physical organization, code organization, etc.).
+
+Usually, architecture recovery tools focus on recovering module views through visualization and interaction \cite{murphy-reflexion, muller-rigi, storey-shrimp}. While some steps of the process are usually automated (e.g., fact extraction, view generation), none of the tools works completely without human intervention. In some cases the user has to group related artifacts together based on their similarity of purpose \cite{muller-rigi}. In others the user has to compare the architecture as-extracted with the architecture as-predicted \cite{murphy-reflexion}. Yet in others the user has to decide which exploration paths to follow \cite{storey-shrimp}.
+
+
+%The components and relationships of a software architecture \footnote{In this work, we consider software architecture to be, as defined by Bass: ``{\em the structure or structures of a system that consists of components, connections between them, and their properties}'' \cite{bass-architecture}. }are usually expressed visually through {\em architectural views}. Practitioners and researchers classify these views in multiple viewpoints which capture the various relevant aspects of the system \cite{kruchten-4plus}. 
+
+
+%Usually, architecture recovery tools focus on recovering module views through vi- sualization and interaction [MNS95; MK88; SM95]. While some steps of the process are usually automated (e.g., fact extraction, view generation), none of the tools works completely without human intervention
+
+%Each viewpoint presents the system from a given perspective (e.g. deployment, physical organization, code organization, etc.).
 
 % since architecture is too complex to be captured in a single visual representation. As a result, architecture can only be expressed through multiple architectural views that correspond to multiple architectural viewpoints \cite{kruchten-4plus}. 
 
-Architecture recovery tools support the recovery process for large software systems. The goal of these tools is to extract information from the source code and other relevant sources, and to aggregate, filter, and analyze this information. Eventually architecture recovery tools present relevant {\em architectural views} which capture the architecture of the system. 
+% Architecture recovery tools support the recovery process for large software systems. The goal of these tools is to extract information from the source code and other relevant sources, and to aggregate, filter, and analyze this information. Eventually architecture recovery tools present relevant {\em architectural views} which capture the architecture of the system. 
 
-In this article we present Softwarenaut - an architecture recovery tool that we have developed. Softwarenaut provides interactive exploration mechanisms that support the semi-automated discovery of architectural views of any system written in an object-oriented programming language and allows the sharing of such architectural views. 
+In this article we present Softwarenaut - an architecture recovery tool that we have developed. Softwarenaut provides interactive exploration mechanisms that support the semi-automated discovery of architectural views of any object-oriented system and allows the sharing of such architectural views. 
 
 \subsection*{Structure of this article.} We start with an overview of Softwarenaut in \sref{over}. We then dedicate three sections to discuss the important phases in the workflow of any architecture recovery tool: fact-extraction (\sref{facts}), information aggregation (\sref{org}) and interactive exploration (\sref{interact}). We present the tool support for collaboration in \sref{collab}. In \sref{disc} we discuss various aspects relevant to the tool-building experience and in \sref{rel} we compare our work with the state of the art. We conclude in \sref{conc}.
 
@@ -166,13 +179,13 @@ In this article we present Softwarenaut - an architecture recovery tool that we 
 \section {A Quick Overview}
 \label{sec:over}
 
-Softwarenaut is an architecture recovery tool in which interactive exploration is the dominant analysis technique. The goal of the interactive exploration process the discovery of multiple architecturally relevant views \cite{lungu-packages}.
+Softwarenaut is an architecture recovery tool which is based on interactive exploration. The goal of the interactive exploration process the discovery of multiple architecturally relevant views \cite{lungu-packages}.
 
 Automatically aggregating the low-level relations, and then letting the user navigate from the highest abstraction level downwards is the main interaction approach in Softwarenaut. 
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.8\linewidth]{images/SnautOnSnaut}
+\includegraphics[width=0.9\linewidth]{images/SnautOnSnaut}
 \caption{Softwarenaut uses linked views to present multiple perspectives on a software system at once}
 \flabel{sos}
 \end{center}
@@ -201,7 +214,7 @@ Like other architecture recovery tools \cite{pollet-sar}, Softwarenaut conforms 
 \end{center}
 \end{figure}
 
-Dedicated sections will treat each of the three steps of the workflow.
+Dedicated sections will treat each of the three steps of the workflow but the Interactive Visualization and Exploration part will be treated in the most detail.
 
 
 
@@ -219,10 +232,10 @@ At the most basic level, Softwarenaut models a system using the Core of the FAMI
 %Columbus \cite{ferenc-columbus}. 
 
 \subsection {Entities and relationships in FAMIX}
-FAMIX Core represents both artifacts and relationships as first-class entities. The main artifacts are namespaces, packages, classes, attributes, methods, fields. The main relationships between these entities are method invocations, variable accesses, class inheritances, package include relationships \cite{tichelaar-thesis}.
+FAMIX Core represents both artifacts and relationships as first-class entities. The main artifacts are namespaces, packages, classes, attributes, methods, fields. The main relationships between these entities are method invocations, variable accesses, class inheritances, and package include relationships \cite{tichelaar-thesis}.
 
-\subsection {Containment relationships}
-A type of relationships which have a special importance in Softwarenaut are the containment relationships which organize a software system in a vertical hierarchy: classes contain methods, modules contain classes, systems contain modules. This containment mechanism is a powerful way of coping with the complexity of large software systems.
+% \subsection {Containment relationships}
+A class of relationships which have a special importance in Softwarenaut are the containment relationships which organize a software system in a vertical hierarchy: classes contain methods, modules contain classes, systems contain modules. This containment mechanism is a powerful way of coping with the complexity of large software systems.
 
 At the architectural level, different languages provide different mechanisms for the hierarchical organization of the system. C/C++ developers use the directory structure to organize systems hierarchically; Java developers use the package hierarchy; Smalltalk developers use the bundles hierarchy, etc. 
 
@@ -346,17 +359,18 @@ As the user refines the view, and climbs down in the hierarchy of the system, he
 
 The elements of every architectural view in Softwarenaut are nodes that represent modules and edges that represent relationships between them. For the user to be confident that he {\em understands} such a view he needs to understand the role of every node and the meaning of every edge. Metaphorically, if the view were a phrase, the nodes would be the nouns and the edges would be the verbs. Only when one has understood all the nouns and the verbs he has really understood the story of the view.  
 
-The Detail panel of Softwarenaut is one of the ways in which one can understand the individual nodes and edges in an architectural view; it presents different detail views depending on the selected element in the exploration view. %There are therefore, two types of detail views: for nodes and for edges. 
+The Detail panel of Softwarenaut is one of the ways in which one can understand the individual nodes and edges in an architectural view; it presents different views depending on the selected element in the exploration view. %There are therefore, two types of detail views: for nodes and for edges. 
 
 
 
 \subsubsection {Detail Views for Modules}
-They present details about the selected module. \fref{dnode} presents, as an example, the {\em Class Metrics} detail view, a view which presents all the classes contained in a certain module and metrics for them. The set of displayed metrics is customizable. One can navigate to the code of the individual classes. 
+The detail views for modules present various aspects of a selected module. 
+\fref{dnode} presents the {\em Class Metrics} detail view which lists all the classes contained in a module together with metrics for them. The set of displayed metrics is customizable. %One can navigate to the code of the individual classes. 
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.43\linewidth]{images/DetailForNode.png}
-\caption{This Class Metrics detail view shows the list of classes in the module named \cod{Model} from Softwarenaut. The classes are sorted based on their size as measured in lines of code.}
+\includegraphics[width=0.54\linewidth]{images/DetailForNode.png}
+\caption{The Class Metrics view shows the list of classes in a module. The classes are sorted based on their size and the user can navigate to the source of individual classes.}
 
 \flabel{dnode}
 \end{center}
@@ -365,7 +379,7 @@ They present details about the selected module. \fref{dnode} presents, as an exa
 
 
 \subsubsection {Detail Views for Relationships}
-They present information about the selected relationships. Since understanding the relationships is critical for understanding the view Softwarenaut provides a broad set of detail views for relationships which cover both structural and evolutionary aspects of the relationships \cite{lungu-cutedge, lungu-relevo}. 
+The detail views for relationships present information about the selected relationships. Since understanding the relationships is critical for understanding the view Softwarenaut provides a broad set of detail views for relationships which cover both structural and evolutionary aspects of the relationships \cite{lungu-cutedge, lungu-relevo}. 
 
 \fref{dedge} presents two such examples: to the left is the Invoked Artifacts view and to the right is the Interactive Methods view. 
 
@@ -562,7 +576,7 @@ Softwarenaut makes uses of several of the views defined in Moose for the detail 
 
 
 \subsection {Beyond Architecture Recovery(I): Reengineering}
-One of the tools built on top of Softwarenaut is MARS: an automated architecture refactoring recommender tool \cite{bockmann-mars}. The tool starts from a given Softwarenaut view and checks whether move operations applied on classes can improve the architecture of the system by increasing coupling and decreasing cohesion. Preliminary results show a good recall but a low precision of the  automated refactoring recommendations generated by MARS. We plan to further study this phenomenon.
+One of the tools built on top of Softwarenaut is MARS: an automated architecture refactoring recommender tool \cite{boeckmann-mars}. The tool starts from a given Softwarenaut view and checks whether move operations applied on classes can improve the architecture of the system by increasing coupling and decreasing cohesion. Preliminary results show a good recall but a low precision of the  automated refactoring recommendations generated by MARS. We plan to further study this phenomenon.
 
 
 \subsection {Beyond Architecture Recovery (II): Monitoring Software Evolution}
@@ -570,12 +584,16 @@ One of the tools built on top of Softwarenaut is MARS: an automated architecture
 One of our future projects is exploring ways in which the recovered views can function as a live documentation of an evolving system. The Softwarenaut views are not simple pictures but instead they code relationships between the modules of the system. A view recovered for a given version of the system can function as a reference point for presenting the future evolution of the system. After the publication of a new version of the system, Softwarenaut can automatically detect the views affected by the new changes, and visualize these changes on them.
 
 
+\subsection {Installation and Documentation}
+Softwarenaut is written in the Smalltalk programming language and is released under the open source MIT Licence. The tool is available online at {\footnotesize \url{http://www.inf.usi.ch/phd/lungu/softwarenaut/}}. On the homepage of the tool there are a set of screencasts that present its various features together with other documentation, installation instructions, and instructions on how to obtain the source code. 
+
+
 \newpage
 % REL
 \section {Related Work}
 \label {sec:rel}
 
-Pollet et al. have presented a comprehensive overview of the work in architecture recovery \cite{pollet-sar}. In this section we take several of the core aspects of Softwarenaut and we discuss how they are similar and how they differ from other state of the art tools.
+There is an extended tradition of architecture recovery tools in software engineering research. Pollet et al. have presented a comprehensive overview of the work in architecture recovery in their survey article \cite{pollet-sar}. In this section we take several of the core aspects of Softwarenaut and we discuss how they are similar and how they differ from other state of the art tools.
 
 \subsection {Exploration and Navigation.} Automatically aggregating the low-level relations, and then letting the user navigate from the highest abstraction level downwards is the main interaction approach in Softwarenaut. This is the exact opposite of the approach that M{\"u}ller proposed with Rigi \cite{muller-revengenv}. In their case, the user starts from the lowest-level facts and aggregates them as he climbs up in the abstraction hierarchy. Their approach does not scale when analyzing very large systems because the number of low-level artifacts is too large. Storey took the same top-down navigation approach in her work on SHriMP \cite{storey-shrimp}.
 
@@ -600,22 +618,21 @@ One project developed with collaboration support as the main goal is the Jazz ID
 
 
 
-\newpage
 % CONC
 \section {Conclusions and Future Work}
 \label {sec:conc}
 
-In this article we have presented Softwarenaut, our tool which is state of the art in architecture recovery. The tool allows the recovery of architectural views of a software system and supports collaboration and integration with other tools by sharing publicly architectural views.
+In this article we have presented Softwarenaut, our tool which is state of the art in architecture recovery. The tool allows the recovery of architectural views of a software system and supports collaboration and integration with other tools by publicly sharing architectural views.
 
+\vspace{0.5cm}
+\footnotesize
+{\bf Acknowledgements.} We would like to thank Fabrizio Perin for feedback on this paper.
 
-\subsection* {Installation and Documentation}
-Softwarenaut is released under the MIT licence and is available online at http://lungu.org/mircea/softwarenaut. On the homepage of the tool there are a set of screencasts that present its various features. 
-
-\subsection* {Acknowledgements} We are grateful to ... for ...
 
 
 \newpage
 
+\footnotesize
 %% The Appendices part is started with the command \appendix;
 %% appendix sections are then done as normal sections
 %% \appendix
