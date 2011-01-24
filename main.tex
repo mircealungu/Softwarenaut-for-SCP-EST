@@ -112,8 +112,11 @@
 %% \address[label2]{<address>}
 
 \author{Mircea Lungu}
+\address{Software Composition Group\\University of Bern, Switzerland}
 
-\address{Software Composition Group\\University of Bern\\Switzerland}
+\author{Michele Lanza}
+\address{REVEAL \\University of Lugano, Switzerland}
+
 
 \begin{abstract}
 When the initial architecture of the system has eroded the 
@@ -146,7 +149,7 @@ No software system is an island entire of itself. Instead the system exists and 
 
 
 As the system evolves, the architecture erodes \cite{perry-foundations} and an architectural mismatch appears between the {\em as-defined} and {\em as-is} architecture \cite{garlan-mismatch}.
-One accompanying property of this continuous drift between the actual architecture and the defined architecture of the system is an increasing brittleness of the system \cite{perry-foundations}. The main reason for the architectural erosion and drift phenomena is widespread lack of programming language support for expressing the architecture as well as the lack of tools that associate architectural decisions with the source code. The problem is an instance of the documentation problem: it is well known that the documentation of the system becomes quickly obsolete unless developers dedicate conscientious effort towards keeping it up to date \cite{riva-report}.
+One accompanying property of this continuous drift between the actual architecture and the defined architecture of the system is an increasing brittleness of the system \cite{perry-foundations}. The main reason for the architectural erosion and drift is widespread lack of programming language support for expressing the architecture as well as the lack of tools that associate architectural decisions with the source code. The problem is an instance of the documentation problem: it is well known that the documentation of the system becomes quickly obsolete unless developers dedicate conscientious effort towards keeping it up to date \cite{riva-report}.
 
 Having a clear and up to date understanding of the architecture is critical to maintaining and evolving a system \cite{pollet-sar}. When the drift and erosion have brought the architecture too far from the initial, the solution is recovering the architecture of the system from the source code. Jazayeri defines architecture recovery as ``{\em the techniques and processes used to uncover a system’s architecture from available information}'' \cite{jaza-archevo}. 
 
@@ -159,7 +162,6 @@ Usually, architecture recovery tools focus on recovering module views through vi
 
 %The components and relationships of a software architecture \footnote{In this work, we consider software architecture to be, as defined by Bass: ``{\em the structure or structures of a system that consists of components, connections between them, and their properties}'' \cite{bass-architecture}. }are usually expressed visually through {\em architectural views}. Practitioners and researchers classify these views in multiple viewpoints which capture the various relevant aspects of the system \cite{kruchten-4plus}. 
 
-
 %Usually, architecture recovery tools focus on recovering module views through vi- sualization and interaction [MNS95; MK88; SM95]. While some steps of the process are usually automated (e.g., fact extraction, view generation), none of the tools works completely without human intervention
 
 %Each viewpoint presents the system from a given perspective (e.g. deployment, physical organization, code organization, etc.).
@@ -170,8 +172,9 @@ Usually, architecture recovery tools focus on recovering module views through vi
 
 In this article we present Softwarenaut - an architecture recovery tool that we have developed. Softwarenaut provides interactive exploration mechanisms that support the semi-automated discovery of architectural views of any object-oriented system and allows the sharing of such architectural views. 
 
-\subsection*{Structure of this article.} We start with an overview of Softwarenaut in \sref{over}. We then dedicate three sections to discuss the important phases in the workflow of any architecture recovery tool: fact-extraction (\sref{facts}), information aggregation (\sref{org}) and interactive exploration (\sref{interact}). We present the tool support for collaboration in \sref{collab}. In \sref{disc} we discuss various aspects relevant to the tool-building experience and in \sref{rel} we compare our work with the state of the art. We conclude in \sref{conc}.
-
+{\footnotesize 
+{\bf Structure of the article.} We start with an overview of Softwarenaut in \sref{over}. We then dedicate three sections to discuss the important phases in the workflow of any architecture recovery tool: fact-extraction (\sref{facts}), information aggregation (\sref{org}) and interactive exploration (\sref{interact}). We present the support for collaboration in \sref{collab}. In \sref{disc} we discuss aspects relevant to the tool-building experience and in \sref{rel} we compare our work with the state of the art. We conclude in \sref{conc}.
+}
 
 
 \newpage
