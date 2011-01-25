@@ -449,9 +449,7 @@ The model of the system is not saved together with the view. We assume that mode
 
 % We have shown that in Softwarenaut views are entities that can be saved and restored. In this section we talk about the possibility of sharing the views with other users. 
 
-Once published, a given version of a system never changes. It makes therefore sense to publish all the analyses regarding that version, such that when other users analyze the same version or system they can benefit from the previous work. In the context of architectural view recovery this means discovering architectural views that others have already defined. To support sharing architectural information we have created a {\em Global Architectural View Repository} (GVR) -- a public repository that indexes architectural views \footnote{
-Organizations can create their own private view repositories if privacy is a concern}.
-
+Once published, a given version of a system never changes. It makes therefore sense to publish all the analyses regarding that version, such that when other users analyze the same version or system they can benefit from the previous work. In the context of architectural view recovery this means discovering architectural views that others have already defined. To support sharing architectural information we have created a {\em Global Architectural View Repository} (GVR) -- a public repository that indexes architectural views.
 
 As soon as a user starts the analysis of a given system Softwarenaut checks the available view repositories and retrieves the list of views that are already defined for that system and/or version.
 
@@ -470,9 +468,9 @@ As soon as a user starts the analysis of a given system Softwarenaut checks the 
 \subsection {Softwarenaut Synergies}
 One of the tools that benefits from the Global View Repository is the Small Project Observatory (SPO), an ecosystem analysis tool that we have introduced elsewhere \cite{lungu-est}. SPO works at an abstraction level above the architectural level of individual systems: the {\em ecosystem abstraction level} \cite{lungu-thesis}. 
 
-\begin{figure}[th!]
+\begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.7\linewidth]{SpoArchitectural}
+\includegraphics[width=\linewidth]{SpoArchitectural}
 \caption{SPO imports architectural views saved in Softwarenaut}
 \label{}
 \end{center}
@@ -536,9 +534,13 @@ Softwarenaut is written in the Smalltalk programming language and is released un
 
 There is an extended tradition of architecture recovery tools in software engineering research. Pollet et al. have presented a comprehensive overview of the work in architecture recovery in their survey article \cite{pollet-sar}. In this section we take several of the core aspects of Softwarenaut and we discuss how they are similar and how they differ from other state of the art tools.
 
-\subsection {Exploration and Navigation.} Automatically aggregating the low-level relations, and then letting the user navigate from the highest abstraction level downwards is the main interaction approach in Softwarenaut. This is the exact opposite of the approach that M{\"u}ller proposed with Rigi \cite{muller-revengenv}. In their case, the user starts from the lowest-level facts and aggregates them as he climbs up in the abstraction hierarchy. Their approach does not scale when analyzing very large systems because the number of low-level artifacts is too large. Storey took the same top-down navigation approach in her work on SHriMP \cite{storey-shrimp}.
+\subsection {Exploration and Navigation} 
 
-\subsection {Filtering.} 
+Automatically aggregating the low-level relations, and then letting the user navigate from the highest abstraction level downwards is the main interaction approach in Softwarenaut. This is the exact opposite of the approach that M{\"u}ller proposed with Rigi \cite{muller-revengenv}. In their case, the user starts from the lowest-level facts and aggregates them as he climbs up in the abstraction hierarchy. Their approach does not scale when analyzing very large systems because the number of low-level artifacts is too large. Storey took the same top-down navigation approach in her work on SHriMP \cite{storey-shrimp}.
+
+\subsection {Filtering}
+
+ 
 %Most of the architecture recovery tools support filtering \cite{aracic-filtering}. The majority of the tools allow for the explicit filtering of individual relations. 
 
 As far as we are aware we are the only ones to propose filters based on evolutionary aspects of the relationships in the context of software exploration. However, there are two related works. The first is Wierda et al. who recover the architectural decomposition of a system through clustering; they observe that if they use for clustering only those dependencies that were in the system in both the first and the last versions, the decompositions are more precise \cite{wierda-clustering}; this observation supports our approach of using the lifetime relationships as more architecturally relevant than the other relationships. 
@@ -546,7 +548,9 @@ As far as we are aware we are the only ones to propose filters based on evolutio
 The second related work is of Abram Hindle et al. \cite{hindle-yarn} who introduce the YARN visualization prototype which animates the evolution of dependencies between the modules of a system. The main difference between our approach and theirs is that we work on a snapshot-based model and they work on a commit-based model. Their commit-based model is advantageous since they benefit from more detailed information about the system; the disadvantage is that the animation of all the commits is time consuming. They do not support a query mechanism for visualizing only special types of relations.
 
 
-\subsection {First-Class Views and Collaboration.} The work of Storey et al. on Shrimp also allows for saving and restoring views \cite{rayside-flow}. The views are saved inside a ``Filmstrip'' which is persistent. Through the intermediation of the filmstrips the users can restore exploration sessions or even share certain views. This type of information allows people that know about each other to share information by emailing the files. The advantage of the Global View Repository is that it allows for discovering information that other users have discovered and about which the analysis is not aware. 
+\subsection {First-Class Views and Collaboration} 
+
+The work of Storey et al. on Shrimp also allows for saving and restoring views \cite{rayside-flow}. The views are saved inside a ``Filmstrip'' which is persistent. Through the intermediation of the filmstrips the users can restore exploration sessions or even share certain views. This type of information allows people that know about each other to share information by emailing the files. The advantage of the Global View Repository is that it allows for discovering information that other users have discovered and about which the analysis is not aware. 
 %(http://www.thechiselgroup.org/shrimp_manual_filmstrip)
 
 
@@ -563,7 +567,7 @@ One project developed with collaboration support as the main goal is the Jazz ID
 \section {Conclusions and Future Work}
 \label {sec:conc}
 
-In this article we have presented Softwarenaut, our tool which is state of the art in architecture recovery. The tool allows the recovery of architectural views of a software system and supports collaboration and integration with other tools by publicly sharing architectural views.
+In this article we presented Softwarenaut, our tool which is state of the art in architecture recovery. The tool allows the recovery of architectural views of a software system and supports collaboration and integration with other tools by publicly sharing architectural views.
 
 \vspace{0.5cm}
 \footnotesize
