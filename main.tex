@@ -266,7 +266,7 @@ The three complementary views that the tool supports:
 
 \end{enumerate}
 
-In this section we detail the interactive techniques that support the exploration process in Softwarenaut: navigation (\ref{sec:navi}), details-on-demand (\ref{sec:dod}), rule-based filtering (\ref{sec:filtering}) and first-class views (\ref{sec:views}).  
+In this section we detail the interactive techniques that support the exploration process in Softwarenaut: navigation (\ref{sec:navi}), details-on-demand (\ref{sec:dod}), rule-based filtering (\ref{sec:filtering}) and first-class views and collaboration (\ref{sec:views}).  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Navigation} \slab{navi}
@@ -401,7 +401,7 @@ Rule-based relationships are a powerful way of reducing information in the view.
 
 \item {\em Architecture Recovery.} When recovering the architecture of a system, the lifetime relationships are more relevant. They represent the architectural backbone of the system and their stability over time insures that it is worth analyzing them first.
 
-\item {Architecture Quality Assessment.} When assessing the quality of an architecture, the recent relationships are of higher interest. Since they were recently introduced, they are more likely to be contrary to the original intended architecture. They might be the result of architectural decay or of changes to the system performed by new developers that are unaware of the architecture. Continuously monitoring these relationships can be a good quality assurance policy.
+\item {\em Architectural Quality Assessment.} When assessing the quality of an architecture, the recent relationships are of higher interest. Since they were recently introduced, they are more likely to be contrary to the original intended architecture. They might be the result of architectural decay or of changes to the system performed by new developers that are unaware of the architecture. Continuously monitoring these relationships can be a good quality assurance policy.
 \end{itemize}
 
 
@@ -424,7 +424,7 @@ The left side presents only the Lifetime Relationships - 21 relationships that e
 
 The designers of a system use multiple diagrams for the specification of the architecture of a system. Also the reverse engineers need to recover multiple views when trying to understand the architecture of the system. To avoid information overload, architecture recovery tools usually support some kind of semantic zooming \cite{storey-shrimp}. We address this problem by directing the analysis towards the recovery of multiple architectural views. 
 
-The technical detail that allows this is view persistence: in Softwarenaut one can save and restore any view during the exploration. This this allows for a {\em divide et impera} approach to architecture recovery and representation: each time a view risks becoming too complex the user saves it and the further exploration focuses only on a sub-part of the view. 
+Views are first-class entities in Softwarenaut: one can save and restore any view during the exploration. This this allows for a {\em divide et impera} approach to architecture recovery and representation: each time a view risks becoming too complex the user saves it and the further exploration focuses only on a sub-part of the view. Moreover, views can be shared with other reverse architects.
 
 View persistence requires the following information: The name and version of the system under analysis, the current working set with the positions of all the nodes in it, the active node and edge filters (both explicit and rule based), the creator of the view, and a name and description of the view. The model of the system is not saved together with the view. We assume that model construction is deterministic and the name and version of the system will suffice for model reconstruction at a later time \footnote{This requires nevertheless a way of uniquely identifying the entities in the view. In our case, for each of the entities in the working set we save the fully scoped name}.
 
@@ -462,7 +462,7 @@ The architectural views as saved in the GVR can serve as the basis for monitorin
 
 \item The top part of the inset presents the locally stored views which the user has in the image. For each of them the user can load it, delete it, or push it to the GVR. In the inset, the buttons which have black text represent operations that can be applied on the local views.
 
-\item The bottom part presents the views which exist for the given system in the GVR. From the global view repository he can pull views in the local repository, or if he is the creator of such a view he can delete it from the global repository too. The view sharing mechanism is the latest addition to Softwarenaut and we are still waiting to test it with users. 
+\item The bottom part presents the views which exist for the given system in the GVR. From the global view repository he can pull views in the local repository, or if he is the creator of such a view he can delete it from the global repository too. The view sharing mechanism is the latest addition to Softwarenaut.
 \end{itemize}
 
 
@@ -539,10 +539,6 @@ SPO needs to support navigation between the two abstraction levels to support th
 \subsection {History Operations} Softwarenaut keeps a history of the exploration and filtering actions to support undo and redo operations. This is a requirement for information exploration tools \cite{shneid-eyes} that few other architecture recovery tools implement.
 
 
-\subsection {Installation and Documentation}
-Softwarenaut is written in the Smalltalk programming language and is released under the open source MIT Licence. The tool is available online at {\footnotesize \url{http://www.inf.usi.ch/phd/lungu/softwarenaut/}}. On the homepage of the tool there are a set of screencasts that present its various features together with other documentation, installation instructions, and instructions on how to obtain the source code. 
-
-
 % \newpage
 % DISC
 \section {Tool-Building Considerations}
@@ -555,26 +551,55 @@ We have obviously used Softwarenaut to to analyze Softwarenaut itself, and this 
 In the next section we present a brief discussion on evaluating the tool with students.
 
 \subsection {Evaluating the Usability and Usefulness of the Tool}
-We have tested the Softwarenaut tool with students in the Software Evolution master course at the University of Lugano. In a qualitative experiment we asked the students to analyze a large software system they have never seen before with the help of Softwarenaut and to produce an architectural report. We also asked them to fill a post-analysis questionnaire. Our goal in organizing the experiment was to test Softwarenaut and get feedback on both the usability of the tool and its usefulness for architecture recovery in the context of large software systems. 
+We have tested the Softwarenaut tool with students in the Software Evolution master course at the University of Lugano. In a qualitative experiment we asked the students to analyze a large software system \footnote{In this case it was ArgoUML} they have never seen before with the help of Softwarenaut and to produce an architectural report. Our goal in organizing the experiment was to test Softwarenaut and get feedback on both the usability of the tool and its usefulness for architecture recovery in the context of large software systems. 
 
-To make the assignment more engaging for the students we grouped them in teams of two. After the students submitted the reports, we analyzed them ourselves and found them to be of various detail and quality. We observed that every group came with a different perspective and with a set of different views on the system. We considered this to be an argument for supporting multiple views in architecture recovery. From our experiments we could conclude that ``{\em architecture is in the eye of the beholder}'' just as quality \cite{bass-architecture}.
 
-By analyzing the post-experiment questionnaire we made several observations:
+
+To make the assignment more engaging for the students we grouped them in teams of two. To guide their analysis we asked them to perform a series of tasks which are presented in \fref{tasks}. After the students submitted the reports, we analyzed them ourselves and found them to be of various detail and quality. We list here several of the observations that we made after analyzing the reports that the students submitted:
+
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=\linewidth]{tasks}
+\caption{The eight tasks the students had to solve during two hours of the software design and evolution lab}
+\flabel{tasks}
+\end{center}
+\end{figure}
+
 
 \begin{itemize}
-\item Most of the students found the tool easy to use 
-\item Most of the students considered that the reports they generated were reliable and they got a better understanding of the system by using Softwarenaut
-\item The features that the students found most useful in their analysis were the details-on-demand views, and the predefined filters for both nodes and edges.
-\item The features that the students thought were missing were: undo/redo facilities, parametrizable filters, arbitrary and rule-based grouping of elements\footnote{Since then we have implemented most of the features that the students requested.}
+\item At question 1 that every group came with a different perspective and with a set of different views on the system. We considered this to be an argument for architecture being ``{\em is in the eye of the beholder}'' just as quality \cite{bass-architecture}.
+
+\item The opinions were divided for question 2 and 3. Each group was ready to argue its position. 
+
+\item Questions 4, 5, and 6 were not solved by everybody. We think the reason was the lack of sufficient training with the tool as well as some of the limitations that the users reported and which we present later.
+
+\item All the groups that answered thought the system was well structured, fact with which we agree. However, one group blamed information overload for not answering. 
+
 \end{itemize}
 
-At the time when we organized these experiments, the view persistence and sharing to support collaboration was not implemented yet. In the future we plan to empirically validate the usefulness of collaboration in architecture recovery and its implementation in the GVR.
+We also asked the students to fill a post-analysis questionnaire. 
+
+By analyzing the post-experiment questionnaire we observed that most of the students found the tool easy to use and most of them considered that the reports they generated were reliable. They estimated that they got a better understanding of the system by using Softwarenaut. The most important feedback for us was related to the features of the tool that they students found useful, or the ones that they wanted to have but did not have:
+
+\begin{itemize}
+\item The features that the students found most useful in their analysis were the details-on-demand views, and the predefined filters for both nodes and edges.
+\item The features that the students thought were missing (in decreasing order of the frequency of request) were: undo and redo facilities, user-defined filters, arbitrary and rule-based grouping of elements, view persistence.
+
+\end{itemize}
+
+Since then we have implemented most of the features that the students requested. One of these features is the view persistence and sharing as a means of supporting collaboration. In the future we plan to perform usability experiments that will evaluate the usability and usefulness of collaboration in architecture recovery and its implementation in the GVR by running some more controlled experiments.
+
+
 
 \subsection {Depending on other research prototypes}
-Depending on other research prototypes and platforms has been a benefit because we had the opportunity of using cutting edge technology, and building on the shoulders of giants, and in the same time, it made our life harder since the tools that we depended on kept moving ``under our feet''. We believe however that the benefits have been more important than the troubles.
+Depending on other research prototypes and platforms has been a benefit because we had the opportunity of using cutting edge technology, and building on the shoulders of giants, and in the same time, it made our life harder since the tools that we depended on kept moving ``under our feet'' and at times they were not maintained anymore. We believe however that the benefits outweighted the troubles.
 
 
-%\newpage
+\subsection {Installation and Documentation}
+Softwarenaut is written in the Smalltalk programming language and is released under the open source MIT Licence. The tool is available online at {\footnotesize \url{http://www.inf.usi.ch/phd/lungu/softwarenaut/}}. On the homepage of the tool there are a set of screencasts that present its various features together with other documentation, installation instructions, and instructions on how to obtain the source code. 
+
+
+\newpage
 % REL
 \section {Related Work}
 \label {sec:rel}
@@ -583,10 +608,15 @@ There is an extended tradition of architecture recovery tools in software engine
 
 \subsection {Exploration and Navigation} 
 
-Automatically aggregating the low-level relations, and then letting the user navigate from the highest abstraction level downwards is the main interaction approach in Softwarenaut. This is the exact opposite of the approach that M{\"u}ller proposed with Rigi \cite{muller-revengenv}. In their case, the user starts from the lowest-level facts and aggregates them as he climbs up in the abstraction hierarchy. Their approach does not scale when analyzing very large systems because the number of low-level artifacts is too large. Storey took the same top-down navigation approach in her work on SHriMP \cite{storey-shrimp}.
+The first architectural visualization prototype was Rigi, a programmable reverse engineering environment which emphasizes visualization and interaction \cite{muller-revengenv}. Rigi can visualize the data as hierarchical typed graphs and provides a Tcl interpreter for manipulating the graph data. The reconstruction process is based on a bottom-up process of grouping the software elements into clusters by manually selecting the nodes and collapsing them. The approach does not scale when analyzing very large systems because the number of low-level artifacts is too large. This is why in Softwarenaut we automatically aggregating the low-level relations, and then letting the user navigate from the highest abstraction level downwards is the main interaction approach in Softwarenaut. 
+
+One of the projects that was inspired by Rigi was the SHriMP tool \cite{storey-shrimp} and its Eclipse-based continuation \cite{lintern-creole}. SHriMP and Creole display architectural diagrams using nested graphs. Their user interface embeds source code inside the graph nodes and integrates a hypertext metaphor for following low-level dependencies with animated panning, zooming, and fisheye-view ac- tions for viewing high-level structures.
+The difference between our tool and Creole is that Softwarenaut can also perform evolutionary analysis.
+
+Pinzger proposed the ArchView approach \cite{pinzger-thesis} which provides visualizations that present the evolution of the modules in a system. His evolution analysis takes into account the annotations from the versioning system repository. However, there is no support for first-class views in ArchView and the dependencies between the modules are only based on logical coupling. 
+
 
 \subsection {Filtering}
-
  
 %Most of the architecture recovery tools support filtering \cite{aracic-filtering}. The majority of the tools allow for the explicit filtering of individual relations. 
 
@@ -610,20 +640,25 @@ One project developed with collaboration support as the main goal is the Jazz ID
 
 
 
+\newpage
 % CONC
 \section {Conclusions and Future Work}
 \label {sec:conc}
 
-In this article we presented Softwarenaut, our tool which is state of the art in architecture recovery. The tool allows the recovery of architectural views of a software system and supports collaboration and integration with other tools by publicly sharing architectural views.
+In this article we presented Softwarenaut, our tool for architecture recovery. The tool allows the recovery of architectural views of a software system through interactive exploration. The tool supports the ``overview first, zoom and filter, and details on demand'' principle of information visualization. It provides powerful filtering mechanisms and the capacity of saving and sharing architectural views. The tool was the test-bed for a variety of research projects and is still serving us in our research and consulting practice. 
+
+There are two main research directions in which we would like to bring Softwarenaut beyond architecture recovery:
+
+\begin{description}
+
+\item {\em Reengineering.}
+One of the tools built on top of Softwarenaut is MARS: an automated architecture refactoring recommender tool \cite{boeckmann-mars}. The tool starts from a given Softwarenaut view and checks whether move operations applied on classes can improve the architecture of the system by increasing coupling and decreasing cohesion. Preliminary results show a good recall but a low precision of the  automated refactoring recommendations generated by MARS. In the future we plan to explore more the space of reengineering operations that can be performed on an architectural view.
 
 
-\subsection {Beyond Architecture Recovery(I): Reengineering}
-One of the tools built on top of Softwarenaut is MARS: an automated architecture refactoring recommender tool \cite{boeckmann-mars}. The tool starts from a given Softwarenaut view and checks whether move operations applied on classes can improve the architecture of the system by increasing coupling and decreasing cohesion. Preliminary results show a good recall but a low precision of the  automated refactoring recommendations generated by MARS. We plan to further study this phenomenon.
-
-
-\subsection {Beyond Architecture Recovery (II): Monitoring Software Evolution}
-
+\item {\em Monitoring Software Evolution.}
 One of our future projects is exploring ways in which the recovered views can function as a live documentation of an evolving system. The Softwarenaut views are not simple pictures but instead they code relationships between the modules of the system. A view recovered for a given version of the system can function as a reference point for presenting the future evolution of the system. After the publication of a new version of the system, Softwarenaut can automatically detect the views affected by the new changes, and visualize these changes on them.
+
+\end{description}
 
 
 \vspace{0.5cm}
