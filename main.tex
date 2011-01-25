@@ -77,6 +77,7 @@
 
 \journal{Science of Computer Programming}
 \input {utils}
+\graphicspath{{images/}}
 
 \begin{document}
 
@@ -104,7 +105,8 @@
 %% \address{Address\fnref{label3}}
 %% \fntext[label3]{}
 
-\title{Softwarenaut: A Tool for Collaborative Architecture Recovery}
+\title{Softwarenaut: Exploring Software Systems to Recover Their Architecture}
+
 
 %% use optional labels to link authors explicitly to addresses:
 %% \author[label1,label2]{<author name>}
@@ -188,7 +190,7 @@ Automatically aggregating the low-level relations, and then letting the user nav
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.9\linewidth]{images/SnautOnSnaut}
+\includegraphics[width=0.9\linewidth]{SnautOnSnaut.pdf}
 \caption{Softwarenaut uses linked views to present multiple perspectives on a software system at once}
 \flabel{sos}
 \end{center}
@@ -211,7 +213,7 @@ Like other architecture recovery tools \cite{pollet-sar}, Softwarenaut conforms 
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=\linewidth]{images/SnautFlow}
+\includegraphics[width=\linewidth]{SnautFlow}
 \caption{Softwarenaut supports an extract-abstract-view workflow model}
 \flabel{flow}
 \end{center}
@@ -266,7 +268,7 @@ The explicit dependencies propagate as implicit relationships vertically along t
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=\linewidth]{images/DependencyAggregation}
+\includegraphics[width=\linewidth]{DependencyAggregation}
 \caption{The aggregation of explicit dependencies into implicit ones along the containment relationships between methods, classes, and packages in a Java system}
 \flabel{dep-agg}
 \end{center}
@@ -277,7 +279,7 @@ A data structure that allows for this is the Higraph introduced by Harel \cite{h
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.7\linewidth]{images/HigraphModel}
+\includegraphics[width=0.7\linewidth]{HigraphModel}
 \caption{The DPMHigraph model is the core representation of a system in Softwarenaut}
 %DPM stands for Detailed Project Model
 \flabel{hmodel}
@@ -314,7 +316,7 @@ The dominant exploration mechanism of Softwarenaut is navigation along the verti
 
 \begin{figure}[b!]
 \begin{center}
-\includegraphics[width=\linewidth]{images/SnautSequence}
+\includegraphics[width=\linewidth]{SnautSequence}
 \caption{The expand and collapse complementary operations that allow vertical navigation in the Higraph}
 \label{}
 \end{center}
@@ -372,7 +374,7 @@ The detail views for modules present various aspects of a selected module.
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.54\linewidth]{images/DetailForNode.png}
+\includegraphics[width=0.54\linewidth]{DetailForNode}
 \caption{The Class Metrics view shows the list of classes in a module. The classes are sorted based on their size and the user can navigate to the source of individual classes.}
 
 \flabel{dnode}
@@ -388,7 +390,7 @@ The detail views for relationships present information about the selected relati
 
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=\linewidth]{images/DetailsForEdge}
+\includegraphics[width=\linewidth]{DetailsForEdge}
 \caption{Two example detail views for a relationship: (left) the Invoked Artifacts detail view; (right) the Interactive Methods detail view}
 \flabel{dedge}
 \end{center}
@@ -438,7 +440,7 @@ For example showing only the {\em relationships that existed in all the versions
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=\linewidth]{images/SnautFilteringPanel}
+\includegraphics[width=\linewidth]{SnautFilteringPanel}
 \caption{The UI for applying relationship filters in Softwarenaut}
 \flabel{filpan}
 \end{center}
@@ -465,7 +467,7 @@ Both the numbers are very low in comparison with the total number of relationshi
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=\linewidth]{images/Architecture-LifetimeVsRecent}
+\includegraphics[width=\linewidth]{Architecture-LifetimeVsRecent}
 \caption{The left part of the figure shows the Lifetime Relationships while the right part of the figure presents the Recent Relationships in Azureus/Vuze}
 \flabel{lvr}
 \end{center}
@@ -520,7 +522,7 @@ As soon as a user starts the analysis of a given system Softwarenaut checks the 
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=\linewidth]{images/ViewOperations.pdf}
+\includegraphics[width=\linewidth]{ViewOperations}
 \caption{Views are first-class entities in Softwarenaut. They can be saved, deleted locally, but also published and retrieved from public or private repositories}
 \flabel{viops}
 \end{center}
@@ -534,7 +536,7 @@ One of the tools that benefits from the Global View Repository is the Small Proj
 
 \begin{figure}[th!]
 \begin{center}
-\includegraphics[width=0.7\linewidth]{images/SpoArchitectural}
+\includegraphics[width=0.7\linewidth]{SpoArchitectural}
 \caption{SPO imports architectural views saved in Softwarenaut}
 \label{}
 \end{center}
@@ -654,8 +656,328 @@ In this article we have presented Softwarenaut, our tool which is state of the a
 %% References with bibTeX database:
 
 \bibliographystyle{model1-num-names}
-\bibliography{scg,thesis}
+%\bibliography{scg,thesis}
 
+\begin{thebibliography}{39}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\bibinfo}[2]{#2}
+\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Article
+\bibitem[{Lehman(1980)}]{lehman-softev}
+\bibinfo{author}{M.~Lehman},
+\newblock \bibinfo{title}{Programs, life cycles, and laws of software
+  evolution},
+\newblock \bibinfo{journal}{Proceedings of the IEEE} \bibinfo{volume}{68}
+  (\bibinfo{year}{Sept. 1980}) \bibinfo{pages}{1060--1076}.
+%Type = Article
+\bibitem[{Ducasse and Pollet(2009)}]{Duca09c}
+\bibinfo{author}{S.~Ducasse}, \bibinfo{author}{D.~Pollet},
+\newblock \bibinfo{title}{Software architecture reconstruction: A
+  process-oriented taxonomy},
+\newblock \bibinfo{journal}{IEEE Transactions on Software Engineering}
+  \bibinfo{volume}{35} (\bibinfo{year}{2009}) \bibinfo{pages}{573--591}.
+%Type = Article
+\bibitem[{Perry and Wolf(1992)}]{perry-foundations}
+\bibinfo{author}{D.~E. Perry}, \bibinfo{author}{A.~L. Wolf},
+\newblock \bibinfo{title}{Foundations for the study of software architecture},
+\newblock \bibinfo{journal}{SIGSOFT Softw. Eng. Notes} \bibinfo{volume}{17}
+  (\bibinfo{year}{1992}) \bibinfo{pages}{40--52}.
+%Type = Article
+\bibitem[{Garlan et~al.(2009)Garlan, Allen, and Ockerbloom}]{garlan-mismatch}
+\bibinfo{author}{D.~Garlan}, \bibinfo{author}{R.~Allen},
+  \bibinfo{author}{J.~Ockerbloom},
+\newblock \bibinfo{title}{Architectural mismatch: Why reuse is still so hard},
+\newblock \bibinfo{journal}{IEEE Softw.} \bibinfo{volume}{26}
+  (\bibinfo{year}{2009}) \bibinfo{pages}{66--69}.
+%Type = Inproceedings
+\bibitem[{Riva(2000)}]{riva-report}
+\bibinfo{author}{C.~Riva},
+\newblock \bibinfo{title}{Reverse architecting: An industrial experience
+  report},
+\newblock in: \bibinfo{booktitle}{WCRE '00: Proceedings of the Seventh Working
+  Conference on Reverse Engineering (WCRE'00)}, \bibinfo{publisher}{IEEE
+  Computer Society}, \bibinfo{address}{Washington, DC, USA},
+  \bibinfo{year}{2000}, p.~\bibinfo{pages}{42}.
+%Type = Inproceedings
+\bibitem[{Pollet et~al.(2007)Pollet, Ducasse, Poyet, Alloui, C\^impan, and
+  Verjus}]{pollet-sar}
+\bibinfo{author}{D.~Pollet}, \bibinfo{author}{S.~Ducasse},
+  \bibinfo{author}{L.~Poyet}, \bibinfo{author}{I.~Alloui},
+  \bibinfo{author}{S.~C\^impan}, \bibinfo{author}{H.~Verjus},
+\newblock \bibinfo{title}{Towards a process-oriented software architecture
+  reconstruction taxonomy},
+\newblock in: \bibinfo{editor}{R.~Krikhaar}, \bibinfo{editor}{C.~Verhoef},
+  \bibinfo{editor}{G.~Di~Lucca} (Eds.), \bibinfo{booktitle}{Proceedings of 11th
+  European Conference on Software Maintenance and Reengineering (CSMR'07)},
+  \bibinfo{publisher}{IEEE Computer Society}, \bibinfo{year}{2007}.
+  \bibinfo{note}{Best Paper Award}.
+%Type = Inproceedings
+\bibitem[{Jazayeri(2002)}]{jaza-archevo}
+\bibinfo{author}{M.~Jazayeri},
+\newblock \bibinfo{title}{On architectural stability and evolution},
+\newblock in: \bibinfo{booktitle}{Reliable Software Technlogies-Ada-Europe
+  2002.}, \bibinfo{publisher}{Springer}, \bibinfo{year}{2002}.
+%Type = Book
+\bibitem[{Bass et~al.(1997)Bass, Clements, and Kazman}]{bass-architecture}
+\bibinfo{author}{L.~Bass}, \bibinfo{author}{P.~Clements},
+  \bibinfo{author}{R.~Kazman}, \bibinfo{title}{Software Architecture in
+  Practice}, \bibinfo{publisher}{{Addison-Wesley Professional}},
+  \bibinfo{year}{1997}.
+%Type = Article
+\bibitem[{Kruchten(1995)}]{kruchten-4plus}
+\bibinfo{author}{P.~Kruchten},
+\newblock \bibinfo{title}{The 4+1 view model of architecture},
+\newblock \bibinfo{journal}{IEEE Softw.} \bibinfo{volume}{12}
+  (\bibinfo{year}{1995}) \bibinfo{pages}{42--50}.
+%Type = Book
+\bibitem[{Hofmeister et~al.(2000)Hofmeister, Nord, and Soni}]{hof-apparch}
+\bibinfo{author}{C.~Hofmeister}, \bibinfo{author}{R.~Nord},
+  \bibinfo{author}{D.~Soni}, \bibinfo{title}{Applied Software Architecture},
+  \bibinfo{publisher}{Addison-Wesley}, \bibinfo{year}{2000}.
+%Type = Inproceedings
+\bibitem[{Murphy et~al.(1995)Murphy, Notkin, and Sullivan}]{murphy-reflexion}
+\bibinfo{author}{G.~Murphy}, \bibinfo{author}{D.~Notkin},
+  \bibinfo{author}{K.~Sullivan},
+\newblock \bibinfo{title}{Software reflexion models: Bridging the gap between
+  source and high-level models},
+\newblock in: \bibinfo{booktitle}{Proceedings of SIGSOFT '95, Third ACM SIGSOFT
+  Symposium on the Foundations of Software Engineering},
+  \bibinfo{publisher}{ACM Press}, \bibinfo{year}{1995}, pp.
+  \bibinfo{pages}{18--28}.
+%Type = Article
+\bibitem[{Muller and Klashinsky(1988)}]{muller-rigi}
+\bibinfo{author}{H.~Muller}, \bibinfo{author}{K.~Klashinsky},
+\newblock \bibinfo{title}{Rigi: a system for programming-in-the-large},
+\newblock \bibinfo{journal}{Software Engineering, 1988., Proceedings of the
+  10th International Conference on}  (\bibinfo{year}{1988})
+  \bibinfo{pages}{80--86}.
+%Type = Inproceedings
+\bibitem[{Storey and M{\"u}ller(1995)}]{storey-shrimp}
+\bibinfo{author}{M.-A.~D. Storey}, \bibinfo{author}{H.~A. M{\"u}ller},
+\newblock \bibinfo{title}{Manipulating and documenting software structures
+  using {SHriMP} {Views}},
+\newblock in: \bibinfo{booktitle}{Proceedings of ICSM '95 (International
+  Conference on Software Maintenance)}, \bibinfo{publisher}{IEEE Computer
+  Society Press}, \bibinfo{year}{1995}, pp. \bibinfo{pages}{275--284}.
+%Type = Inproceedings
+\bibitem[{Lungu et~al.(2006)Lungu, Lanza, and G\^irba}]{lungu-packages}
+\bibinfo{author}{M.~Lungu}, \bibinfo{author}{M.~Lanza},
+  \bibinfo{author}{T.~G\^irba},
+\newblock \bibinfo{title}{Package patterns for visual architecture recovery},
+\newblock in: \bibinfo{booktitle}{Proceedings of CSMR 2006 (10th European
+  Conference on Software Maintenance and Reengineering)},
+  \bibinfo{publisher}{IEEE Computer Society Press}, \bibinfo{address}{Los
+  Alamitos CA}, \bibinfo{year}{2006}, pp. \bibinfo{pages}{185--196}.
+%Type = Article
+\bibitem[{Lanza and Ducasse(2003)}]{lanza-pv}
+\bibinfo{author}{M.~Lanza}, \bibinfo{author}{S.~Ducasse},
+\newblock \bibinfo{title}{Polymetric views - a lightweight visual approach to
+  reverse engineering},
+\newblock \bibinfo{journal}{Software Engineering, IEEE Transactions on}
+  \bibinfo{volume}{29} (\bibinfo{year}{2003}) \bibinfo{pages}{782--795}.
+%Type = Book
+\bibitem[{Lanza and Marinescu(2006)}]{lanza-oomp}
+\bibinfo{author}{M.~Lanza}, \bibinfo{author}{R.~Marinescu},
+  \bibinfo{title}{Object-Oriented Metrics in Practice},
+  \bibinfo{publisher}{Springer-Verlag}, \bibinfo{year}{2006}.
+%Type = Inproceedings
+\bibitem[{Shneiderman(1996)}]{shneid-eyes}
+\bibinfo{author}{B.~Shneiderman},
+\newblock \bibinfo{title}{The eyes have it: {A} task by data type taxonomy for
+  information visualizations},
+\newblock in: \bibinfo{booktitle}{IEEE Visual Languages},
+  \bibinfo{address}{College Park, Maryland 20742, U.S.A.}, pp.
+  \bibinfo{pages}{336--343}.
+%Type = Phdthesis
+\bibitem[{Wong(2000)}]{wong-thesis}
+\bibinfo{author}{K.~Wong}, \bibinfo{title}{The reverse engineering notebook},
+  Ph.D. thesis, University of Victoria, \bibinfo{address}{Victoria, B.C.,
+  Canada, Canada}, \bibinfo{year}{2000}.
+%Type = Inproceedings
+\bibitem[{Storey et~al.(2005)Storey, \v{C}ubrani\'{c}, and
+  German}]{storey-awareness}
+\bibinfo{author}{M.-A.~D. Storey}, \bibinfo{author}{D.~\v{C}ubrani\'{c}},
+  \bibinfo{author}{D.~M. German},
+\newblock \bibinfo{title}{On the use of visualization to support awareness of
+  human activities in software development: a survey and a framework},
+\newblock in: \bibinfo{booktitle}{SoftVis '05: Proceedings of the 2005 ACM
+  symposium on Software visualization}, \bibinfo{publisher}{ACM},
+  \bibinfo{address}{New York, NY, USA}, \bibinfo{year}{2005}, pp.
+  \bibinfo{pages}{193--202}.
+%Type = Phdthesis
+\bibitem[{Tichelaar(2001)}]{tichelaar-thesis}
+\bibinfo{author}{S.~Tichelaar}, \bibinfo{title}{Modeling Object-Oriented
+  Software for Reverse Engineering and Refactoring}, Ph.D. thesis, University
+  of Bern, \bibinfo{year}{2001}.
+%Type = Article
+\bibitem[{Koschke(2002)}]{koschke-thesis}
+\bibinfo{author}{R.~Koschke},
+\newblock \bibinfo{title}{Atomic architectural component recovery for program
+  understanding and evolution},
+\newblock \bibinfo{journal}{Software Maintenance, 2002. Proceedings.
+  International Conference on}  (\bibinfo{year}{2002})
+  \bibinfo{pages}{478--481}.
+%Type = Inproceedings
+\bibitem[{Lungu et~al.(2005)Lungu, Kuhn, G\^irba, and Lanza}]{Lung05a}
+\bibinfo{author}{M.~Lungu}, \bibinfo{author}{A.~Kuhn},
+  \bibinfo{author}{T.~G\^irba}, \bibinfo{author}{M.~Lanza},
+\newblock \bibinfo{title}{Interactive exploration of semantic clusters},
+\newblock in: \bibinfo{booktitle}{3rd International Workshop on Visualizing
+  Software for Understanding and Analysis (VISSOFT 2005)}, pp.
+  \bibinfo{pages}{95--100}.
+%Type = Article
+\bibitem[{Mihancea et~al.(2007)Mihancea, Ganea, Verebi, Marinescu, and
+  Marinescu}]{pepi-mcc}
+\bibinfo{author}{P.~F. Mihancea}, \bibinfo{author}{G.~Ganea},
+  \bibinfo{author}{I.~Verebi}, \bibinfo{author}{C.~Marinescu},
+  \bibinfo{author}{R.~Marinescu},
+\newblock \bibinfo{title}{Mcc and mc\#: Unified c++ and c\# design facts
+  extractors tools},
+\newblock \bibinfo{journal}{Symbolic and Numeric Algorithms for Scientific
+  Computing, International Symposium on} \bibinfo{volume}{0}
+  (\bibinfo{year}{2007}) \bibinfo{pages}{101--104}.
+%Type = Incollection
+\bibitem[{Harel(1995)}]{harel-visform}
+\bibinfo{author}{D.~Harel},
+\newblock \bibinfo{title}{On visual formalisms},
+\newblock in: \bibinfo{editor}{J.~Glasgow}, \bibinfo{editor}{N.~H. Narayanan},
+  \bibinfo{editor}{B.~Chandrasekaran} (Eds.), \bibinfo{booktitle}{Diagrammatic
+  Reasoning}, \bibinfo{publisher}{The {MIT} Press},
+  \bibinfo{address}{Cambridge, Massachusetts}, \bibinfo{year}{1995}, pp.
+  \bibinfo{pages}{235--271}.
+%Type = Inproceedings
+\bibitem[{Robertson et~al.(1991)Robertson, Mackinlay, and
+  Card}]{robertson-conetrees}
+\bibinfo{author}{G.~G. Robertson}, \bibinfo{author}{J.~D. Mackinlay},
+  \bibinfo{author}{S.~K. Card},
+\newblock \bibinfo{title}{Cone trees: animated 3d visualizations of
+  hierarchical information},
+\newblock in: \bibinfo{booktitle}{CHI '91: Proceedings of the SIGCHI conference
+  on Human factors in computing systems}, \bibinfo{publisher}{ACM Press},
+  \bibinfo{address}{New York, NY, USA}, \bibinfo{year}{1991}, pp.
+  \bibinfo{pages}{189--194}.
+%Type = Article
+\bibitem[{Mitchell and Mancoridis(2006)}]{mitchell-bunch}
+\bibinfo{author}{B.~S. Mitchell}, \bibinfo{author}{S.~Mancoridis},
+\newblock \bibinfo{title}{On the automatic modularization of software systems
+  using the bunch tool},
+\newblock \bibinfo{journal}{IEEE Trans. Softw. Eng.} \bibinfo{volume}{32}
+  (\bibinfo{year}{2006}) \bibinfo{pages}{193--208}.
+%Type = Inproceedings
+\bibitem[{Lungu and Lanza(2006)}]{lungu-cutedge}
+\bibinfo{author}{M.~Lungu}, \bibinfo{author}{M.~Lanza},
+\newblock \bibinfo{title}{Softwarenaut: cutting edge visualization},
+\newblock in: \bibinfo{booktitle}{SoftVis '06: Proceedings of the 2006 ACM
+  symposium on Software visualization}, \bibinfo{publisher}{ACM},
+  \bibinfo{address}{New York, NY, USA}, \bibinfo{year}{2006}, pp.
+  \bibinfo{pages}{179--180}.
+%Type = Inproceedings
+\bibitem[{Lungu and Lanza(2007)}]{lungu-relevo}
+\bibinfo{author}{M.~Lungu}, \bibinfo{author}{M.~Lanza},
+\newblock \bibinfo{title}{Exploring inter-module relationships in evolving
+  software systems},
+\newblock in: \bibinfo{booktitle}{Proceedings of CSMR 2007 (11th European
+  Conference on Software Maintenance and Reengineering)},
+  \bibinfo{publisher}{IEEE Computer Society Press}, \bibinfo{address}{Los
+  Alamitos CA}, \bibinfo{year}{2007}, pp. \bibinfo{pages}{91--100}.
+%Type = Techreport
+\bibitem[{Aracic et~al.(2007)Aracic, Schaeffer, Mezini, and
+  Osterman}]{aracic-filtering}
+\bibinfo{author}{I.~Aracic}, \bibinfo{author}{T.~Schaeffer},
+  \bibinfo{author}{M.~Mezini}, \bibinfo{author}{K.~Osterman}, \bibinfo{title}{A
+  Survey on Interactive Grouping and Filtering in Graph-based Software
+  Visualizations}, \bibinfo{type}{Technical Report}, Technische Universit{\"a}t
+  Darmstadt, \bibinfo{year}{2007}.
+%Type = Article
+\bibitem[{Lungu et~al.(2009)Lungu, G\^{\i}rba, and Lanza}]{lungu-est}
+\bibinfo{author}{M.~Lungu}, \bibinfo{author}{T.~G\^{\i}rba},
+  \bibinfo{author}{M.~Lanza},
+\newblock \bibinfo{title}{The small project observatory: Visualizing software
+  ecosystems},
+\newblock \bibinfo{journal}{EST special issue of the Science of Computer
+  Programming. DOI:10.1016/j.scico.2009.09.004}  (\bibinfo{year}{2009}).
+%Type = Phdthesis
+\bibitem[{Lungu(2009)}]{lungu-thesis}
+\bibinfo{author}{M.~Lungu}, \bibinfo{title}{Reverse Engineering Software
+  Ecosystems}, Ph.D. thesis, University of Lugano, \bibinfo{year}{2009}.
+%Type = Article
+\bibitem[{Nierstrasz et~al.(2005)Nierstrasz, Ducasse, and Girba}]{nier-story}
+\bibinfo{author}{O.~Nierstrasz}, \bibinfo{author}{S.~Ducasse},
+  \bibinfo{author}{T.~Girba},
+\newblock \bibinfo{title}{The story of moose: an agile reengineering
+  environment},
+\newblock \bibinfo{journal}{SIGSOFT Softw. Eng. Notes} \bibinfo{volume}{30}
+  (\bibinfo{year}{2005}) \bibinfo{pages}{1--10}.
+%Type = Techreport
+\bibitem[{Boeckmann(2010)}]{boeckmann-mars}
+\bibinfo{author}{A.~Boeckmann}, \bibinfo{title}{MARS - Modular Architecture
+  Recommendation System}, \bibinfo{type}{Bachelor's thesis}, University of
+  Lugano, \bibinfo{year}{2010}.
+%Type = Inproceedings
+\bibitem[{M\"{u}ller et~al.(1992)M\"{u}ller, Tilley, Orgun, Corrie, and
+  Madhavji}]{muller-revengenv}
+\bibinfo{author}{H.~A. M\"{u}ller}, \bibinfo{author}{S.~R. Tilley},
+  \bibinfo{author}{M.~A. Orgun}, \bibinfo{author}{B.~D. Corrie},
+  \bibinfo{author}{N.~H. Madhavji},
+\newblock \bibinfo{title}{A reverse engineering environment based on spatial
+  and visual software interconnection models},
+\newblock in: \bibinfo{booktitle}{SDE 5: Proceedings of the fifth ACM SIGSOFT
+  symposium on Software development environments}, \bibinfo{publisher}{ACM},
+  \bibinfo{address}{New York, NY, USA}, \bibinfo{year}{1992}, pp.
+  \bibinfo{pages}{88--98}.
+%Type = Inproceedings
+\bibitem[{Wierda et~al.(2006)Wierda, Dortmans, and
+  Lou~Somers}]{wierda-clustering}
+\bibinfo{author}{A.~Wierda}, \bibinfo{author}{E.~Dortmans},
+  \bibinfo{author}{L.~Lou~Somers},
+\newblock \bibinfo{title}{Using version information in architectural clustering
+  - a case study},
+\newblock in: \bibinfo{booktitle}{CSMR '06: Proceedings of the Conference on
+  Software Maintenance and Reengineering}, \bibinfo{publisher}{IEEE Computer
+  Society}, \bibinfo{address}{Washington, DC, USA}, \bibinfo{year}{2006}, pp.
+  \bibinfo{pages}{214--228}.
+%Type = Article
+\bibitem[{Hindle et~al.(2007)Hindle, Jiang, Koleilat, Godfrey, and
+  Holt}]{hindle-yarn}
+\bibinfo{author}{A.~Hindle}, \bibinfo{author}{Z.~M. Jiang},
+  \bibinfo{author}{W.~Koleilat}, \bibinfo{author}{M.~W. Godfrey},
+  \bibinfo{author}{R.~C. Holt},
+\newblock \bibinfo{title}{Yarn: Animating software evolution},
+\newblock \bibinfo{journal}{Visualizing Software for Understanding and
+  Analysis, International Workshop on} \bibinfo{volume}{0}
+  (\bibinfo{year}{2007}) \bibinfo{pages}{129--136}.
+%Type = Article
+\bibitem[{Rayside et~al.(2003)Rayside, Litoiu, Storey, Best, and
+  Lintern}]{rayside-flow}
+\bibinfo{author}{D.~Rayside}, \bibinfo{author}{M.~Litoiu},
+  \bibinfo{author}{M.-A. Storey}, \bibinfo{author}{C.~Best},
+  \bibinfo{author}{R.~Lintern},
+\newblock \bibinfo{title}{Visualizing flow diagrams in websphere studio using
+  shrimp views},
+\newblock \bibinfo{journal}{Information Systems Frontiers} \bibinfo{volume}{5}
+  (\bibinfo{year}{2003}) \bibinfo{pages}{161--174}.
+  \bibinfo{note}{10.1023/A:1022649506310}.
+%Type = Inproceedings
+\bibitem[{D'Ambros and Lanza(2008)}]{dambros-churrasco}
+\bibinfo{author}{M.~D'Ambros}, \bibinfo{author}{M.~Lanza},
+\newblock \bibinfo{title}{A flexible framework to support collaborative
+  software evolution analysis},
+\newblock in: \bibinfo{booktitle}{Proceedings of CSMR 2008 (12th European
+  Conference on Software Maintenance and Reengineering)},
+  \bibinfo{publisher}{IEEE Computer Society}, \bibinfo{year}{2008}, pp.
+  \bibinfo{pages}{3--12}.
+%Type = Inproceedings
+\bibitem[{Hupfer et~al.(2004)Hupfer, Cheng, Ross, and Patterson}]{hupfer-jazz}
+\bibinfo{author}{S.~Hupfer}, \bibinfo{author}{L.-T. Cheng},
+  \bibinfo{author}{S.~Ross}, \bibinfo{author}{J.~Patterson},
+\newblock \bibinfo{title}{Introducing collaboration into an application
+  development environment},
+\newblock in: \bibinfo{booktitle}{Proceedings of the 2004 ACM conference on
+  Computer supported cooperative work}, CSCW '04, \bibinfo{publisher}{ACM},
+  \bibinfo{address}{New York, NY, USA}, \bibinfo{year}{2004}, pp.
+  \bibinfo{pages}{21--24}.
+
+\end{thebibliography}
 %% Authors are advised to submit their bibtex database files. They are
 %% requested to list a bibtex style file in the manuscript if they do
 %% not want to use model1-num-names.bst.
