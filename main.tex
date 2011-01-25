@@ -340,19 +340,19 @@ The detail views for modules present various aspects of a selected module. \fref
 
 The detail views for relationships present information about the selected relationships. Since understanding the relationships is critical for understanding the view, Softwarenaut provides a broad set of detail views for relationships which cover both structural and evolutionary aspects of the relationships \cite{lungu-cutedge, lungu-relevo}. 
 
-\fref{dedge} presents two such examples: to the left is the Invoked Artifacts view and to the right is the Interactive Methods view. 
+\fref{dedge} presents two such examples: to the left is the Invoked Artifacts view and to the right is the Relationships Evolution view. 
 
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[width=0.9\linewidth]{DetailsForEdge}
-\caption{Two example detail views for a relationship: (left) the Invoked Artifacts detail view; (right) the Interactive Methods detail view}
+\caption{Two example detail views for a relationship: (left) the Invoked Artifacts detail view; (right) the Relationship Evolution detail view}
 \flabel{dedge}
 \end{center}
 \end{figure}
 
-The Invoked Artefacts view lists all the artefacts invoked by the selected high-level dependency. The tree has on its first level the names of the invoked classes. The children of every class node are the invoked methods. The method nodes can be further expanded to reveal the call sites. 
+The Invoked Artefacts view lists all the artefacts invoked by the selected high-level dependency. The tree has on its first level the invoked classes, on the second level invoked methods, and on the third level call sites. 
 
-The Interactive Methods detail view presents the call graph of the method calls abstracted in the selected high-level dependency. 
+The Interactive Evolution View presents the evolution of the given relationship in all the versions of the system which are available for analysis. The figure shows a relationship which changed dramatically during the six versions of the system under analysis. 
 
 \newpage
 \subsection {Rule-Based Filtering}
@@ -539,10 +539,20 @@ SPO needs to support navigation between the two abstraction levels to support th
 \subsection {History Operations} Softwarenaut keeps a history of the exploration and filtering actions to support undo and redo operations. This is a requirement for information exploration tools \cite{shneid-eyes} that few other architecture recovery tools implement.
 
 
-\newpage
+\subsection {Installation and Documentation}
+Softwarenaut is written in the Smalltalk programming language and is released under the open source MIT Licence. The tool is available online at {\footnotesize \url{http://www.inf.usi.ch/phd/lungu/softwarenaut/}}. On the homepage of the tool there are a set of screencasts that present its various features together with other documentation, installation instructions, and instructions on how to obtain the source code. 
+
+
+% \newpage
 % DISC
-\section {Discussion}
+\section {Tool-Building Considerations}
 \label {sec:disc}
+
+Softwarenaut served as the research prototype for many of the research ideas we had during the PhD of the first author. As a result, the tool was the basis for a number of research papers \cite{lungu-cutedge, lungu-clust, lungu-packages, lungu-relevo}. Many of these papers could have not been written if it were not for the Softwarenaut which was a testbed for our ideas. 
+
+We have obviously used Softwarenaut to to analyze Softwarenaut itself, and this has determined several re-architecting sessions. However, all throughout the development of the tool we wanted to have a tool that was usable. This allowed us to collaborate with others. We have integrated the tool with others \cite{lungu-clust, lungu-scico, nier-story} and we provided a framework in which masters projects to be developed \cite{boeckmann-mars}. We have also used the tool several times to perform reverse engineering in consulting projects.
+
+In the next section we present a brief discussion on evaluating the tool with students.
 
 \subsection {Evaluating the Usability and Usefulness of the Tool}
 We have tested the Softwarenaut tool with students in the Software Evolution master course at the University of Lugano. In a qualitative experiment we asked the students to analyze a large software system they have never seen before with the help of Softwarenaut and to produce an architectural report. We also asked them to fill a post-analysis questionnaire. Our goal in organizing the experiment was to test Softwarenaut and get feedback on both the usability of the tool and its usefulness for architecture recovery in the context of large software systems. 
@@ -558,23 +568,13 @@ By analyzing the post-experiment questionnaire we made several observations:
 \item The features that the students thought were missing were: undo/redo facilities, parametrizable filters, arbitrary and rule-based grouping of elements\footnote{Since then we have implemented most of the features that the students requested.}
 \end{itemize}
 
-In the future we plan to empirically validate the usefulness of collaboration in architecture recovery and its implementation in the GVR.
+At the time when we organized these experiments, the view persistence and sharing to support collaboration was not implemented yet. In the future we plan to empirically validate the usefulness of collaboration in architecture recovery and its implementation in the GVR.
+
+\subsection {Depending on other research prototypes}
+Depending on other research prototypes and platforms has been a benefit because we had the opportunity of using cutting edge technology, and building on the shoulders of giants, and in the same time, it made our life harder since the tools that we depended on kept moving ``under our feet''. We believe however that the benefits have been more important than the troubles.
 
 
-\subsection {Beyond Architecture Recovery(I): Reengineering}
-One of the tools built on top of Softwarenaut is MARS: an automated architecture refactoring recommender tool \cite{boeckmann-mars}. The tool starts from a given Softwarenaut view and checks whether move operations applied on classes can improve the architecture of the system by increasing coupling and decreasing cohesion. Preliminary results show a good recall but a low precision of the  automated refactoring recommendations generated by MARS. We plan to further study this phenomenon.
-
-
-\subsection {Beyond Architecture Recovery (II): Monitoring Software Evolution}
-
-One of our future projects is exploring ways in which the recovered views can function as a live documentation of an evolving system. The Softwarenaut views are not simple pictures but instead they code relationships between the modules of the system. A view recovered for a given version of the system can function as a reference point for presenting the future evolution of the system. After the publication of a new version of the system, Softwarenaut can automatically detect the views affected by the new changes, and visualize these changes on them.
-
-
-\subsection {Installation and Documentation}
-Softwarenaut is written in the Smalltalk programming language and is released under the open source MIT Licence. The tool is available online at {\footnotesize \url{http://www.inf.usi.ch/phd/lungu/softwarenaut/}}. On the homepage of the tool there are a set of screencasts that present its various features together with other documentation, installation instructions, and instructions on how to obtain the source code. 
-
-
-\newpage
+%\newpage
 % REL
 \section {Related Work}
 \label {sec:rel}
@@ -615,6 +615,16 @@ One project developed with collaboration support as the main goal is the Jazz ID
 \label {sec:conc}
 
 In this article we presented Softwarenaut, our tool which is state of the art in architecture recovery. The tool allows the recovery of architectural views of a software system and supports collaboration and integration with other tools by publicly sharing architectural views.
+
+
+\subsection {Beyond Architecture Recovery(I): Reengineering}
+One of the tools built on top of Softwarenaut is MARS: an automated architecture refactoring recommender tool \cite{boeckmann-mars}. The tool starts from a given Softwarenaut view and checks whether move operations applied on classes can improve the architecture of the system by increasing coupling and decreasing cohesion. Preliminary results show a good recall but a low precision of the  automated refactoring recommendations generated by MARS. We plan to further study this phenomenon.
+
+
+\subsection {Beyond Architecture Recovery (II): Monitoring Software Evolution}
+
+One of our future projects is exploring ways in which the recovered views can function as a live documentation of an evolving system. The Softwarenaut views are not simple pictures but instead they code relationships between the modules of the system. A view recovered for a given version of the system can function as a reference point for presenting the future evolution of the system. After the publication of a new version of the system, Softwarenaut can automatically detect the views affected by the new changes, and visualize these changes on them.
+
 
 \vspace{0.5cm}
 \footnotesize
