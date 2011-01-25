@@ -1,2 +1,3 @@
-> In this paper we describe Softwarenaut -- a tool for architecture recovery. > The tool is highly interactive and visual, and provides very powerful filtering mechanisms. > The tool encourages collaboration through sharing architectural views
+> In this paper we describe Softwarenaut -- a tool for architecture recovery > The tool provides overview and detailed perspectives which support the architecture recovery process > The tool allows powerful navigation primitives and filtering mechanisms that allow managing the complexity of large software systems > In the article we also present aspects of the architecture of the tool as well as tool-building aspects  
+
 
