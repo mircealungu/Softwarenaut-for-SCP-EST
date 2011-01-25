@@ -124,7 +124,7 @@
 When the initial architecture of a system has eroded the only solution is architecture recovery. However, when the system under analysis is large, the user must use dedicated tools to support the recovery process. In this article we present Softwarenaut -- a tool which supports architecture recovery through interactive exploration and visualization. 
 %The interaction in Softwarenaut is implemented conforming to information visualization principles adapted to the particularities of software understanding.
 The tool provides overview and detailed perspectives which support the architecture recovery process as well as powerful navigation primitives and filtering mechanisms that allow managing the complexity of large software systems. 
-The recovered architectural views can be shared between users allowing collaborative architecture recovery.
+The recovered architectural views can be shared between users through a Global Architectural View Repository allowing collaborative architecture recovery.
 \end{abstract}
 
 \begin{keyword}
@@ -187,40 +187,9 @@ Like other architecture recovery tools \cite{pollet-sar}, Softwarenaut conforms 
 \end{itemize}
 %, {\em fact extraction}, {\em information aggregation}, and {\em interactive visualization and exploration}.
 
-The following sections will detail each of the three steps.
+The article continues with detailing the second and third step, the first one being discussed later together in the section where we discuss architectural concerns regarding the tool.
 
 
-
-
-\newpage
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section {Fact Extraction and Modelling} \label{sec:facts}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-At the lowest level, Softwarenaut models a system using the Core of the FAMIX meta-model \cite{tichelaar-thesis}, a language independent meta-model that describes the static structure of object-oriented software systems. 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection {Entities and relationships in FAMIX}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-FAMIX represents both artifacts and relationships as first-class entities. The main artifacts are namespaces, packages, classes, attributes, methods, fields. The main relationships between these entities are method invocations, variable accesses, class inheritances, and package include relationships \cite{tichelaar-thesis}.
-
-A class of relationships which have a special importance in Softwarenaut are the containment relationships which organize a software system in a vertical hierarchy: classes contain methods, modules contain classes, systems contain modules. This containment mechanism is a powerful way of coping with the complexity of large software systems.
-
-At an architectural level, different languages provide different mechanisms for the hierarchical organization of the system. C/C++ developers use the directory structure to organize systems hierarchically; Java developers use the package hierarchy; Smalltalk developers use the bundles hierarchy, etc. 
-
-When a hierarchical decomposition is not provided, we can automatically generate one using clustering techniques \cite{koschke-thesis}. We presented elsewhere an experiment with clustering the classes in a system based on natural language similarity\cite{Lung05a}.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection {Language Independence}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Given that the FAMIX meta-model is language independent, Softwarenaut can analyze any system written in an object-oriented language. This requires fact extractors that analyze the source code and build the intermediary FAMIX model. For this we use various third-party tools like McC \cite{pepi-mcc} or inFusion\footnote{See \url{http://www.intooitus.com/inFusion}, verified Jan 25 2011.}.
-
-\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -234,7 +203,7 @@ Aggregating horizontal relationships between software artifacts along the contai
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=\linewidth]{DependencyAggregation}
+\includegraphics[width=0.9\linewidth]{DependencyAggregation}
 \caption{The aggregation of explicit dependencies into implicit ones along the containment relationships between methods, classes, and packages in a Java system}
 \flabel{dep-agg}
 \end{center}
@@ -266,6 +235,8 @@ The diagram from \fref{hmodel} presents two types of abstract entities and two t
 
 \end{itemize}
 
+
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section {Interactive Exploration} \label {sec:interact}
@@ -373,7 +344,7 @@ The detail views for relationships present information about the selected relati
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.8\linewidth]{DetailsForEdge}
+\includegraphics[width=0.9\linewidth]{DetailsForEdge}
 \caption{Two example detail views for a relationship: (left) the Invoked Artifacts detail view; (right) the Interactive Methods detail view}
 \flabel{dedge}
 \end{center}
@@ -448,40 +419,105 @@ Rule-based relationships are a powerful way of reducing information in the view.
 The left side presents only the Lifetime Relationships - 21 relationships that existed between the displayed modules in all the versions of the system. The right side presents only the Recent Relationships - 36 relationships introduced in the system in the latest version. Both the numbers are very low in comparison with the total number of relationships that are present in the last version of the system; both function as powerful filters.
 
 \newpage
-\subsection {First-Class Views}
+\subsection {First-Class Views and Collaboration}
 \slab{views}
 
-The designers of a system use multiple diagrams for the specification of the architecture of a system. Also the reverse engineers need to recover multiple views when trying to understand the architecture of the system. To avoid information overload, architecture recovery tools usually support some kind of semantic zooming \cite{storey-shrimp}. We address this problem by directing the analysis towards the recovery of multiple architectural views. The technical detail that allows this is view persistence: in Softwarenaut one can save and restore any view during the exploration. This this allows for a {\em divide et impera} approach to architecture recovery and representation: each time a view risks becoming too complex the user saves it and the further exploration focuses only on a sub-part of the view. View persistence requires the following information: The name and version of the system under analysis, the current working set with the positions of all the nodes in it, the active node and edge filters (both explicit and rule based), the creator of the view, and a name and description of the view.
+The designers of a system use multiple diagrams for the specification of the architecture of a system. Also the reverse engineers need to recover multiple views when trying to understand the architecture of the system. To avoid information overload, architecture recovery tools usually support some kind of semantic zooming \cite{storey-shrimp}. We address this problem by directing the analysis towards the recovery of multiple architectural views. 
 
-The model of the system is not saved together with the view. We assume that model construction is deterministic and the name and version of the system will suffice for model reconstruction at a later time. % Moreover, in most of the cases the views are reused locally.
+The technical detail that allows this is view persistence: in Softwarenaut one can save and restore any view during the exploration. This this allows for a {\em divide et impera} approach to architecture recovery and representation: each time a view risks becoming too complex the user saves it and the further exploration focuses only on a sub-part of the view. 
+
+View persistence requires the following information: The name and version of the system under analysis, the current working set with the positions of all the nodes in it, the active node and edge filters (both explicit and rule based), the creator of the view, and a name and description of the view. The model of the system is not saved together with the view. We assume that model construction is deterministic and the name and version of the system will suffice for model reconstruction at a later time \footnote{This requires nevertheless a way of uniquely identifying the entities in the view. In our case, for each of the entities in the working set we save the fully scoped name}.
+
+
+
+% Moreover, in most of the cases the views are reused locally.
 
 
 %The filters are predefined. In the future we plan to support user-defined filters and their publication together with the views. 
 
-\fref{viops} highlights the way the user can interact with the local views. He has a set of local views that he can save, load, delete locally. 
 
+% \fref{viops} highlights the way the user can interact with the local views. He has a set of local views that he can save, load, delete locally. 
 
-% \newpage
+%\newpage
 % COLLABORATION
-\section {Collaboration}
-\label {sec:collab}
+%\section {Collaboration}
+%\label {sec:collab}
 
 % We have shown that in Softwarenaut views are entities that can be saved and restored. In this section we talk about the possibility of sharing the views with other users. 
 
-Once published, a given version of a system never changes. It makes therefore sense to publish all the analyses regarding that version, such that when other users analyze the same version or system they can benefit from the previous work. In the context of architectural view recovery this means discovering architectural views that others have already defined. To support sharing architectural information we have created a {\em Global Architectural View Repository} (GVR) -- a public repository that indexes architectural views.
+Once published, a given version of a system never changes. It makes therefore sense to publish all the analyses regarding that version, such that when other users analyze the same version or system they can benefit from the previous work. In the context of architectural view recovery this means discovering architectural views that others have already defined. 
 
-As soon as a user starts the analysis of a given system Softwarenaut checks the available view repositories and retrieves the list of views that are already defined for that system and/or version.
+
+To support sharing architectural information we have created a {\em Global Architectural View Repository} (GVR) -- a public repository that indexes architectural views generated with Softwarenaut. The GVR is implemented as a relational database in PostgreSQL which can be publicly accessed by instances of Softwarenaut or other tools. %In the future we plan to provide a web services interface to the GVR. 
+
+The architectural views as saved in the GVR can serve as the basis for monitoring the future architectural evolution of the system. After the publication of a new version of the system, Softwarenaut can automatically detect the views affected by the new changes, and present a {\em visual diff} on top of the view retrieved from the GVR between the state of the system at the moment the view was created and the latest commit.
+
+
+
+\fref{viops} presents several considerations regarding the interaction with the architectural views in Sofwarenaut: 
+
+\begin{itemize}
+
+\item As soon as a user starts the analysis of a given system Softwarenaut checks the available view repositories and retrieves the list of views that are already defined for that system and/or version.
+
+\item The top part of the inset presents the locally stored views which the user has in the image. For each of them the user can load it, delete it, or push it to the GVR. In the inset, the buttons which have black text represent operations that can be applied on the local views.
+
+\item The bottom part presents the views which exist for the given system in the GVR. From the global view repository he can pull views in the local repository, or if he is the creator of such a view he can delete it from the global repository too. The view sharing mechanism is the latest addition to Softwarenaut and we are still waiting to test it with users. 
+\end{itemize}
 
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=\linewidth]{ViewOperations}
-\caption{Views are first-class entities in Softwarenaut. They can be saved, deleted locally, but also published and retrieved from public or private repositories}
+\caption{Views are first-class entities in Softwarenaut. They can be saved, deleted locally, but also published and retrieved from the Global Architectural View Repository.}
 \flabel{viops}
 \end{center}
 \end{figure}
 
-\fref{viops} presents the view UI in Sofwarenaut. The top part of the inset presents the locally stored views which the user can loaded, delete, or push to the GVR. The bottom part presents the views which exist for the given system in the GVR. From the global view repository he can pull views in the local repository, or if he is the creator of such a view he can delete it from the global repository too. The view sharing mechanism is the latest addition to Softwarenaut and we are still waiting to test it with users. 
+
+
+
+
+
+
+% In such a case SPO allows navigating down to the architectural level of the individual system, where it presents architectural views which are enriched with information from the ecosystem. 
+
+
+\newpage
+\section {Architectural Considerations Regarding Softwarenaut}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection {Fact Extraction and Modelling} \label{sec:facts}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+At the lowest level, Softwarenaut models a system using the Core of the FAMIX meta-model \cite{tichelaar-thesis}, a language independent meta-model that describes the static structure of object-oriented software systems. 
+Given that the FAMIX meta-model is language independent, Softwarenaut can analyze any system written in an object-oriented language. This requires fact extractors that analyze the source code and build the intermediary FAMIX model. For this we use various third-party tools like McC \cite{pepi-mcc} or inFusion\footnote{See \url{http://www.intooitus.com/inFusion}, verified Jan 25 2011.}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%{\bf Entities and relationships in FAMIX.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+FAMIX represents both artifacts and relationships as first-class entities. The main artifacts are namespaces, packages, classes, attributes, methods, fields. The main relationships between these entities are method invocations, variable accesses, class inheritances, and package include relationships \cite{tichelaar-thesis}.
+
+A class of relationships which have a special importance in Softwarenaut are the containment relationships which organize a software system in a vertical hierarchy: classes contain methods, modules contain classes, systems contain modules. This containment mechanism is a powerful way of coping with the complexity of large software systems.
+
+At an architectural level, different languages provide different mechanisms for the hierarchical organization of the system. C/C++ developers use the directory structure to organize systems hierarchically; Java developers use the package hierarchy; Smalltalk developers use the bundles hierarchy, etc. 
+When a hierarchical decomposition is not provided, we can automatically generate one using clustering techniques \cite{koschke-thesis}. We presented elsewhere an experiment with clustering the classes in a system based on natural language similarity\cite{Lung05a}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%{\bf Language Independence.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection {Integration with the Moose Analysis Platform}
+We built Softwarenaut on top of the Moose Analysis Platform \cite{nier-story}. The main feature that the tool uses from Moose is the FAMIX Core meta-model for representing object-oriented systems. 
+Softwarenaut makes uses of several of the views defined in Moose for the detail panel (e.g. the views that present entity metrics). Also, since behind any visual element of Softwarenaut lays a HiNode and behind it there is a FAMIX entity one can spawn other Moose analyses by selecting any of the elements of a Softwarenaut architectural view. In the same time, any tool in the Moose platform can spawn a Softwarenaut architectural analysis on any group of entities which have containment relationships and dependencies between themselves.
+
+
+% The reliance of Softwarenaut on the FAMIX Core meta-model allows it to be independent of the programming language and analyze systems written in any language as long as there is a fact-extractor for that particular language. 
+
 
 
 \subsection {Softwarenaut Synergies}
@@ -500,8 +536,7 @@ One of the tools that benefits from the Global View Repository is the Small Proj
 
 SPO needs to support navigation between the two abstraction levels to support the understanding of  the ecosystem abstraction level. When navigating from the ecosystem abstraction level down to the architectural level SPO must present architectural views of the individual systems. When they are available, the architectural views of the individual systems are obtained from the Global View Repository. SPO can therefore reuse architectural information generated with Softwarenaut.
 
-% In such a case SPO allows navigating down to the architectural level of the individual system, where it presents architectural views which are enriched with information from the ecosystem. 
-
+\subsection {History Operations} Softwarenaut keeps a history of the exploration and filtering actions to support undo and redo operations. This is a requirement for information exploration tools \cite{shneid-eyes} that few other architecture recovery tools implement.
 
 
 \newpage
@@ -524,13 +559,6 @@ By analyzing the post-experiment questionnaire we made several observations:
 \end{itemize}
 
 In the future we plan to empirically validate the usefulness of collaboration in architecture recovery and its implementation in the GVR.
-
-
-\subsection {Integration with the Moose Analysis Platform}
-We built Softwarenaut on top of the Moose Analysis Platform \cite{nier-story}. The main feature that the tool uses from Moose is the FAMIX Core meta-model for representing object-oriented systems. The reliance of Softwarenaut on the FAMIX Core meta-model allows it to be independent of the programming language and analyze systems written in any language as long as there is a fact-extractor for that particular language. 
-
-Softwarenaut makes uses of several of the views defined in Moose for the detail panel (e.g. the views that present entity metrics). Also, since behind any visual element of Softwarenaut lays a HiNode and behind it there is a FAMIX entity one can spawn other Moose analyses by selecting any of the elements of a Softwarenaut architectural view. 
-
 
 
 \subsection {Beyond Architecture Recovery(I): Reengineering}
@@ -590,7 +618,7 @@ In this article we presented Softwarenaut, our tool which is state of the art in
 
 \vspace{0.5cm}
 \footnotesize
-{\bf Acknowledgements.} We would like to thank Fabrizio Perin for feedback on this paper.
+{\bf Acknowledgements.} We would like to thank Fabrizio Perin and Oscar Nierstrasz for feedback on earlier drafts of this paper.
 
 
 
