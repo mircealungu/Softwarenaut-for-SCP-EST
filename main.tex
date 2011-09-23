@@ -207,13 +207,15 @@ Aggregating horizontal relationships between software artifacts along the contai
 \end{center}
 \end{figure}
 
-The example contains two explicit low-level dependencies: the method calls between \cod{mc1} and respectively \cod{mc2} and \cod{mc5}. The explicit dependencies propagate as implicit relationships vertically along the containment relationships \cod{mc1 $\rightarrow$ c1 $\rightarrow$ B  $\rightarrow$A}, \cod{mc5 $\rightarrow$ c5 $\rightarrow$ d $\rightarrow$ c} and \cod{mc2 $\rightarrow$  c2 $\rightarrow$  d $\rightarrow$ c}. The highest level implicit relationship is the one between A and C. 
+The example contains two explicit low-level dependencies: the method calls between \cod{mc1} and respectively \cod{mc2} and \cod{mc5}. The explicit dependencies propagate as implicit relationships vertically along the containment relationships (e.g. \cod{mX $\rightarrow$ cA2 $\rightarrow$ A2  $\rightarrow$A}).
+%, \cod{mc5 $\rightarrow$ c5 $\rightarrow$ d $\rightarrow$ c} and \cod{mc2 $\rightarrow$  c2 $\rightarrow$  d $\rightarrow$ c}. 
+The highest level implicit relationship is the one between A and C. 
 
 A data structure that allows for this is the Higraph introduced by Harel \cite{harel-visform}. In our case, the DPMHigraph\footnote{DPM stands for Detail Project Model. For the importance of the concept see  \cite{lungu-thesis}} is a data structure formed by taking the graph of basic artefacts and relationships between them and aggregating them along the containment hierarchy of the system. 
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.9\linewidth]{HigraphModel}
+\includegraphics[width=0.8\linewidth]{HigraphModel}
 \caption{The DPMHigraph model is the core representation of a system in Softwarenaut}
 \flabel{hmodel}
 \end{center}
@@ -223,18 +225,18 @@ The diagram from \fref{hmodel} presents two types of abstract entities and two t
 
 \begin{itemize}
 
-\item {\em Leaf Entities}. They are the basic object-oriented programming building blocks used for the structuring of software. Depending on the analyzed relationship, the leaf entities can be either methods or classes.
+\item {\em Leaf Entities}. They are the basic object-oriented programming building blocks used for the structuring of software. The figure illustrates one example of Leaf Entity: the method. Other types of entities can also be represented as leaves (e.g. instance variables, class annotations, etc.).
+%Both types of entities can be involved in relationships (e.g. invocations between methods, inheritances between classes).
 
 \item {\em Composite Entities}. The composite entities are containers for other entities. They can have direct mappings to programming language entities, such as classes, packages, namespaces or modules but can also represent abstract composites such as clusters.
 
-\item {\em Explicit Relationships}. These are the relations between two entities as they exist in the code. Softwarenaut models method invocations, class inheritance, and field access.
+\item {\em Explicit Relationships}. These are the relations between two entities as they exist in the code. Softwarenaut models method invocations, class inheritance, and field access. Although the three types of relationship are the ones supported by default in Softwarenaut, other types of relationships can be supported by subclassing the ExplicitRelatinoship class and providing adequate fact extractors.
 
 \item {\em Implicit Relationships}. The model admits relationships between any abstract entities. However, in software systems explicit relationships usually exist only between the leaf entities. Therefore, the relations between the composite entities must be inferred bottom-up from the relations existing between the leafs. The result is that between any two high-level components, we have a relation that represents a collection of all the relations between the leaf components aggregated in them.
 
 \end{itemize}
 
 
-\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section {Interactive Exploration} \label {sec:interact}
@@ -284,23 +286,23 @@ The exploration operations supported by Softwarenaut are:
 
 \begin{itemize}
 
-\item {\em Expand}. The expand operation applied to a node of the working set replaces in the working set the node with nodes that represent its children. We define the operation formally as follows: 
+\item {\em Expand}. The expand operation applied to a node N of the higraph (HG) in the working set (WS) replaces the node in the working set with nodes that represent its children. We define the operation formally as follows: 
 
-$ Expand_{N,HG} (WS) = WS - N + children (N, HG)$, 
+$ Expand_{N,HG} (WS) = WS - N + Children (N, HG)$, 
 
-where $children(x,h)$ is a function which returns the children of node $x$ in higraph $h$.
+where $Children(N,HG)$ is a function which returns the children of node $N$ in higraph $HG$ and ``+'' and ``-'' represent respectively set union and set subtraction.
 
-\item {\em Collapse}. The collapse operation applied to a module in the working set removes the module and all its siblings from the view and replaces them with their parent module. We define the operation as follows:
+\item {\em Collapse}. The collapse operation applied to a module in a working set removes the module and all its siblings from the view and replaces them with their parent module. We define the operation as follows:
 
-$ Collapse_{N,HG} (WS) = WS - N - siblings (N, HG) + parent (N, HG)$
+$ Collapse_{N,HG} (WS) = WS - N - Siblings (N, HG) + Parent (N, HG)$
 
-where $siblings(x,h)$ is a function which returns the nodes that have the same parent with $x$ in higraph $h$, and $parent(x,h)$ is a function which returns the parent of node $x$ in higraph $h$. 
+where $Siblings(N, HG)$ is a function which returns the nodes that have the same parent with $N$ in the higraph denote with $HG$, and $parent(N,HG)$ is a function which returns the parent of node $N$ in higraph $HG$. 
 
 \item {\em Filter}. The filter operation applied to a node removes that node from the working set. We define the operation as follows:
 
 $ Filter_{N,HG} (WS) = WS - N$
 
-\item {\em Group}. The group operation applied to several modules removes the modules from the view and replaces them with a new virtual module. By grouping several modules together the user reduces the clutter in the view. We define the group operation as follows: 
+\item {\em Group}. The group operation applied to several modules in a working set removes the modules from the set and adds instead a unique new node representing the entire group. We define the group operation as follows: 
 
 $ Group_{N_{i},HG} = WS - N_i + NewGroupNode $
 
