@@ -211,24 +211,37 @@ The example contains two explicit low-level dependencies: the method calls betwe
 %, \cod{mc5 $\rightarrow$ c5 $\rightarrow$ d $\rightarrow$ c} and \cod{mc2 $\rightarrow$  c2 $\rightarrow$  d $\rightarrow$ c}. 
 The highest level implicit relationship is the one between A and B. 
 
-A data structure that allows for this is the hierarchical graph \cite{buchsbaum-hierarchicalgraphs}. In our case, the DPMHigraph\footnote{DPM stands for Detail Project Model. For the importance of the concept see  \cite{lungu-thesis}} is a data structure formed by taking the graph of basic artefacts and relationships between them and aggregating them along the containment hierarchy of the system. 
+Problem: Aggregating the relationships across the vertical hierarchy has an $O(n^2)$ order of complexity \cite{buchsbaum-hierarchicalgraphs}. For analyzing non-trivial systems, the on-the-fly computation of the dependencies can hinder interactivity. As a result, one wants to be able to pre-compute the dependencies between the nodes in the hierarchy. The data structure that allows keeping track of the pre-computed dependencies is a {\em hierarchical graph}. \fref{hmodel} presents our implementation of a hierarchical graph model in Softwarenaut.
+
+%A data structure that allows for this is the hierarchical graph \cite{buchsbaum-hierarchicalgraphs}. In our case, the DPMHigraph\footnote{DPM stands for Detail Project Model. For the importance of the concept see  \cite{lungu-thesis}} is a data structure formed by taking the graph of basic artefacts and relationships between them and aggregating them along the containment hierarchy of the system. 
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.8\linewidth]{HigraphModel}
-\caption{The DPMHigraph model is the core representation of a system in Softwarenaut}
+\caption{The {\em hierarchical graph} implementation in Softwarenaut.}
 \flabel{hmodel}
 \end{center}
 \end{figure}
 
-The diagram from \fref{hmodel} presents two types of abstract entities and two types of abstract relations:
+The diagram shows that a HierarchicalGraph contains a Tree which represents the entities in the modeled system and a set of relationships between pairs of elements in this tree.
+
+
+Entity objects and multiple Relationship objects. Every relationship has two associated entities. 
+
+The Entity class models a tree which using the composite design pattern:
 
 \begin{itemize}
 
-\item {\em Leaf Entities}. They are the basic object-oriented programming building blocks used for the structuring of software. The figure illustrates one example of Leaf Entity: the method. Other types of entities can also be represented as leaves (e.g. instance variables, class annotations, etc.).
+\item {\em Leaf Entities}. A leaf entity is a wrapper around an entity which represents a basic object-oriented programming artifact. They can vary based on the type of analysis performed. An analysis which is quite high-level can use as leaf entities Classes, while an analysis which is more detailed might use methods and instance variables as leaves.
+
+%They are the basic object-oriented programming building blocks used for the structuring of software. The figure illustrates one example of Leaf Entity: the method. Other types of entities can also be represented as leaves (e.g. instance variables, class annotations, etc.).
 %Both types of entities can be involved in relationships (e.g. invocations between methods, inheritances between classes).
 
 \item {\em Composite Entities}. The composite entities are containers for other entities. They can have direct mappings to programming language entities, such as classes, packages, namespaces or modules but can also represent abstract composites such as clusters.
+\end{itemize}
+
+The relationships in a hierarchical graph are of two types:
+\begin{itemize}
 
 \item {\em Explicit Relationships}. These are the relations between two entities as they exist in the code. Softwarenaut models method invocations, class inheritance, and field access. Although the three types of relationship are the ones supported by default in Softwarenaut, other types of relationships can be supported by subclassing the ExplicitRelatinoship class and providing adequate fact extractors.
 
