@@ -223,31 +223,21 @@ Problem: Aggregating the relationships across the vertical hierarchy has an $O(n
 \end{center}
 \end{figure}
 
-The diagram shows that a HierarchicalGraph contains a Tree which represents the entities in the modeled system and a set of relationships between pairs of elements in this tree.
-
-
-Entity objects and multiple Relationship objects. Every relationship has two associated entities. 
-
-The Entity class models a tree which using the composite design pattern:
+The diagram shows that a Hierarchical Graph contains two collections: 
 
 \begin{itemize}
+\item A collection of Tree Nodes. These are the artifacts in a software system organized hierarchically in a containment tree, implemented using a Composite design pattern. The leaves are basic object-oriented programming artifacts. The actual leaves depend on the type of analysis and available data: in some cases leaves are classes, and in others they are methods and instance variables. The composite entities are higher-level entities which are either declared in the programming language (such as namespaces and packages) or are obtained as a result of analysis (such as clusters resulting from hierarchical clustering).
+\item A collection of Relationships. There are two types of relationships: explicit and implicit. The Explicit Relationships are the ones that have been extracted from the static analysis of the code or the dynamic analysis of the running system. Most of the times the explicit relationships exist between the leaves of the tree (e.g. invocations between methods) but this is not necessarily so (e.g. the inheritance relations between classes in a tree which contains both methods and classes). The Explicit Relationships are wrapping actual relationships that are part of the model and which are subclasses of Model Relationship.
 
-\item {\em Leaf Entities}. A leaf entity is a wrapper around an entity which represents a basic object-oriented programming artifact. They can vary based on the type of analysis performed. An analysis which is quite high-level can use as leaf entities Classes, while an analysis which is more detailed might use methods and instance variables as leaves.
-
-%They are the basic object-oriented programming building blocks used for the structuring of software. The figure illustrates one example of Leaf Entity: the method. Other types of entities can also be represented as leaves (e.g. instance variables, class annotations, etc.).
-%Both types of entities can be involved in relationships (e.g. invocations between methods, inheritances between classes).
-
-\item {\em Composite Entities}. The composite entities are containers for other entities. They can have direct mappings to programming language entities, such as classes, packages, namespaces or modules but can also represent abstract composites such as clusters.
-\end{itemize}
-
-The relationships in a hierarchical graph are of two types:
-\begin{itemize}
-
-\item {\em Explicit Relationships}. These are the relations between two entities as they exist in the code. Softwarenaut models method invocations, class inheritance, and field access. Although the three types of relationship are the ones supported by default in Softwarenaut, other types of relationships can be supported by subclassing the ExplicitRelatinoship class and providing adequate fact extractors.
-
-\item {\em Implicit Relationships}. The model admits relationships between any abstract entities. However, in software systems explicit relationships usually exist only between the leaf entities. Therefore, the relations between the composite entities must be inferred bottom-up from the relations existing between the leafs. The result is that between any two high-level components, we have a relation that represents a collection of all the relations between the leaf components aggregated in them.
+The Implicit Relationships are derived from the Explicit Relationships by aggregating them along the containment tree. %The result is that between any two high-level components there is an Implicit Relationship.
 
 \end{itemize}
+
+
+%\item {\em Explicit Relationships}. These are the relations between two entities as they exist in the code. Softwarenaut models method invocations, class inheritance, and field access. Although the three types of relationship are the ones supported by default in Softwarenaut, other types of relationships can be supported by subclassing the ExplicitRelatinoship class and providing adequate fact extractors.
+
+%\item {\em Implicit Relationships}. The model admits relationships between any abstract entities. However, in software systems explicit relationships usually exist only between the leaf entities. Therefore, the relations between the composite entities must be inferred bottom-up from the relations existing between the leafs. The result is that between any two high-level components, we have a relation that represents a collection of all the relations between the leaf components aggregated in them.
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
