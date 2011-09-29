@@ -198,6 +198,7 @@ The article continues with detailing the second and third step, the first one be
 Aggregating horizontal relationships between software artifacts along the containment relationships is the fundamental technique that enables abstraction in Softwarenaut. 
 
 \fref{dep-agg} exemplifies the aggregation of low-level relationships between methods and classes along the containment hierarchy of a Java system. 
+The figure contains for example the following two explicit low-level dependencies: the method calls between \cod{mX} and respectively \cod{mY} and \cod{mZ}. These explicit dependencies propagate as implicit relationships vertically along the containment relationships (e.g. \cod{mX $\rightarrow$ CA2 $\rightarrow$ A2  $\rightarrow$A}, where $\rightarrow$ represents containment relationships). The highest level implicit relationship is the one between A and B. 
 
 \begin{figure}[ht]
 \begin{center}
@@ -207,11 +208,9 @@ Aggregating horizontal relationships between software artifacts along the contai
 \end{center}
 \end{figure}
 
-The example contains two explicit low-level dependencies: the method calls between \cod{mc1} and respectively \cod{mc2} and \cod{mc5}. The explicit dependencies propagate as implicit relationships vertically along the containment relationships (e.g. \cod{mX $\rightarrow$ CA2 $\rightarrow$ A2  $\rightarrow$A}, where $\rightarrow$ represents containment relationships).
-%, \cod{mc5 $\rightarrow$ c5 $\rightarrow$ d $\rightarrow$ c} and \cod{mc2 $\rightarrow$  c2 $\rightarrow$  d $\rightarrow$ c}. 
-The highest level implicit relationship is the one between A and B. 
 
-Problem: Aggregating the relationships across the vertical hierarchy has an $O(n^2)$ order of complexity \cite{buchsbaum-hierarchicalgraphs}. For analyzing non-trivial systems, the on-the-fly computation of the dependencies can hinder interactivity. As a result, one wants to be able to pre-compute the dependencies between the nodes in the hierarchy. The data structure that allows keeping track of the pre-computed dependencies is a {\em hierarchical graph}. \fref{hmodel} presents our implementation of a hierarchical graph model in Softwarenaut.
+Aggregating the relationships across the vertical hierarchy has an $O(n^2)$ order of complexity \cite{buchsbaum-hierarchicalgraphs}. This means that for non-trivial systems, the on-the-fly computation of the dependencies can make interactive analysis sluggish. To allow interactivity one must pre-compute the dependencies between the nodes in the hierarchy. The data structure that allows keeping track of the pre-computed dependencies is a {\em hierarchical graph}. 
+
 
 %A data structure that allows for this is the hierarchical graph \cite{buchsbaum-hierarchicalgraphs}. In our case, the DPMHigraph\footnote{DPM stands for Detail Project Model. For the importance of the concept see  \cite{lungu-thesis}} is a data structure formed by taking the graph of basic artefacts and relationships between them and aggregating them along the containment hierarchy of the system. 
 
@@ -223,15 +222,18 @@ Problem: Aggregating the relationships across the vertical hierarchy has an $O(n
 \end{center}
 \end{figure}
 
+\fref{hmodel} presents our implementation of a hierarchical graph model in Softwarenaut.
 The diagram shows that a Hierarchical Graph contains two collections: 
 
-\begin{itemize}
-\item A collection of Tree Nodes. These are the artifacts in a software system organized hierarchically in a containment tree, implemented using a Composite design pattern. The leaves are basic object-oriented programming artifacts. The actual leaves depend on the type of analysis and available data: in some cases leaves are classes, and in others they are methods and instance variables. The composite entities are higher-level entities which are either declared in the programming language (such as namespaces and packages) or are obtained as a result of analysis (such as clusters resulting from hierarchical clustering).
-\item A collection of Relationships. There are two types of relationships: explicit and implicit. The Explicit Relationships are the ones that have been extracted from the static analysis of the code or the dynamic analysis of the running system. Most of the times the explicit relationships exist between the leaves of the tree (e.g. invocations between methods) but this is not necessarily so (e.g. the inheritance relations between classes in a tree which contains both methods and classes). The Explicit Relationships are wrapping actual relationships that are part of the model and which are subclasses of Model Relationship.
+\begin{description}
+\item {\bf Tree Nodes.} These are the wrapping ModelEntities --- artifacts in a software system which can be organized hierarchically in a containment tree. The diagram shows that the tree is implemented using a Composite design pattern. The objects that the leaves are wrapping depend on the type of analysis and available data (in some cases they are classes, and in some others they are methods and instance variables). The composite entities are higher-level entities which are either declared in the programming language (such as namespaces and packages) or are obtained as a result of analysis (such as clusters resulting from hierarchical clustering).
+\item {\bf Relationships.} There are two types of relationships: explicit and implicit. The Explicit Relationships are the ones that have been extracted from the static analysis of the code or the dynamic analysis of the running system. Most of the times the explicit relationships exist between the leaves of the tree (e.g. invocations between methods) but this is not necessarily so (e.g. the inheritance relations between classes in a tree which contains both methods and classes). The Explicit Relationships are wrapping actual relationships that are part of the model and which are subclasses of Model Relationship.
 
 The Implicit Relationships are derived from the Explicit Relationships by aggregating them along the containment tree. %The result is that between any two high-level components there is an Implicit Relationship.
 
-\end{itemize}
+\end{description}
+
+The static analysis of object-oriented system has limitations. One of them is that some dependencies can not be unequivocally resolved. In the presence of a method that is defined in a base class and overriden in the subclasses it is impossible to know just by static analysis to which of the classes a method call will directed. The decision will be taken by the model extractor. Whatever that decision, the relationships that are extracted by the extractor will be modelled in the hierarchical graph with Explicit Relationships.
 
 
 %\item {\em Explicit Relationships}. These are the relations between two entities as they exist in the code. Softwarenaut models method invocations, class inheritance, and field access. Although the three types of relationship are the ones supported by default in Softwarenaut, other types of relationships can be supported by subclassing the ExplicitRelatinoship class and providing adequate fact extractors.
