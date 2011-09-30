@@ -223,10 +223,10 @@ Aggregating the relationships across the vertical hierarchy has an $O(n^2)$ orde
 \end{figure}
 
 \fref{hmodel} presents our implementation of a hierarchical graph model in Softwarenaut.
-The diagram shows that a Hierarchical Graph contains two collections: 
+The diagram shows that a Hierarchical Graph contains two types of entities: 
 
 \begin{description}
-\item {\bf Tree Nodes.} These are the wrapping ModelEntities --- artifacts in a software system which can be organized hierarchically in a containment tree. The diagram shows that the tree is implemented using a Composite design pattern. The objects that the leaves are wrapping depend on the type of analysis and available data (in some cases they are classes, and in some others they are methods and instance variables). The composite entities are higher-level entities which are either declared in the programming language (such as namespaces and packages) or are obtained as a result of analysis (such as clusters resulting from hierarchical clustering).
+\item {\bf Tree Nodes.} They are the wrappers of ModelEntities --- artifacts in a software system which can be organized hierarchically in a containment tree. The diagram shows that the tree is implemented using a Composite design pattern. The objects that the leaves are wrapping depend on the type of analysis and available data (in some cases they are classes, and in some others they are methods and instance variables). The composite entities are higher-level entities which are either declared in the programming language (such as namespaces and packages) or are obtained as a result of analysis (such as clusters resulting from the hierarchical clustering of the leaves).
 \item {\bf Relationships.} There are two types of relationships: explicit and implicit. The Explicit Relationships are the ones that have been extracted from the static analysis of the code or the dynamic analysis of the running system. Most of the times the explicit relationships exist between the leaves of the tree (e.g. invocations between methods) but this is not necessarily so (e.g. the inheritance relations between classes in a tree which contains both methods and classes). The Explicit Relationships are wrapping actual relationships that are part of the model and which are subclasses of Model Relationship.
 
 The Implicit Relationships are derived from the Explicit Relationships by aggregating them along the containment tree. %The result is that between any two high-level components there is an Implicit Relationship.
@@ -291,17 +291,17 @@ The exploration operations supported by Softwarenaut are:
 
 \begin{itemize}
 
-\item {\em Expand}. The expand operation applied to a node N of the higraph (HG) in the working set (WS) replaces the node in the working set with nodes that represent its children. We define the operation formally as follows: 
+\item {\em Expand}. The expand operation applied to a node N of the hierarchical graph (HG) in the working set (WS) replaces the node in the working set with nodes that represent its children. We define the operation formally as follows: 
 
 $ Expand_{N,HG} (WS) = WS - N + Children (N, HG)$, 
 
-where $Children(N,HG)$ is a function which returns the children of node $N$ in higraph $HG$ and ``+'' and ``-'' represent respectively set union and set subtraction.
+where $Children(N,HG)$ is a function which returns the children of node $N$ in hierarchical graph $HG$ and ``+'' and ``-'' represent respectively set union and set subtraction.
 
 \item {\em Collapse}. The collapse operation applied to a module in a working set removes the module and all its siblings from the view and replaces them with their parent module. We define the operation as follows:
 
 $ Collapse_{N,HG} (WS) = WS - N - Siblings (N, HG) + Parent (N, HG)$
 
-where $Siblings(N, HG)$ is a function which returns the nodes that have the same parent with $N$ in the higraph denote with $HG$, and $parent(N,HG)$ is a function which returns the parent of node $N$ in higraph $HG$. 
+where $Siblings(N, HG)$ is a function which returns the nodes that have the same parent with $N$ in the hierarchical graph denoted with $HG$, and $parent(N,HG)$ is a function which returns the parent of node $N$ in hierarchical graph $HG$. 
 
 \item {\em Filter}. The filter operation applied to a node removes that node from the working set. We define the operation as follows:
 
@@ -321,7 +321,7 @@ As the user refines the view, and climbs down in the hierarchy of the system, he
 \subsection {Details-on-Demand} \slab{dod}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The elements of every architectural view in Softwarenaut are nodes that represent modules and edges that represent relationships between them. For the user to be confident that he {\em understands} such a view he needs to understand the role of every node and the meaning of every edge. Metaphorically, if the view were a phrase, the nodes would be the nouns and the edges would be the verbs. Only when one has understood all the nouns and the verbs he has really understood the story of the view.  
+The elements of every architectural view in Softwarenaut are nodes that represent modules and edges that represent relationships between them. For the user to be confident that he {\em understands} such a view he needs to understand the role of every node and the meaning of every edge. Metaphorically, if the view were a phrase, the nodes would be the nouns and the edges would be the verbs. One can understand the message only when he has understood all the nouns and the verbs.
 
 The Detail panel of Softwarenaut is one of the ways in which one can understand the individual nodes and edges in an architectural view; it presents different views depending on the selected element in the exploration view. 
 
@@ -368,7 +368,7 @@ In the previous section we have introduced the Filter operation which works on e
 
 \begin{enumerate}
 
-\item {\em Low-level filters} act on the higraph itself. They remove from the higraph the low-level elements that match a given condition, e.g., all the invocation relationships that go to polymorphic classes.
+\item {\em Low-level filters} act on the hierarchical graph itself. They remove from the hierarchical graph the low-level elements that match a given condition, e.g., all the invocation relationships that go to polymorphic classes.
 
 \item {\em High-level filters} act on the high-level elements and relationships between them in the working set, e.g., hiding all the high-level dependencies that abstract few low-level dependencies.
 
@@ -520,7 +520,7 @@ When a hierarchical decomposition is not provided, we can automatically generate
 
 \subsection {Integration with the Moose Analysis Platform}
 We built Softwarenaut on top of the Moose Analysis Platform \cite{nier-story}. The main feature that the tool uses from Moose is the FAMIX Core meta-model for representing object-oriented systems. 
-Softwarenaut makes uses of several of the views defined in Moose for the detail panel (e.g. the views that present entity metrics). Also, since behind any visual element of Softwarenaut lays a HiNode and behind it there is a FAMIX entity one can spawn other Moose analyses by selecting any of the elements of a Softwarenaut architectural view. In the same time, any tool in the Moose platform can spawn a Softwarenaut architectural analysis on any group of entities which have containment relationships and dependencies between themselves.
+Softwarenaut makes uses of several of the views defined in Moose for the detail panel (e.g. the views that present entity metrics). Also, since behind any visual element of Softwarenaut lays a TreeNode object which wraps often a FAMIX entity (e.g. FAMIXPackage or FAMIXClass) the user can spawn other Moose analyses by selecting any of the elements of a Softwarenaut architectural view. In the same time, any tool in the Moose platform can spawn a Softwarenaut architectural analysis on any group of entities which have containment relationships and dependencies between themselves.
 
 
 % The reliance of Softwarenaut on the FAMIX Core meta-model allows it to be independent of the programming language and analyze systems written in any language as long as there is a fact-extractor for that particular language. 
