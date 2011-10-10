@@ -84,6 +84,7 @@
 
 \newcommand{\ra}{$\rightarrow$}
 \newcommand{\chg}[2]{\textcolor{red}{\sout{#1}}{\ra}\textcolor{blue}{\uline{#2}}} % please change
+\newcommand{\ins}[1]{\textcolor{blue}{\uline{#1}}} % please insert
 
 
 \begin{document}
@@ -419,7 +420,7 @@ Softwarenaut also implements advanced filters for relationships:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \label{sec:evol}
 
-If evolutionary information about a system is available, Softwarenaut can take it into account to provide better detail views and filters.
+Softwarenaut can take evolutionary information into account to provide better detail views and filters.
 
 To support multi-version analysis Softwarenaut requires that models of multiple versions of the system under analysis be available. \fref{fig:mva} shows that each of the models will have its own hierarchical graph. To allow monitoring the evolution of the individual elements through multiple versions one needs to link the corresponding elements in the different versions. Although more complicated approaches are available, in our case we perform a name-based matching of the entities.
 
@@ -451,35 +452,34 @@ One of the applications of multi-version analysis is the {\em Relationship Evolu
 
 \subsection {Evolutionary Filters}
 
-Rule-based relationships are a powerful way of reducing information in the view. The principle is simple: not all the relationships are equally relevant for the task at hand. When analyzing a system with a specific goal, the analysis focuses first on those relationships that are most relevant for the chosen goal. Two different goals are architecture recovery and architecture quality assessment: 
-
-\begin{itemize}
-
-\item {\em Architecture Recovery.} When recovering the architecture of a system, the lifetime relationships are more relevant. They represent the architectural backbone of the system and their stability over time insures that it is worth analyzing them first.
-
-\item {\em Quality Assessment.} When assessing the quality of an architecture, the recent relationships are of higher interest. Since they were recently introduced, they are more likely to be contrary to the original intended architecture. They might be the result of architectural decay or of changes to the system performed by new developers that are unaware of the architecture. Continuously monitoring these relationships can be a good quality assurance policy.
-\end{itemize}
-
-
-
-\fref{lvr} presents two views on the same modules that are also present in \fref{filpan} but with age-based filters activated. 
-
-\begin{figure}[ht]
-\begin{center}
-\includegraphics[width=\linewidth]{Architecture-LifetimeVsRecent}
-\caption{The left part of the figure shows the Lifetime Relationships while the right part of the figure presents the Recent Relationships in Azureus/Vuze}
-\flabel{lvr}
-\end{center}
-\end{figure}
-
-The left side presents only the {\em Lifetime Relationships} - 21 relationships that existed between the displayed modules in all the versions of the system. The right side presents only the {\em Recent Relationships} - 36 relationships introduced in the system in the latest version. Both the numbers are very low in comparison with the total number of relationships that are present in the last version of the system; both function as powerful filters.
+Rule-based relationship and module filters are a powerful way of coping with large amounts of visual information. They allow displaying only a subset of the elements in an architectural view that is important for the task at hand. 
 
 Evolutionary filters exist for both relationships and entities and can be classified in two main categories:
 
 \begin{itemize}
-\item {\bf Age-based}. Lifetime, Old, Recent, Newborn.
-\item {\bf Dynamic-based}. Stable, Instable.
+\item {\bf Age-based}. These take into account the number of versions in which the relationships existed in the system. {\em Lifetime relationships} have existed in all the versions of the system, {\em Newborn relationship} have appeared only in the last analyzed version \cite{lungu-relevo}, {\em Historical modules} have existed since the first analyzed versions of the system.
+\item {\bf Dynamic-based}. These take into account the dynamics of the relationships across versions. {\em Stable relationships} do not change much during the evolution of the system, {\em Instable relationships} changed much during the history of the system.
 \end{itemize}
+
+The importance of evolutionary filters is given by the simple principle: not all the entities are equally relevant for the task at hand. The different types of evolutionary filters support different goals of analysis. Two such goals and the corresponding relationships are:
+
+\begin{itemize}
+\item {\em Architecture Recovery.} When recovering the architecture of a system, the lifetime relationships are more relevant. They represent the architectural backbone of the system and their stability over time insures that it is worth analyzing them first.
+\item {\em Quality Assessment.} When assessing the quality of an architecture, the recent relationships are of higher interest. Since they were not validated by time they might be the result of changes performed by new developers that are unaware of the architecture of the system. 
+\end{itemize}
+
+\fref{lvr} presents two views on the same modules that are also present in \fref{filpan} but with age-based filters activated. 
+The left side presents only the {\em Lifetime} relationships: 21 relationships that existed between the displayed modules in all the versions of the system. The right side presents only the {\em Recent} relationships: 36 relationships introduced in the system in the latest version. The usefulness of the filters is hinted by the fact that both the numbers are very low in comparison with the total number of relationships that are present in the last version of the system; both function as powerful filters.
+
+\chg{}{find better examples here maybe}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=\linewidth]{Architecture-LifetimeVsRecent}
+\caption{The left part of the figure shows the Lifetime Relationships while the right part of the figure presents the Recent Relationships in the Azureus case study}
+\flabel{lvr}
+\end{center}
+\end{figure}
 
 
 
@@ -487,9 +487,16 @@ Evolutionary filters exist for both relationships and entities and can be classi
 \section {First-Class Views and Collaboration}
 \slab{views}
 
+
+
+
 The designers of a system use multiple diagrams for the specification of the architecture of a system. Also the reverse engineers need to recover multiple views when trying to understand the architecture of the system. To avoid information overload, architecture recovery tools usually support some kind of semantic zooming \cite{storey-shrimp}. We address this problem by directing the analysis towards the recovery of multiple architectural views. 
 
-Views are first-class entities in Softwarenaut: one can save and restore any view during the exploration. This this allows for a {\em divide et impera} approach to architecture recovery and representation: each time a view risks becoming too complex the user saves it and the further exploration focuses only on a sub-part of the view. Moreover, views can be shared with other reverse architects.
+\ins{
+Traditionally architecture recovery tools have been designed with a throw-away concept in mind. One was supposed to start the analysis every time, arrive at results and that concluded the analysis. In Softwarenaut we want to allow the reuse of the results of the analysis between analysis sessions and between users. 
+}
+
+Views are first-class entities in Softwarenaut: one can save and restore any view during the exploration. This this allows for a {\em divide et impera} approach to architecture recovery and representation: each time a view risks becoming too complex the user saves it and the further exploration focuses only on a sub-part of the view. Moreover, views can be shared with other analysts.
 
 View persistence requires the following information: The name and version of the system under analysis, the current working set with the positions of all the nodes in it, the active node and edge filters (both explicit and rule based), the creator of the view, and a name and description of the view. The model of the system is not saved together with the view. We assume that model construction is deterministic and the name and version of the system will suffice for model reconstruction at a later time \footnote{This requires nevertheless a way of uniquely identifying the entities in the view. In our case, for each of the entities in the working set we save the fully scoped name}.
 
