@@ -438,17 +438,22 @@ The two applications of multi-version analysis in Softwarenaut are evolutionary 
 
 \newpage
 \subsection {Evolutionary Detail Views}
-One of the applications of multi-version analysis is the {\em Relationship Evolution Filmstrip} \cite{lungu-relevo}. The Filmstrip is a detail view which presents the evolution of a given relationship between two modules over the time. The view can be useful for understanding the \chg{importance}{find something better} of a relationship based on its history.
-
-\fref{fig:evolstrip} presents two examples of relationship evolution filmstrips from two of our case-studies: Azureus and ArgoUML. In the first case the figure shows that the relationships between the two modules evolved heavily during the evolution. In the second case we see that the relationship is quite new: it appeared only in the last two versions of the system and is also quite weak.
+One of the applications of multi-version analysis is the {\em Relationship Evolution Filmstrip} \cite{lungu-relevo}. The Filmstrip is a detail view which presents the evolution of a given relationship between two modules over the time. %The view can be useful for understanding a relationship based on its history.
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.7\linewidth]{images/Filmstrip}
+\includegraphics[width=0.8\linewidth]{images/Filmstrip}
 \caption{The Relationship Evolution Filmstrip presents the evolution of a given relationship through the multiple versions of the system available for analysis}
 \flabel{fig:evolstrip}
 \end{center}
 \end{figure}
+
+
+\fref{fig:evolstrip} presents two examples of relationship evolution filmstrips from two of our case-studies: Azureus and ArgoUML. In the film strip, the arrows between the modules represent implicit dependencies of different types (the invocation dependencies are represented in black and the inheritance dependencies are represented in red). The width of the dependency arrows is proportional to the number of low-level dependencies abstracted in the corresponding implicit dependency \cite{lungu-relevo}. The representation of the width of the dependencies provides insight into the quantitative dynamics of the inter-module relationship.
+
+In the first case the figure shows that the relationships between the two modules evolved heavily during the evolution. In the second case we see that the relationship is quite new: it appeared only in the last two versions of the system and is also quite weak.
+
+
 
 \subsection {Evolutionary Filters}
 
@@ -458,7 +463,7 @@ Evolutionary filters exist for both relationships and entities and can be classi
 
 \begin{itemize}
 \item {\bf Age-based}. These take into account the number of versions in which the relationships existed in the system. {\em Lifetime relationships} have existed in all the versions of the system, {\em Newborn relationship} have appeared only in the last analyzed version \cite{lungu-relevo}, {\em Historical modules} have existed since the first analyzed versions of the system.
-\item {\bf Dynamic-based}. These take into account the dynamics of the relationships across versions. {\em Stable relationships} do not change much during the evolution of the system, {\em Instable relationships} changed much during the history of the system.
+\item {\bf Dynamics-based}. These take into account the dynamics of the relationships across versions. {\em Stable relationships} do not change much during the evolution of the system, {\em Instable relationships} changed much during the history of the system.
 \end{itemize}
 
 The importance of evolutionary filters is given by the simple principle: not all the entities are equally relevant for the task at hand. The different types of evolutionary filters support different goals of analysis. Two such goals and the corresponding relationships are:
@@ -471,9 +476,7 @@ The importance of evolutionary filters is given by the simple principle: not all
 \fref{lvr} presents two views on the same modules that are also present in \fref{filpan} but with age-based filters activated. 
 The left side presents only the {\em Lifetime} relationships: 21 relationships that existed between the displayed modules in all the versions of the system. The right side presents only the {\em Recent} relationships: 36 relationships introduced in the system in the latest version. The usefulness of the filters is hinted by the fact that both the numbers are very low in comparison with the total number of relationships that are present in the last version of the system; both function as powerful filters.
 
-\chg{}{find better examples here maybe}
-
-\begin{figure}[ht]
+\begin{figure}
 \begin{center}
 \includegraphics[width=\linewidth]{Architecture-LifetimeVsRecent}
 \caption{The left part of the figure shows the Lifetime Relationships while the right part of the figure presents the Recent Relationships in the Azureus case study}
@@ -487,13 +490,9 @@ The left side presents only the {\em Lifetime} relationships: 21 relationships t
 \section {First-Class Views and Collaboration}
 \slab{views}
 
-\ins{
 The designers of a system use multiple diagrams for the specification of the architecture of a system. In the same way, during architecture recovery they need to recover multiple views to capture various aspects of the structure of the system. 
-}
 
-\ins{
 Traditionally software analysis tools were designed with a {\em throw-away} attitude  in mind. One was supposed to start the analysis every time, arrive at results and then conclude the analysis. In Softwarenaut we want to allow the interruption and continuation of the analysis, and the reuse of the results of the analysis between sessions and between users. 
-}
 
 \subsection {First-Class Views}
 Views are first-class entities in Softwarenaut: one can save and restore any view during the exploration. This this allows for a {\em divide et impera} approach to architecture recovery and representation: each time the analyst encounters a view which presents a relevant perspective on the system he can save it for later reference. 
@@ -523,14 +522,14 @@ View persistence requires the following information: the name and version of the
 Once published, a given version of a system never changes. It makes therefore sense to make public all the analyses regarding that version, such that when other users analyze the same version or system they can benefit from the previous work. In the context of architectural view recovery this means discovering architectural views that others have already defined. 
 
 
-To support sharing and discovering architectural views we have created a {\em Global Architectural View Repository} (GVR) -- a public repository that indexes architectural views generated with Softwarenaut. The GVR is implemented as a relational database in PostgreSQL which can be publicly accessed by instances of Softwarenaut or other tools. %In the future we plan to provide a web services interface to the GVR. 
+To support sharing and discovering architectural views we have created the {\em Global Architectural View Repository} (GVR) -- a public repository that indexes architectural views generated with Softwarenaut (presented in \fref{fig:gvr}). The GVR is implemented as a relational database\footnote{A PostgreSQL database} which can be publicly accessed by instances of Softwarenaut or other tools. %In the future we plan to provide a web services interface to the GVR. 
 
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.7\linewidth]{images/CollaborationConcept}
-\caption{Architectural Views are stored in the Global View Repository. This enables knowledge \chg{transfer}{beter!}}
-\flabel{}
+\caption{Architectural Views are stored in the Global View Repository. This enables collaboration through knowledge sharing and discovery}
+\flabel{fig:gvr}
 \end{center}
 \end{figure}
 
