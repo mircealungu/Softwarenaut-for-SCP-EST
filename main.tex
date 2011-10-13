@@ -679,7 +679,7 @@ We have often used Softwarenaut to analyze Softwarenaut itself, and this has det
 
 In the second year of using the tool in the Software Evolution course we decided to have a qualitative experiment in which we asked the students to analyze a large software system they have never seen before\footnote{In this case it was ArgoUML} with the help of Softwarenaut and to produce an architectural report. Our goal in organizing the experiment was to get feedback on the usability of the tool. Although we hoped that in the process we would gain insight into its usefulness for the purpose of architecture recovery that was not the main goal of the study. 
 
-Eight participants, seven master and one PhD student participated in the experiment. We asked them to perform the tasks presented in \fref{tasks} on ArgoUML. We had them work in teams of two and asked them to provide us with a report of their findings. Our main goal was to learn about usability but we also analyzed their reports. Several of the observations we made are: 
+Eight participants, seven master and one PhD student participated in the experiment. We asked them to perform the tasks presented in \tref{questions} on ArgoUML. We had them work in teams of two and asked them to provide us with a report of their findings. Our main goal was to learn about usability but we also analyzed their reports. Several of the observations we made are: 
 
 
 
@@ -690,13 +690,23 @@ Eight participants, seven master and one PhD student participated in the experim
 \item For questions 2 and 3 the opinions were divided but each group was ready to argue its position. We were satisfied to see that the tool spawned and supported argumentation and discussion, but in retrospective these two questions were too vague. In a controlled experiment one would use questions which have an unambiguous answer. 
 
 
-\begin{figure}[h]
+\begin{table}[ht]
 \begin{center}
-\includegraphics[width=\linewidth]{tasks}
+\begin{tabular}{l p{0.75\linewidth}}
+\# & \footnotesize{Task/Question} \\ \hline
+1 & \footnotesize{Discover one or more architectural views on the system which present modules and their interactions} \\
+2 & \footnotesize {Is there a subset of the modules that you consider to be at the core of the system?} \\
+3 & \footnotesize {Is there a core module in the system? Why? How does it interact with the others?} \\
+4 & \footnotesize {Choose one inter-module dependency in the system and analyze it. What is the reason for its existence?} \\
+5 & \footnotesize {Choose one other module in the system. Analyze its interface.} \\
+6 & \footnotesize {Are there cases in which two modules depend on one another that you would have not expected from the conceptual architecture?} \\
+7 & \footnotesize {Overall what do you think about the structure of the system? Is it well modularized?} \\
+8 & \footnotesize {You want to add support for generating code in a new language. Which module do you change? Which others are impacted? How much time do you need?} \\ \hline
+\end{tabular}
 \caption{The eight tasks the students had to solve in two hours.}
-\flabel{tasks}
+\label{tab:questions}
 \end{center}
-\end{figure}
+\end{table}
 
 \item Questions 4, 5, and 6 were not solved by everybody. We think one reason was the insufficient training with the tool. We suspect that the main reason were the limitations of the tool at the time of the experiment. %We will discuss these limitations later. 
 
@@ -705,26 +715,49 @@ Eight participants, seven master and one PhD student participated in the experim
 
 \item Question 8. Actually these were a series of questions. To answer the first some of the students looked at the names of the modules that they encountered in Softwarenaut and correctly guessed that it would have been the {\em language} module that had to be changed. Others found the same answer in the documentation of the system. All of them used the tool to assess the modules that might be impacted. This could have not been done just by looking at the documentation.
 
-None of the students could offer an estimation. Obviously the tool is not supporting such a feature.
+None of the students could offer an estimation. Obviously the tool does not support this kind of analysis.
 \end{itemize}
 
-We also asked the students to fill a post-analysis questionnaire with their evaluations on the tool usability. Most of the students found the tool easy to use and considered that the reports they generated were reliable. They estimated that they got a better understanding of the system by using the tool. 
+We also asked the students to fill a post-analysis questionnaire with their evaluations on the tool usability. \tref{postsurvey} presents the questions together with answers on a Lickert scale (where 1 is strongly disagree and 5 is strongly agree). It shows that most of the students found the tool easy to use and considered that the reports they generated were reliable. They estimated that they got a better understanding of the system by using the tool. 
 
-However, they noted that there were several features that they required from the tool. In the order of the frequency of requests we list the features here: 
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{l r}
+\footnotesize{Question} & Answers \\ \hline
+\footnotesize{Was the tool simple to use?} & 4 5 3 4 \\
+\footnotesize{Was the user interface intuitive?} & 3 3 4 3 \\
+\footnotesize{Was it easy to discover dependencies between modules?} & 4 5 3 5 \\
+\footnotesize{Do you think that the results generated were reliable?} & 5 4 5 4 \\
+\footnotesize{Do you think ArgoUML was a good choice for a case study?} & 2 5 2 3 \\ \hline
+\end{tabular}
+\caption{Results of the usability questionnaire}
+\label{tab:postsurvey}
+\end{center}
+\end{table}
+
+We then asked the students what were the capabilities of the tool that they found the most useful during their analysis. In the order of frequency of the answers we remind: 
 
 \begin{enumerate}
-\item User defined filters (all incoming dependencies, all outgoing dependencies, dependencies weaker than...) (3 requests)
-\item Arbitrary grouping of items (selected items, classes whose name matches a certain pattern, orphan classes) (3 requests)
-\item Undo and Redo operations (2 requests)
-\item Selecting edges (multiple edges, all outgoing edges) (2 requests)
-\item View persistence (1 request)
+\item Showing dependencies between modules (2 times)
+\item The exploration (2 times) 
+\item Filters (1 times)
+\item Detail views (1 times)
+\end{enumerate}
+
+Two of the students answered with {\em "all the features we have used"} and {\em "many features, you can do a lot"}. Taken into account that would increase the count for all the features listed earlier.
+
+However, we also asked what were the features that they thought were absent in the tool. In the order of the frequency of requests we list the features here: 
+
+\begin{enumerate}
+\item User defined filters (all incoming dependencies, all outgoing dependencies, dependencies weaker than...) (3 times)
+\item Arbitrary grouping of items (selected items, classes whose name matches a certain pattern, orphan classes) (3 times)
+\item Undo and Redo operations (2 times)
+\item Selecting edges (multiple edges, all outgoing edges) (2 times)
+\item View persistence (1 times)
 \end{enumerate}
 
 
-Since the time we had performed this study, many of these features are already implemented. Some are still on the backburner.
-
-Performing a real controlled experiment remains as future work.
-In the future we plan to perform usability experiments that will evaluate the usability and usefulness of collaboration in architecture recovery and its implementation in the GVR by running some more controlled experiments.
+We had used these results to inform our work on future versions of the tool. Many of these features are included in the tool and have been presented earlier in this article. Some are still on the backburner. One of the things that still remains to be done in the future is performing a controlled experiment to evaluate the usefulness of the tool for the purpose of architecture recovery.
 
 
 \subsection {Depending on other research prototypes }
@@ -732,7 +765,7 @@ In the future we plan to perform usability experiments that will evaluate the us
 
 Depending on other research prototypes and platforms has been a benefit because we had the opportunity of using cutting edge technology, and building on the shoulders of giants, and in the same time, it made our life harder since the tools that we depended on kept moving ``under our feet'' and at times they were not maintained anymore. For example during the development of the tool the Moose framework was ported from VisualWorks Smalltalk to Pharo Smalltalk for licence reasons. The FAMIX 2.1 meta-model was declared deprecated and there is now a FAMIX 3.0 which is supported by the community. The SourcererDB has been going through an upgrade of their database and that meant that we didn't have access to their case studies for a good period of time. 
 
-This might not be a unique experience, but it is a reminder that when building research prototypes that rely on other research prototypes one needs either to shield himself from changes upstream or to be ready to constantly adapt to the changes. We believe that the best strategy is a combination of both and that the benefits of being part of a research ecosystem outweigh the difficulties.
+This might not be a unique experience, but it is a reminder that when building research prototypes that relies on other research prototypes one needs either to shield himself from changes upstream or to be ready to constantly adapt to the changes. We believe that the best strategy is a combination of both and that the benefits of being part of a research ecosystem outweigh the difficulties.
 
 
 \subsection {Installation and Documentation}
