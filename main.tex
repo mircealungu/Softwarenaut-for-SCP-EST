@@ -163,7 +163,7 @@ We present Softwarenaut \cite{lungu-relevo, lungu-packages} - the architecture r
 
 {
 %\footnotesize 
-\paragraph{Structure of the article} \sref{over} is an overview of Softwarenaut. The following two sections discuss two important phases in the workflow of any architecture recovery tool: information aggregation (\sref{org}) and interactive exploration (\sref{interact}). In \sref{evol} we detail on the way in which Softwarenaut provides support for evolutionary analysis. In \sref{views} we show how making architectural views shareable can enable collaboration. In \sref{archi} we discuss architectural considerations and in \sref{disc} we discuss the tool-building experience. In \sref{rel} we present related work. In \sref{conc} we conclude and outline future directions.
+\paragraph{Structure of the article} \sref{over} is an overview of Softwarenaut. The following two sections discuss two important phases in the workflow of any architecture recovery tool: information aggregation (\sref{org}) and interactive exploration (\sref{interact}). In \sref{evol} we detail on the way in which Softwarenaut provides support for evolutionary analysis. In \sref{views} we show how the sharing architectural views can enable collaboration. In \sref{archi} we discuss architectural considerations and in \sref{disc} we discuss the tool-building experience. In \sref{rel} we present related work and in \sref{conc} we conclude and outline future directions.
 
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -300,31 +300,39 @@ The dominant exploration mechanism of Softwarenaut is navigation along the verti
 
 The exploration operations supported by Softwarenaut are:
 
-\begin{itemize}
+\begin{description}
 
-\item {\em Expand}. The expand operation applied to a node N of the hierarchical graph (HG) in the working set (WS) replaces the node in the working set with nodes that represent its children. We define the operation formally as follows: 
+\item {\em Expand}. The expand operation applied to a node N of the hierarchical graph (HG) in the working set (WS) replaces the node in the working set with nodes that represent its children. 
+
+We define the operation formally as follows: 
 
 $ Expand_{N,HG} (WS) = WS - N + Children (N, HG)$, 
 
 where $Children(N,HG)$ is a function which returns the children of node $N$ in hierarchical graph $HG$ and ``+'' and ``-'' represent respectively set union and set subtraction.
 
-\item {\em Collapse}. The collapse operation applied to a module in a working set removes the module and all its siblings from the view and replaces them with their parent module. We define the operation as follows:
+\item {\em Collapse}. The collapse operation applied to a module in a working set removes the module and all its siblings from the view and replaces them with their parent module. 
+
+We define the operation as follows:
 
 $ Collapse_{N,HG} (WS) = WS - N - Siblings (N, HG) + Parent (N, HG)$
 
 where $Siblings(N, HG)$ is a function which returns the nodes that have the same parent with $N$ in the hierarchical graph denoted with $HG$, and $parent(N,HG)$ is a function which returns the parent of node $N$ in hierarchical graph $HG$. 
 
-\item {\em Filter}. The filter operation applied to a node removes that node from the working set. We define the operation as follows:
+\item {\em Filter}. The filter operation applied to a node removes that node from the working set. 
+
+We define the operation as follows:
 
 $ Filter_{N,HG} (WS) = WS - N$
 
-\item {\em Group}. The group operation applied to several modules in a working set removes the modules from the set and adds instead a unique new node representing the entire group. We define the group operation as follows: 
+\item {\em Group}. The group operation applied to several modules in a working set removes the modules from the set and adds instead a unique new node representing the entire group. 
+
+We define the group operation as follows: 
 
 $ Group_{N_{i},HG} = WS - N_i + NewGroupNode $
 
 where $N_i$ is the set of nodes the user wants to group.
 
-\end{itemize}
+\end{description}
 
 As the user refines the view, and climbs down in the hierarchy of the system, he brings more and more elements into the view. He can use the Filter and Group operations on explicit sets of nodes to decrease the number of nodes displayed on screen and therefore cope with the complexity of large graphs. One type of modules that benefit the user when filtered out are the {\em omnipresent modules} which contribute little to the understanding of the architecture of the system, and heavily clutter the view \cite{mitchell-bunch}.
 
@@ -445,7 +453,7 @@ One of the applications of multi-version analysis is the {\em Relationship Evolu
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.8\linewidth]{images/Filmstrip}
+\includegraphics[width=0.82\linewidth]{images/Filmstrip}
 \caption{The Relationship Evolution Filmstrip presents the evolution of a given relationship through the multiple versions of the system available for analysis}
 \flabel{fig:evolstrip}
 \end{center}
@@ -465,22 +473,24 @@ Filters for relationships and modules are a powerful mechanism for coping with t
 
 Evolutionary filters for both relationships and entities can be classified in two main categories:
 
-\begin{itemize}
+\begin{description}
 \item {\em Age-based} filters take into account the number of versions in which the relationships or modules existed in the system. {\em Lifetime relationships} have existed in all the versions of the system, {\em Newborn relationship} have appeared only in the last analyzed version \cite{lungu-relevo}, {\em Historical modules} have existed since the first analyzed versions of the system.
 \item {\em Dynamics-based} filters take into account the dynamics of the relationships and modules across versions. {\em Stable relationships} do not change much during the evolution of the system, {\em Instable relationships} changed much during the history of the system.
-\end{itemize}
+\end{description}
 
 Evolutionary filters assume that not all the entities are equally relevant for the task at hand. Different types of evolutionary filters support different goals of analysis. Two such goals and the corresponding filters are:
 
-\begin{itemize}
+\begin{enumerate}
 \item {\em Architecture Recovery.} When recovering the architecture of a system one needs to discover first the main components of the system. A filter like {\em lifetime relationships} is relevant since the relationships that existed in the system since the first versions are more likely to be part of the architectural backbone of the system.
 %TODO Reference.
 \item {\em Quality Assessment.} When assessing the quality of an architecture the goal is to find the problems, the irregularities. In this context filters like {\em newborn relationships} are of use since they allow focussing on new relationships that were were not validated by time which might be the result of changes performed by new developers that are unaware of the architecture of the system. 
 %Reference
-\end{itemize}
+\end{enumerate}
 
 \fref{lvr} presents two views on the same modules that are also present in \fref{filpan} but with age-based filters activated. 
-The left side presents only the {\em lifetime relationships}: 21 relationships that existed between the displayed modules in all the versions of the system. The right side presents only the {\em newborn relationships}: 36 relationships introduced in the system in the latest version. The usefulness of the filters is hinted by the fact that both the numbers are very low in comparison with the total number of relationships that are present in the last version of the system; both function as powerful filters.
+The left side presents only the {\em lifetime relationships}: 21 relationships that existed between the displayed modules in all the versions of the system. The right side presents only the {\em newborn relationships}: 36 relationships introduced in the system in the latest version. 
+
+The usefulness of the filters is hinted by the fact that in both the views, the number of relationships is very low compared with the total number of relationships that are present in the last version of the system; ergo, both types of filters function as powerful information reductors.
 
 \begin{figure}
 \begin{center}
@@ -577,7 +587,7 @@ The architectural views as saved in the GVR can serve as the basis for monitorin
 \end{center}
 \end{figure}
 
-The GVR is implemented as a relational database\footnote{A PostgreSQL database} which can be publicly accessed by instances of Softwarenaut or other tools. %In the future we plan to provide a web services interface to the GVR. 
+The GVR is implemented as a relational database (PostgreSQL) which can be publicly accessed by instances of Softwarenaut or other tools. %In the future we plan to provide a web services interface to the GVR. 
 
 
 
@@ -708,7 +718,7 @@ This might not be a unique experience, but it is a reminder that when building r
 Softwarenaut is written in the Smalltalk programming language and is released under the open source MIT Licence. The tool is available online at {\footnotesize \url{http://scg.unibe.ch/softwarenaut/}}. On the homepage of the tool there are a set of screencasts that present its various features together with other documentation, installation instructions, and instructions on how to obtain the source code. 
 
 
-\newpage
+%\newpage
 % REL
 \section {Related Work}
 \label {sec:rel}
