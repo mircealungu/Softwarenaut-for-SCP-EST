@@ -270,9 +270,9 @@ The UI of Softwarenaut contains three linked complementary visual perspectives t
 \end{center}
 \end{figure}
 
-The three complementary views that the tool supports:
+The three complementary views that the tool supports are the architectural, the detail, and the overview views:
 
-\begin{enumerate}
+\begin{description}
 
 \item The {\em Architectural View} is Softwarenaut's main view. It is a graph-based representation of modules and their dependencies. The nodes in the graph represent modules and the edges represent the dependencies between the modules. Each dependency edge is an aggregation of low-level dependencies between the two associated modules. To represent the nodes and edges here we use Lanza's polymetric approach \cite{lanza-pv, lanza-oomp}. 
 
@@ -280,7 +280,7 @@ The three complementary views that the tool supports:
 
 \item The {\em Overview} panel presents the entire hierarchy of a system and highlights the modules that are visible in the exploration panel. The Overview panel presents a horizontal slice through a system \cite{wong-thesis}, offering an orientation aid which is critical for successful navigation \cite{storey-awareness}.
 
-\end{enumerate}
+\end{description}
 
 In this section we detail the interactive techniques that support the exploration process in Softwarenaut: navigation (\ref{sec:navi}), details-on-demand (\ref{sec:dod}), rule-based filtering (\ref{sec:filtering}) and first-class views and collaboration (\ref{sec:views}).  
 
