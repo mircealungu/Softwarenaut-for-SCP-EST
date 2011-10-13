@@ -677,9 +677,9 @@ These papers could have not been written if it were not for the Softwarenaut whi
 \subsection {Studying the Usability of the Tool}
 We have often used Softwarenaut to analyze Softwarenaut itself, and this has determined several re-architecting sessions as well as UI improvements. We also used the tool in the practical part of the Software Evolution master course at the University of Lugano to get feedback on its usability and usefulness. 
 
-In the second year of using the tool in the Software Evolution course we decided to have a qualitative experiment in which we asked the students to analyze a large software system they have never seen before\footnote{In this case it was ArgoUML} with the help of Softwarenaut and to produce an architectural report. Our main goal in organizing the experiment was to get feedback on the usability of the tool; our second goal was to collect anecdotal evidence on its usefulness for architecture recovery.
+In the second year of using the tool in the Software Evolution course we decided to have a qualitative experiment in which we asked the students to analyze a large software system they have never seen before with the help of Softwarenaut and to produce an architectural report. Our main goal in organizing the experiment was to get feedback on the usability of the tool; our second goal was to collect anecdotal evidence on its usefulness for architecture recovery.
 
-Eight participants, one PhD and seven master students participated in the experiment. We asked them to perform the tasks presented in \tref{questions} on ArgoUML. We had them work in teams of two and asked them to provide us with a report of their findings. After providing us with the report, they had to fill a questionnaire on the usability of the tool. 
+Eight participants, one PhD and seven master students participated in the experiment. We presented the tool during one hour. Then they had two hours to perform the tasks presented in \tref{questions}. The case study was ArgoUML. We had them work in teams of two and asked them to provide us with a report of their findings. After providing us with the report, they had to fill a questionnaire on the usability of the tool. 
 
 \begin{table}[t!]
 \begin{center}
@@ -703,12 +703,15 @@ By analyzing their reports we observed several things:
 
 \begin{itemize}
 \item In several of the tasks (1--3) each of the teams provided a slightly different perspective on the system. The differences were in the layouts they used, in the filtering they applied. Each one captured a certain aspect of the system. Unfortunately at the time there was no way for them to share the views with each other and discuss them.
-\item Some of the tasks were not solved by all the teams (4--5,8). One reason was the insufficient training with the tool, another reason were the usability limitations of the tool at the time of the experiment. We will discuss these limitations later. 
+\item Some of the tasks were not solved by all the teams (4--5,8). One reason was the insufficient training with the tool, another reason were the usability limitations of the tool at the time of the experiment. %\footnote{We will discuss these limitations later. }
 \item For one of the tasks (8) the tool was not sufficient and they had to rely on the online documentation of the analyzed system. 
 \item For the questions regarding dependencies (4,8) all the users preferred the tool to reading the code or online documentation.
 \end{itemize}
 
-After they prepared their reports we asked the users to fill a questionnaire and evaluate the usability of the tool. The first part of the questionnaire were several questions that had answers from 1 to 5 measuring the strength of their agreement with the assertion. \tref{postsurvey} presents the assertions together with the average agreement level. Although not statistically relevant the results show that the tool was easy to use, the students felt confident that the results they provided were reliable, and they found the dependency analysis easy to use. There was less agreement on whether the user interface was intuitive and whether ArgoUML was an appropriate case study. We believe that these two last answers were due to the limited time they had to accommodate themselves with the tool and the difficulty of ArgoUML as a case study.
+After they submitted their reports we asked the users to fill a questionnaire and evaluate the usability of the tool. 
+
+The first part of the questionnaire contained several assertions. The users had to mark the strength of their agreement with each assertion on a scale from 1 to 5. \tref{postsurvey} presents the assertions together with the average agreement level. Although not statistically relevant the results show that the tool was easy to use, the students felt confident that the results they provided were reliable.%, and they found the dependency analysis easy to use. 
+There was less agreement on whether the user interface was intuitive and whether ArgoUML was an appropriate case study. We believe that these two last answers were due to the limited time they had at disposition. %to accommodate themselves with the tool and the difficulty of ArgoUML as a case study.
 
 \begin{table}[ht]
 \begin{center}
@@ -716,7 +719,7 @@ After they prepared their reports we asked the users to fill a questionnaire and
 \footnotesize{Assertion} & \footnotesize{Agreement Level (average)} \\ \hline
 \footnotesize{The tool was simple to use} & \footnotesize{4}  \\
 \footnotesize{The user interface was intuitive} & \footnotesize{3.25} \\
-\footnotesize{It was easy to discover dependencies between modules} & \footnotesize{4.25} \\
+%\footnotesize{It was easy to discover dependencies between modules} & \footnotesize{4.25} \\
 \footnotesize{The results generated were reliable} & \footnotesize{4.5} \\
 \footnotesize{Do you think ArgoUML was a good choice for a case study?} & \footnotesize{3} \\ \hline
 \end{tabular}
