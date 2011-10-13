@@ -85,6 +85,7 @@
 \newcommand{\ra}{$\rightarrow$}
 \newcommand{\chg}[2]{\textcolor{red}{\sout{#1}}{\ra}\textcolor{blue}{\uline{#2}}} % please change
 \newcommand{\ins}[1]{\textcolor{blue}{\uline{#1}}} % please insert
+\newcommand{\rewritten}{\textcolor{red}{\uline{Rewritten!}}} % please insert
 
 
 \begin{document}
@@ -422,7 +423,9 @@ Softwarenaut also implements advanced filters for relationships:
 
 Softwarenaut can take evolutionary information into account to provide better detail views and filters.
 
-To support multi-version analysis Softwarenaut requires that models of multiple versions of the system under analysis be available. \fref{fig:mva} shows that each of the models will have its own hierarchical graph. To allow monitoring the evolution of the individual elements through multiple versions one needs to link the corresponding elements in the different versions. Although more complicated approaches are available, in our case we perform a name-based matching of the entities.
+To support multi-version analysis Softwarenaut requires that models of multiple versions of the system under analysis be available. \fref{fig:mva} shows that a system history in Softwarenaut is composed of a list of hierarchical graphs, one for each analyzed version. This approach is conceptually the same as the one of G{\^i}rba \cite{girba-thesis}. One limitation of such an approach is that the number of versions that can be analyzed can not be too large. As a result one needs a strategy for selecting the versions that compose the history.
+
+To allow monitoring the evolution of the individual elements through multiple versions one needs to link the corresponding elements in the different versions. Although more complicated approaches are available, in our case we perform a name-based matching of the entities.
 
 \begin{figure}[h]
 \begin{center}
@@ -432,9 +435,7 @@ To support multi-version analysis Softwarenaut requires that models of multiple 
 \end{center}
 \end{figure}
 
-As the figure shows, for multi-version analysis every version that is included in the analysis will get its own hierarchical graph model. This limits the number of versions that can be analyzed just as Girba also discovered when doing similar analysis \cite{girba-thesis}.
-
-The two applications of multi-version analysis in Softwarenaut are evolutionary detail views and evolutionary filters. In the following sections we will detail each on in turn.
+The two applications of multi-version analysis in Softwarenaut are detail views and filters. In the following sections we will detail each on in turn.
 
 \newpage
 \subsection {Evolutionary Detail Views}
@@ -451,35 +452,38 @@ One of the applications of multi-version analysis is the {\em Relationship Evolu
 
 \fref{fig:evolstrip} presents two examples of relationship evolution filmstrips from two of our case-studies: Azureus and ArgoUML. In the film strip, the arrows between the modules represent implicit dependencies of different types (the invocation dependencies are represented in black and the inheritance dependencies are represented in red). The width of the dependency arrows is proportional to the number of low-level dependencies abstracted in the corresponding implicit dependency \cite{lungu-relevo}. The representation of the width of the dependencies provides insight into the quantitative dynamics of the inter-module relationship.
 
-In the first case the figure shows that the relationships between the two modules evolved heavily during the evolution. In the second case we see that the relationship is quite new: it appeared only in the last two versions of the system and is also quite weak.
+In the first case the figure shows that the relationships between the two modules evolved heavily during the evolution. In the second case we see that the relationship is recent and weak: it shows that the kernel depends on the internationalization ({\em i18n}) module. 
 
 
 
 \subsection {Evolutionary Filters}
 
-Rule-based relationship and module filters are a powerful way of coping with large amounts of visual information. They allow displaying only a subset of the elements in an architectural view that is important for the task at hand. 
+Filters for relationships and modules are a powerful mechanism for coping with the large graphs that some systems entail. They allow displaying only those elements in an architectural view that are important for a given task and this focusing the analysis. 
+%TODO: have a reference here!
 
-Evolutionary filters exist for both relationships and entities and can be classified in two main categories:
+Evolutionary filters for both relationships and entities can be classified in two main categories:
 
 \begin{itemize}
-\item {\bf Age-based}. These take into account the number of versions in which the relationships existed in the system. {\em Lifetime relationships} have existed in all the versions of the system, {\em Newborn relationship} have appeared only in the last analyzed version \cite{lungu-relevo}, {\em Historical modules} have existed since the first analyzed versions of the system.
-\item {\bf Dynamics-based}. These take into account the dynamics of the relationships across versions. {\em Stable relationships} do not change much during the evolution of the system, {\em Instable relationships} changed much during the history of the system.
+\item {\em Age-based} filters take into account the number of versions in which the relationships or modules existed in the system. {\em Lifetime relationships} have existed in all the versions of the system, {\em Newborn relationship} have appeared only in the last analyzed version \cite{lungu-relevo}, {\em Historical modules} have existed since the first analyzed versions of the system.
+\item {\em Dynamics-based} filters take into account the dynamics of the relationships and modules across versions. {\em Stable relationships} do not change much during the evolution of the system, {\em Instable relationships} changed much during the history of the system.
 \end{itemize}
 
-The importance of evolutionary filters is given by the simple principle: not all the entities are equally relevant for the task at hand. The different types of evolutionary filters support different goals of analysis. Two such goals and the corresponding relationships are:
+Evolutionary filters assume that not all the entities are equally relevant for the task at hand. Different types of evolutionary filters support different goals of analysis. Two such goals and the corresponding filters are:
 
 \begin{itemize}
-\item {\em Architecture Recovery.} When recovering the architecture of a system, the lifetime relationships are more relevant. They represent the architectural backbone of the system and their stability over time insures that it is worth analyzing them first.
-\item {\em Quality Assessment.} When assessing the quality of an architecture, the recent relationships are of higher interest. Since they were not validated by time they might be the result of changes performed by new developers that are unaware of the architecture of the system. 
+\item {\em Architecture Recovery.} When recovering the architecture of a system one needs to discover first the main components of the system. A filter like {\em lifetime relationships} is relevant since the relationships that existed in the system since the first versions are more likely to be part of the architectural backbone of the system.
+%TODO Reference.
+\item {\em Quality Assessment.} When assessing the quality of an architecture the goal is to find the problems, the irregularities. In this context filters like {\em newborn relationships} are of use since they allow focussing on new relationships that were were not validated by time which might be the result of changes performed by new developers that are unaware of the architecture of the system. 
+%Reference
 \end{itemize}
 
 \fref{lvr} presents two views on the same modules that are also present in \fref{filpan} but with age-based filters activated. 
-The left side presents only the {\em Lifetime} relationships: 21 relationships that existed between the displayed modules in all the versions of the system. The right side presents only the {\em Recent} relationships: 36 relationships introduced in the system in the latest version. The usefulness of the filters is hinted by the fact that both the numbers are very low in comparison with the total number of relationships that are present in the last version of the system; both function as powerful filters.
+The left side presents only the {\em lifetime relationships}: 21 relationships that existed between the displayed modules in all the versions of the system. The right side presents only the {\em newborn relationships}: 36 relationships introduced in the system in the latest version. The usefulness of the filters is hinted by the fact that both the numbers are very low in comparison with the total number of relationships that are present in the last version of the system; both function as powerful filters.
 
 \begin{figure}
 \begin{center}
 \includegraphics[width=\linewidth]{Architecture-LifetimeVsRecent}
-\caption{The left part of the figure shows the Lifetime Relationships while the right part of the figure presents the Recent Relationships in the Azureus case study}
+\caption{The left part of the figure shows the {\em lifetime relationships} while the right part of the figure presents the {\em newborn relationships} in the Azureus case study}
 \flabel{lvr}
 \end{center}
 \end{figure}
@@ -675,8 +679,12 @@ Since then we have implemented most of the features that the students requested.
 
 
 
-%\subsection {Depending on other research prototypes}
-%Depending on other research prototypes and platforms has been a benefit because we had the opportunity of using cutting edge technology, and building on the shoulders of giants, and in the same time, it made our life harder since the tools that we depended on kept moving ``under our feet'' and at times they were not maintained anymore. We believe however that the benefits outweighted the difficulties.
+\subsection {Depending on other research prototypes }
+\rewritten
+
+Depending on other research prototypes and platforms has been a benefit because we had the opportunity of using cutting edge technology, and building on the shoulders of giants, and in the same time, it made our life harder since the tools that we depended on kept moving ``under our feet'' and at times they were not maintained anymore. For example during the development of the tool the Moose framework was ported from VisualWorks Smalltalk to Pharo Smalltalk for licence reasons. The FAMIX 2.1 meta-model was declared deprecated and there is now a FAMIX 3.0 which is supported by the community. The SourcererDB has been going through an upgrade of their database and that meant that we didn't have access to their case studies for a good period of time. 
+
+This might not be a unique experience, but it is a reminder that when building research prototypes that rely on other research prototypes one needs either to shield himself from changes upstream or to be ready to constantly adapt to the changes. We believe that the best strategy is a combination of both and that the benefits of being part of a research ecosystem outweigh the difficulties.
 
 
 \subsection {Installation and Documentation}
