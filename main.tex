@@ -347,6 +347,7 @@ The Detail panel of Softwarenaut is one of the ways in which one can understand 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection {Detail Views for Modules}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%TODO: Quickly implement an evolutionary detail view for modules. IT is too lame to have Method List in there!!!
 
 The detail views for modules present various details of a module under focus. Softwarenaut provides a variated set of detail views for nodes that allow understanding the module under focus. Two examples of such views are: 
 
@@ -659,51 +660,71 @@ SPO needs to support navigation between the two abstraction levels to support th
 \section {Tool-Building Considerations}
 \label {sec:disc}
 
-Softwarenaut served as the research prototype for many of the research ideas we had during the PhD of the first author. As a result, the tool was the basis for a number of research papers \cite{lungu-cutedge, lungu-clust, lungu-packages, lungu-relevo}. Many of these papers could have not been written if it were not for the Softwarenaut which was a testbed for our ideas. 
+Softwarenaut served as the prototype for many of the research ideas we had during the PhD of the first author. We have integrated the tool with others \cite{lungu-clust, lungu-scico, nier-story} and we provided a framework in which master projects can be developed \cite{boeckmann-mars}. We have also used the tool several times to perform reverse engineering in consulting projects.
 
-We have obviously used Softwarenaut to to analyze Softwarenaut itself, and this has determined several re-architecting sessions. However, all throughout the development of the tool we wanted to have a tool that was usable. This allowed us to collaborate with others. We have integrated the tool with others \cite{lungu-clust, lungu-scico, nier-story} and we provided a framework in which master projects can be developed \cite{boeckmann-mars}. We have also used the tool several times to perform reverse engineering in consulting projects.
+The tool was the basis for a number of research papers: 
+\begin{itemize}
+\item {\em Exploring Inter-Module Relationships in Software Systems} \cite{lungu-relevo}: The article presents a taxonomy of inter-module dependencies in software systems based on their evolution patterns.
+\item {\em Interactive Exploration of Semantic Clusters} \cite{lungu-clust}: The article proposes a technique for visualizing dendrograms of software systems using an exploration approach.
+\item {\em Cutting Edge Visualization in Software} \cite{lungu-cutedge}: The short article argues for the importance of providing detail views that allow one to understand dependencies in software.
+\end{itemize}
 
-In the next section we present a brief discussion on evaluating the tool with students.
+%\cite{lungu-cutedge, lungu-clust, lungu-packages, lungu-relevo}. 
+These papers could have not been written if it were not for the Softwarenaut which was a testbed for our ideas. 
 
-\subsection {Evaluating the Usability and Usefulness of the Tool}
-We have tested the Softwarenaut tool with students in the Software Evolution master course at the University of Lugano. In a qualitative experiment we asked the students to analyze a large software system \footnote{In this case it was ArgoUML} they have never seen before with the help of Softwarenaut and to produce an architectural report. Our goal in organizing the experiment was to test Softwarenaut and get feedback on both the usability of the tool and its usefulness for architecture recovery in the context of large software systems. 
+%In the next section we present a brief discussion on evaluating the tool with students.
+
+\subsection {Studying the Usability of the Tool}
+We have often used Softwarenaut to analyze Softwarenaut itself, and this has determined several re-architecting sessions. However, all throughout the development of the tool we wanted to have a tool that was usable. One way in which we evaluated its usability was to use it in the teaching of the Software Evolution master course at the University of Lugano. 
+
+In the second year of using the tool in the Software Evolution course we decided to have a qualitative experiment in which we asked the students to analyze a large software system they have never seen before\footnote{In this case it was ArgoUML} with the help of Softwarenaut and to produce an architectural report. Our goal in organizing the experiment was to get feedback on the usability of the tool. Although we hoped that in the process we would gain insight into its usefulness for the purpose of architecture recovery that was not the main goal of the study. 
+
+Eight participants, seven master and one PhD student participated in the experiment. We asked them to perform the tasks presented in \fref{tasks} on ArgoUML. We had them work in teams of two and asked them to provide us with a report of their findings. Our main goal was to learn about usability but we also analyzed their reports. Several of the observations we made are: 
 
 
 
-To make the assignment more engaging for the students we grouped them in teams of two. To guide their analysis we asked them to perform a series of tasks which are presented in \fref{tasks}. After the students submitted the reports, we analyzed them ourselves and found them to be of various detail and quality. We list here several of the observations that we made after analyzing the reports that the students submitted:
 
-\begin{figure}[t]
+\begin{itemize}
+\item At question 1 that every group came with a different set of views on the system. We considered this to be an argument for architecture being ``{\em is in the eye of the beholder}'' just as quality is \cite{bass-architecture}. 
+
+\item For questions 2 and 3 the opinions were divided but each group was ready to argue its position. We were satisfied to see that the tool spawned and supported argumentation and discussion, but in retrospective these two questions were too vague. In a controlled experiment one would use questions which have an unambiguous answer. 
+
+
+\begin{figure}[h]
 \begin{center}
 \includegraphics[width=\linewidth]{tasks}
-\caption{The eight tasks the students had to solve during two hours of the software design and evolution lab}
+\caption{The eight tasks the students had to solve in two hours.}
 \flabel{tasks}
 \end{center}
 \end{figure}
 
+\item Questions 4, 5, and 6 were not solved by everybody. We think one reason was the insufficient training with the tool. We suspect that the main reason were the limitations of the tool at the time of the experiment. %We will discuss these limitations later. 
 
-\begin{itemize}
-\item At question 1 that every group came with a different perspective and with a set of different views on the system. We considered this to be an argument for architecture being ``{\em is in the eye of the beholder}'' just as quality \cite{bass-architecture}.
+\item Question 7 brought agreement. All the groups that answered thought the system was well structured. We do not necessarily agree as we consider that the high-level architecture has too much coupling between the different modules. The prestige of the system might have influenced the assessment of the students. 
+%Compared to other systems that we have analyzed along the time we agree that ArgoUML has a better modular structure than the average system with fewer modules and fewer inter-module dependencies. However, we 
 
-\item The opinions were divided for question 2 and 3. Each group was ready to argue its position. 
+\item Question 8. Actually these were a series of questions. To answer the first some of the students looked at the names of the modules that they encountered in Softwarenaut and correctly guessed that it would have been the {\em language} module that had to be changed. Others found the same answer in the documentation of the system. All of them used the tool to assess the modules that might be impacted. This could have not been done just by looking at the documentation.
 
-\item Questions 4, 5, and 6 were not solved by everybody. We think the reason was the lack of sufficient training with the tool as well as some of the limitations that the users reported and which we present later.
-
-\item All the groups that answered thought the system was well structured, fact with which we agree. However, one group blamed information overload for not answering. 
-
+None of the students could offer an estimation. Obviously the tool is not supporting such a feature.
 \end{itemize}
 
-We also asked the students to fill a post-analysis questionnaire. 
+We also asked the students to fill a post-analysis questionnaire with their evaluations on the tool usability. Most of the students found the tool easy to use and considered that the reports they generated were reliable. They estimated that they got a better understanding of the system by using the tool. 
 
-By analyzing the post-experiment questionnaire we observed that most of the students found the tool easy to use and most of them considered that the reports they generated were reliable. They estimated that they got a better understanding of the system by using Softwarenaut. The most important feedback for us was related to the features of the tool that they students found useful, or the ones that they wanted to have but did not have:
+However, they noted that there were several features that they required from the tool. In the order of the frequency of requests we list the features here: 
 
-\begin{itemize}
-\item The features that the students found most useful in their analysis were the details-on-demand views, and the predefined filters for both nodes and edges.
-\item The features that the students thought were missing (in decreasing order of the frequency of request) were: undo and redo facilities, user-defined filters, arbitrary and rule-based grouping of elements, view persistence.
+\begin{enumerate}
+\item User defined filters (all incoming dependencies, all outgoing dependencies, dependencies weaker than...) (3 requests)
+\item Arbitrary grouping of items (selected items, classes whose name matches a certain pattern, orphan classes) (3 requests)
+\item Undo and Redo operations (2 requests)
+\item Selecting edges (multiple edges, all outgoing edges) (2 requests)
+\item View persistence (1 request)
+\end{enumerate}
 
-\end{itemize}
 
-Since then we have implemented most of the features that the students requested. One of these features is the view persistence and sharing as a means of supporting collaboration. In the future we plan to perform usability experiments that will evaluate the usability and usefulness of collaboration in architecture recovery and its implementation in the GVR by running some more controlled experiments.
+Since the time we had performed this study, many of these features are already implemented. Some are still on the backburner.
 
+Performing a real controlled experiment remains as future work.
+In the future we plan to perform usability experiments that will evaluate the usability and usefulness of collaboration in architecture recovery and its implementation in the GVR by running some more controlled experiments.
 
 
 \subsection {Depending on other research prototypes }
