@@ -85,7 +85,7 @@
 \newcommand{\ra}{$\rightarrow$}
 \newcommand{\chg}[2]{\textcolor{red}{\sout{#1}}{\ra}\textcolor{blue}{\uline{#2}}} % please change
 \newcommand{\ins}[1]{\textcolor{blue}{\uline{#1}}} % please insert
-\newcommand{\rewritten}{\textcolor{red}{\uline{Rewritten!}}} % please insert
+\newcommand{\rewritten}{\textcolor{red}{\uline{Rewritten}\ra\space }} % please insert
 
 
 \begin{document}
@@ -163,7 +163,7 @@ We present Softwarenaut \cite{lungu-relevo, lungu-packages} - the architecture r
 
 {
 %\footnotesize 
-\paragraph{Structure of the article} \sref{over} is an overview of Softwarenaut. The following two sections discuss two important phases in the workflow of any architecture recovery tool: information aggregation (\sref{org}) and interactive exploration (\sref{interact}). In \sref{archi} we discuss architectural considerations and in \sref{disc} we discuss the tool-building experience. In \sref{rel} we present related work. In \sref{conc} we conclude and outline future directions.
+\paragraph{Structure of the article} \sref{over} is an overview of Softwarenaut. The following two sections discuss two important phases in the workflow of any architecture recovery tool: information aggregation (\sref{org}) and interactive exploration (\sref{interact}). In \sref{evol} we detail on the way in which Softwarenaut provides support for evolutionary analysis. In \sref{views} we show how making architectural views shareable can enable collaboration. In \sref{archi} we discuss architectural considerations and in \sref{disc} we discuss the tool-building experience. In \sref{rel} we present related work. In \sref{conc} we conclude and outline future directions.
 
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -203,6 +203,8 @@ The article continues with detailing the second and third step, the first one be
 \section {Information Abstraction} \label{sec:org}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\rewritten 
 
 Aggregating horizontal relationships between software artifacts along the containment relationships is the fundamental technique that enables abstraction in Softwarenaut. 
 
@@ -373,7 +375,7 @@ Invoked Artifacts (right)}
 
 
 
-\newpage
+%\newpage
 \subsection {Rule-Based Filtering}
 \slab{filtering}
 
@@ -415,11 +417,11 @@ Softwarenaut also implements advanced filters for relationships:
 \fref{filpan} presents the relation filtering panel as implemented in Softwarenaut. Several filters can be combined to obtain more powerful ones with either the ``and'' or the ``or'' operator. The elements that match the filter can be either ``shown'' or ``hidden''. The user can define new filters by writing simple scripts in Smalltalk. The system is fully reflective, and as soon as a new filter is defined, it will immediately appear in the list of available filters.
 
 
-\newpage
+%\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section {Evolutionary Analysis}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\label{sec:evol}
+\slab{evol}
 
 Softwarenaut can take evolutionary information into account to provide better detail views and filters.
 
@@ -732,7 +734,7 @@ As far as we are aware we are the only ones to propose filters based on evolutio
 The second related work is of Abram Hindle et al. \cite{hindle-yarn} who introduce the YARN visualization prototype which animates the evolution of dependencies between the modules of a system. The main difference between our approach and theirs is that we work on a snapshot-based model and they work on a commit-based model. Their commit-based model is advantageous since they benefit from more detailed information about the system; the disadvantage is that the animation of all the commits is time consuming. They do not support a query mechanism for visualizing only special types of relations.
 
 
-\section {First-Class Views and Collaboration} 
+\subsection {First-Class Views and Collaboration} 
 
 The work of Storey et al. on Shrimp also allows for saving and restoring views \cite{rayside-flow}. The views are saved inside a ``Filmstrip'' which is persistent. Through the intermediation of the filmstrips the users can restore exploration sessions or even share certain views. This type of information allows people that know about each other to share information by emailing the files. The advantage of the Global View Repository is that it allows for discovering information that other users have discovered and about which the analysis is not aware. 
 %(http://www.thechiselgroup.org/shrimp_manual_filmstrip)
@@ -741,10 +743,9 @@ The work of Storey et al. on Shrimp also allows for saving and restoring views \
 Relevant for the collaborative reverse engineering part of our work is the Churrasco work of D’Ambros et al. \cite{dambros-churrasco}. Churrasco supports software evolution modeling, visualization and analysis through a web interface. 
 Through an example scenario they show that Churrasco allows for collaborative software evolution analysis, and they attribute this to the availability on the web of the tool. The collaboration happens by annotating the various elements in the views of Churrasco. However, their tool presents a set of predefined views and they are not that much architectural views but rather design-level views. 
 
-\chg{}{
+\rewritten
 One project developed with collaboration support as the main goal is the Jazz IDE of IBM \cite{hupfer-jazz}. 
 In their case they aim at supporting collaboration and awareness in small informal software development teams during forward engineering. In our case we use the Softwarenaut to support collaboration between engineers during program understanding. However, the architectural views of Softwarenaut once recovered during reverse engineering can be used to support evolutionary awareness during forward engineering. In fact, the dashboard of Jazz could benefit from integrating Softwarenaut-based architectural views which highlight system evolution.
-}
 
 %Jazz has several features to support awareness of team member activities in addition to screen sharing such as local history of chats that are anchored in the code providing therefore context to the discussions. The main difference between their work and ours is the goal of the project.
 
@@ -752,7 +753,6 @@ In their case they aim at supporting collaboration and awareness in small inform
 
 
 
-\newpage
 % CONC
 \section {Conclusions and Future Work}
 \label {sec:conc}
