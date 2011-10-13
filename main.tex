@@ -204,7 +204,6 @@ The article continues with detailing the second and third step, the first one be
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\rewritten 
 
 Aggregating horizontal relationships between software artifacts along the containment relationships is the fundamental technique that enables abstraction in Softwarenaut. 
 
@@ -219,6 +218,7 @@ The figure contains for example the following two explicit low-level dependencie
 \end{center}
 \end{figure}
 
+\rewritten 
 
 Aggregating the relationships across the vertical hierarchy has an $O(n^2)$ order of complexity \cite{buchsbaum-hierarchicalgraphs}. This means that for non-trivial systems, the on-the-fly computation of the dependencies can make interactive analysis sluggish. To allow interactivity one must pre-compute the dependencies between the nodes in the hierarchy. The data structure that allows keeping track of the pre-computed dependencies is a {\em hierarchical graph}. 
 
