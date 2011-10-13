@@ -521,7 +521,7 @@ Views are first-class entities in Softwarenaut: one can save and restore any vie
 %This this allows for a {\em divide et impera} approach to architecture recovery and representation: 
 The view persistence mechanism can be used also as a way of conquering the complexity of top-down exploration. When the architectural view under analysis becomes too complex, the user can save it and then explore different sub-parts of it. This is addressed partially in other tools by the use of semantic zooming techniques \cite{storey-shrimp}. 
 
-In Softwarenaut a {\em view} contains the following information: 
+In Softwarenaut a {\em view} is defined by the following information: 
 \begin{itemize}
 \item a name and description,
 \item the name and version of the system under analysis
@@ -559,7 +559,7 @@ To support sharing and discovering architectural views we have created the {\em 
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.9\linewidth]{images/CollaborationConcept}
+\includegraphics[width=0.7\linewidth]{images/CollaborationConcept}
 \caption{Architectural Views are stored in the Global View Repository. This enables collaboration through knowledge sharing and discovery}
 \flabel{fig:gvr}
 \end{center}
@@ -577,7 +577,7 @@ The architectural views as saved in the GVR can serve as the basis for monitorin
 
 \item The top part of the inset presents the locally stored views which the user has in the image. For each of them the user can load it, delete it, or push it to the GVR. In the inset, the buttons which have black text represent operations that can be applied on the local views.
 
-\item The bottom part presents the views which exist for the given system in the GVR. From the global view repository he can pull views in the local repository, or if he is the creator of such a view he can delete it from the global repository too. The view sharing mechanism is the latest addition to Softwarenaut.
+\item The bottom part presents the views which exist for the given system in the GVR. From the global view repository he can pull views in the local repository, or if he is the creator of such a view he can delete it from the global repository too. 
 \end{itemize}
 
 
@@ -675,89 +675,97 @@ These papers could have not been written if it were not for the Softwarenaut whi
 %In the next section we present a brief discussion on evaluating the tool with students.
 
 \subsection {Studying the Usability of the Tool}
-We have often used Softwarenaut to analyze Softwarenaut itself, and this has determined several re-architecting sessions. However, all throughout the development of the tool we wanted to have a tool that was usable. One way in which we evaluated its usability was to use it in the teaching of the Software Evolution master course at the University of Lugano. 
+We have often used Softwarenaut to analyze Softwarenaut itself, and this has determined several re-architecting sessions as well as UI improvements. We also used the tool in the practical part of the Software Evolution master course at the University of Lugano to get feedback on its usability and usefulness. 
 
-In the second year of using the tool in the Software Evolution course we decided to have a qualitative experiment in which we asked the students to analyze a large software system they have never seen before\footnote{In this case it was ArgoUML} with the help of Softwarenaut and to produce an architectural report. Our goal in organizing the experiment was to get feedback on the usability of the tool. Although we hoped that in the process we would gain insight into its usefulness for the purpose of architecture recovery that was not the main goal of the study. 
+In the second year of using the tool in the Software Evolution course we decided to have a qualitative experiment in which we asked the students to analyze a large software system they have never seen before\footnote{In this case it was ArgoUML} with the help of Softwarenaut and to produce an architectural report. Our main goal in organizing the experiment was to get feedback on the usability of the tool; our second goal was to collect anecdotal evidence on its usefulness for architecture recovery.
 
-Eight participants, seven master and one PhD student participated in the experiment. We asked them to perform the tasks presented in \tref{questions} on ArgoUML. We had them work in teams of two and asked them to provide us with a report of their findings. Our main goal was to learn about usability but we also analyzed their reports. Several of the observations we made are: 
+Eight participants, one PhD and seven master students participated in the experiment. We asked them to perform the tasks presented in \tref{questions} on ArgoUML. We had them work in teams of two and asked them to provide us with a report of their findings. After providing us with the report, they had to fill a questionnaire on the usability of the tool. 
 
-
-
-
-\begin{itemize}
-\item At question 1 that every group came with a different set of views on the system. We considered this to be an argument for architecture being ``{\em is in the eye of the beholder}'' just as quality is \cite{bass-architecture}. 
-
-\item For questions 2 and 3 the opinions were divided but each group was ready to argue its position. We were satisfied to see that the tool spawned and supported argumentation and discussion, but in retrospective these two questions were too vague. In a controlled experiment one would use questions which have an unambiguous answer. 
-
-
-\begin{table}[ht]
+\begin{table}[t!]
 \begin{center}
-\begin{tabular}{l p{0.75\linewidth}}
-\# & \footnotesize{Task/Question} \\ \hline
-1 & \footnotesize{Discover one or more architectural views on the system which present modules and their interactions} \\
-2 & \footnotesize {Is there a subset of the modules that you consider to be at the core of the system?} \\
-3 & \footnotesize {Is there a core module in the system? Why? How does it interact with the others?} \\
-4 & \footnotesize {Choose one inter-module dependency in the system and analyze it. What is the reason for its existence?} \\
-5 & \footnotesize {Choose one other module in the system. Analyze its interface.} \\
-6 & \footnotesize {Are there cases in which two modules depend on one another that you would have not expected from the conceptual architecture?} \\
-7 & \footnotesize {Overall what do you think about the structure of the system? Is it well modularized?} \\
-8 & \footnotesize {You want to add support for generating code in a new language. Which module do you change? Which others are impacted? How much time do you need?} \\ \hline
+\begin{tabular}{l p{\linewidth}}
+\# & \footnotesize{Task} \\ \hline
+\footnotesize{1} & \footnotesize{Discover one or more architectural views on the system which present modules and their interactions} \\
+\footnotesize{2} & \footnotesize {Is there a subset of the modules that you consider to be at the core of the system?} \\
+\footnotesize{3} & \footnotesize {Is there a core module in the system? Why? How does it interact with the others?} \\
+\footnotesize{4} & \footnotesize {Choose one inter-module dependency in the system and analyze it. What is the reason for its existence?} \\
+\footnotesize{5} & \footnotesize {Choose one other module in the system. Analyze its interface.} \\
+\footnotesize{6} & \footnotesize {Are there cases in which two modules depend on one another that you would have not expected from the conceptual architecture?} \\
+\footnotesize{7} & \footnotesize {Overall what do you think about the structure of the system? Is it well modularized?} \\
+\footnotesize{8} & \footnotesize {You want to add support for generating code in a new language. Which module do you change? Which others are impacted? How much time do you need?} \\ \hline
 \end{tabular}
 \caption{The eight tasks the students had to solve in two hours.}
 \label{tab:questions}
 \end{center}
 \end{table}
 
-\item Questions 4, 5, and 6 were not solved by everybody. We think one reason was the insufficient training with the tool. We suspect that the main reason were the limitations of the tool at the time of the experiment. %We will discuss these limitations later. 
+By analyzing their reports we observed several things:
 
-\item Question 7 brought agreement. All the groups that answered thought the system was well structured. We do not necessarily agree as we consider that the high-level architecture has too much coupling between the different modules. The prestige of the system might have influenced the assessment of the students. 
-%Compared to other systems that we have analyzed along the time we agree that ArgoUML has a better modular structure than the average system with fewer modules and fewer inter-module dependencies. However, we 
-
-\item Question 8. Actually these were a series of questions. To answer the first some of the students looked at the names of the modules that they encountered in Softwarenaut and correctly guessed that it would have been the {\em language} module that had to be changed. Others found the same answer in the documentation of the system. All of them used the tool to assess the modules that might be impacted. This could have not been done just by looking at the documentation.
-
-None of the students could offer an estimation. Obviously the tool does not support this kind of analysis.
+\begin{itemize}
+\item In several of the tasks (1--3) each of the teams provided a slightly different perspective on the system. The differences were in the layouts they used, in the filtering they applied. Each one captured a certain aspect of the system. Unfortunately at the time there was no way for them to share the views with each other and discuss them.
+\item Some of the tasks were not solved by all the teams (4--5,8). One reason was the insufficient training with the tool, another reason were the usability limitations of the tool at the time of the experiment. We will discuss these limitations later. 
+\item For one of the tasks (8) the tool was not sufficient and they had to rely on the online documentation of the analyzed system. 
+\item For the questions regarding dependencies (4,8) all the users preferred the tool to reading the code or online documentation.
 \end{itemize}
 
-We also asked the students to fill a post-analysis questionnaire with their evaluations on the tool usability. \tref{postsurvey} presents the questions together with answers on a Lickert scale (where 1 is strongly disagree and 5 is strongly agree). It shows that most of the students found the tool easy to use and considered that the reports they generated were reliable. They estimated that they got a better understanding of the system by using the tool. 
+After they prepared their reports we asked the users to fill a questionnaire and evaluate the usability of the tool. The first part of the questionnaire were several questions that had answers from 1 to 5 measuring the strength of their agreement with the assertion. \tref{postsurvey} presents the assertions together with the average agreement level. Although not statistically relevant the results show that the tool was easy to use, the students felt confident that the results they provided were reliable, and they found the dependency analysis easy to use. There was less agreement on whether the user interface was intuitive and whether ArgoUML was an appropriate case study. We believe that these two last answers were due to the limited time they had to accommodate themselves with the tool and the difficulty of ArgoUML as a case study.
 
 \begin{table}[ht]
 \begin{center}
 \begin{tabular}{l r}
-\footnotesize{Question} & Answers \\ \hline
-\footnotesize{Was the tool simple to use?} & 4 5 3 4 \\
-\footnotesize{Was the user interface intuitive?} & 3 3 4 3 \\
-\footnotesize{Was it easy to discover dependencies between modules?} & 4 5 3 5 \\
-\footnotesize{Do you think that the results generated were reliable?} & 5 4 5 4 \\
-\footnotesize{Do you think ArgoUML was a good choice for a case study?} & 2 5 2 3 \\ \hline
+\footnotesize{Assertion} & \footnotesize{Agreement Level (average)} \\ \hline
+\footnotesize{The tool was simple to use} & \footnotesize{4}  \\
+\footnotesize{The user interface was intuitive} & \footnotesize{3.25} \\
+\footnotesize{It was easy to discover dependencies between modules} & \footnotesize{4.25} \\
+\footnotesize{The results generated were reliable} & \footnotesize{4.5} \\
+\footnotesize{Do you think ArgoUML was a good choice for a case study?} & \footnotesize{3} \\ \hline
 \end{tabular}
-\caption{Results of the usability questionnaire}
+\caption{Answers to the questions regarding the tool usability }
 \label{tab:postsurvey}
 \end{center}
 \end{table}
 
-We then asked the students what were the capabilities of the tool that they found the most useful during their analysis. In the order of frequency of the answers we remind: 
+The second part of the questionnaire were open questions. We first asked the students what were the capabilities of the tool that they found the most useful during their analysis. Two of the teams answered with {\em "all the features we have used"} and {\em "many features, you can do a lot"}. \tref{useful} shows that the others were content with the dependency analysis and the exploration operations.
 
-\begin{enumerate}
-\item Showing dependencies between modules (2 times)
-\item The exploration (2 times) 
-\item Filters (1 times)
-\item Detail views (1 times)
-\end{enumerate}
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{l l}
+\footnotesize {Feature} &\footnotesize{ Supporters} \\
+\hline
+\footnotesize {Showing dependencies between modules} & \footnotesize{(2 teams)} \\
+\footnotesize {The exploration operations} &\footnotesize{(2 teams)} \\
+\footnotesize {Filters} &\footnotesize{(1 team)} \\
+\footnotesize {Detail views} &\footnotesize{(1 team)} \\
+\hline
+\end{tabular}
+\caption{The features that the users considered the most useful}
+\label{tab:useful}
+\end{center}
+\end{table}
 
-Two of the students answered with {\em "all the features we have used"} and {\em "many features, you can do a lot"}. Taken into account that would increase the count for all the features listed earlier.
+We finally asked what were the features that they thought were missing from the tool. \tref{missing} shows that the most desired features were smart filters, arbitrary groupings and history operations.
 
-However, we also asked what were the features that they thought were absent in the tool. In the order of the frequency of requests we list the features here: 
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{p{0.8\linewidth} r}
+\footnotesize {Feature} &\footnotesize{ Requesters} \\
+\hline
+\footnotesize {User defined filters (all incoming dependencies, all outgoing dependencies, dependencies weaker than...)} &\footnotesize{ (3 teams)} \\
+\footnotesize {Arbitrary grouping of items (selected items, classes whose name matches a certain pattern, orphan classes)} &\footnotesize{ (3 teams)} \\
+\footnotesize {Undo and Redo operations} &\footnotesize{ (2 teams)} \\
+\footnotesize {Selecting edges (multiple edges, all outgoing edges)} &\footnotesize{ (2 teams)} \\
+\footnotesize {View persistence} &\footnotesize{ (1 teams)} \\
+\hline
 
-\begin{enumerate}
-\item User defined filters (all incoming dependencies, all outgoing dependencies, dependencies weaker than...) (3 times)
-\item Arbitrary grouping of items (selected items, classes whose name matches a certain pattern, orphan classes) (3 times)
-\item Undo and Redo operations (2 times)
-\item Selecting edges (multiple edges, all outgoing edges) (2 times)
-\item View persistence (1 times)
-\end{enumerate}
+\end{tabular}
+\caption{The features that the users considered were missing}
+\label{tab:missing}
+\end{center}
+\end{table}
 
+We had used these results to inform our work on future versions of the tool. Many of these features are included in the tool and have been presented earlier in this article while some are still on the backburner. 
 
-We had used these results to inform our work on future versions of the tool. Many of these features are included in the tool and have been presented earlier in this article. Some are still on the backburner. One of the things that still remains to be done in the future is performing a controlled experiment to evaluate the usefulness of the tool for the purpose of architecture recovery.
+One of the things that still remains to be done in the future is performing a controlled experiment to evaluate the usefulness of the tool for the purpose of architecture recovery.
 
 
 \subsection {Depending on other research prototypes }
@@ -804,8 +812,9 @@ The work of Storey et al. on Shrimp also allows for saving and restoring views \
 %(http://www.thechiselgroup.org/shrimp_manual_filmstrip)
 
 
-Relevant for the collaborative reverse engineering part of our work is the Churrasco work of D’Ambros et al. \cite{dambros-churrasco}. Churrasco supports software evolution modeling, visualization and analysis through a web interface. 
-Through an example scenario they show that Churrasco allows for collaborative software evolution analysis, and they attribute this to the availability on the web of the tool. The collaboration happens by annotating the various elements in the views of Churrasco. However, their tool presents a set of predefined views and they are not that much architectural views but rather design-level views. 
+\rewritten
+The work of D’Ambros et al. on Churrasco \cite{dambros-churrasco} and the work of Hattori et al.  on Replay \cite{hattori-replay} are related to the collaboration and evolutionary aspects of our tool. Churrasco supports software evolution modeling, visualization and analysis through a web interface. 
+Through an example scenario they show that Churrasco allows for collaborative software evolution analysis, and they attribute this to the availability on the web of the tool. Replay allows for the chronological replay of changes inside the Eclipse IDE and it supports awareness of team member activity by allowing one to selectively replay the changes of other team members. The information in Replay is much more fine-grained and precise than in our case; it however stays at the lowest level of abstraction while we are interested in architecture. The Churrasco project presents high-level visualizations but it does not provide dependency information which we consider critical for architectural understanding. 
 
 \rewritten
 One project developed with collaboration support as the main goal is the Jazz IDE of IBM \cite{hupfer-jazz}. 
