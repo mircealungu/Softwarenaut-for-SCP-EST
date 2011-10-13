@@ -494,16 +494,29 @@ The left side presents only the {\em lifetime relationships}: 21 relationships t
 \section {First-Class Views and Collaboration}
 \slab{views}
 
-The designers of a system use multiple diagrams for the specification of the architecture of a system. In the same way, during architecture recovery they need to recover multiple views to capture various aspects of the structure of the system. 
 
-Traditionally software analysis tools were designed with a {\em throw-away} attitude  in mind. One was supposed to start the analysis every time, arrive at results and then conclude the analysis. In Softwarenaut we want to allow the interruption and continuation of the analysis, and the reuse of the results of the analysis between sessions and between users. 
+Traditionally software analysis tools were designed with a {\em throw-away} attitude  in mind. One was supposed to start the analysis, arrive at some results, and then conclude the analysis. In Softwarenaut we want to allow the interruption and continuation of the analysis, and the reuse of the results of the analysis between sessions. Moreover, traditional software analysis never reuse the information that one user has gained about a certain version of the system. This is wrong since once published a version never changes and therefore the results of one analysis can inform further analyses. 
+In Softwarenaut these two problems are addressed with the help of {\em first-class views} and the concept of a {\em Global View Repository}, a mechanism for publishing and discovering existing views.
+
 
 \subsection {First-Class Views}
-Views are first-class entities in Softwarenaut: one can save and restore any view during the exploration. This this allows for a {\em divide et impera} approach to architecture recovery and representation: each time the analyst encounters a view which presents a relevant perspective on the system he can save it for later reference. 
+The designers of a system use multiple diagrams for the specification of the architecture of a system. In the same way, during architecture recovery they need to recover multiple views to capture various aspects of the structure of the system. 
 
-The view saving mechanism can be used also as a way of conquering the complexity of top-down exploration. When the architectural view under analysis becomes too complex, the user can save it and then explore different sub-parts of it. This is addressed partially in other tools by the use of semantic zooming techniques \cite{storey-shrimp}. 
+Views are first-class entities in Softwarenaut: one can save and restore any view during the exploration. During an exploration session, each time the analyst encounters a view which presents a relevant perspective on the system he can save it for later reference. The result of a Softwarenaut analysis is therefore a {\em set of architectural views}.
 
-View persistence requires the following information: the name and version of the system under analysis, the current working set with the positions of all the nodes in it, the active node and edge filters (both explicit and rule based), the creator of the view, and a name and description of the view. The model of the system is not saved together with the view. We assume that model construction is deterministic and the name and version of the system will suffice for model reconstruction at a later time \footnote{This requires nevertheless a way of uniquely identifying the entities in the view. In our case, for each of the entities in the working set we save the fully scoped name}.
+%This this allows for a {\em divide et impera} approach to architecture recovery and representation: 
+The view persistence mechanism can be used also as a way of conquering the complexity of top-down exploration. When the architectural view under analysis becomes too complex, the user can save it and then explore different sub-parts of it. This is addressed partially in other tools by the use of semantic zooming techniques \cite{storey-shrimp}. 
+
+In Softwarenaut a {\em view} contains the following information: 
+\begin{itemize}
+\item a name and description,
+\item the name and version of the system under analysis
+\item the current working set with the positions of all the nodes in it,
+\item the active artifact and relationship filters (both explicit and rule based), 
+\item the name of the creator of the view
+\end{itemize}
+
+The model of the system is not saved together with the view. We assume that model construction is deterministic and the name and version of the system will suffice for model reconstruction at a later time \footnote{This requires nevertheless a way of uniquely identifying the entities in the view. In our case, for each of the entities in the working set we save the fully scoped name}.
 
 
 
@@ -522,22 +535,23 @@ View persistence requires the following information: the name and version of the
 
 % We have shown that in Softwarenaut views are entities that can be saved and restored. In this section we talk about the possibility of sharing the views with other users. 
 
-\subsection {Sharing and Discovering Views}
-Once published, a given version of a system never changes. It makes therefore sense to make public all the analyses regarding that version, such that when other users analyze the same version or system they can benefit from the previous work. In the context of architectural view recovery this means discovering architectural views that others have already defined. 
+\subsection {The Sharing and Discovering of Architectural Views}
+Once published, a given version of a system never changes. It makes therefore sense to make public all the analyses regarding that version, such that when other users analyze the same version or system they can benefit from the previous work and insight. In the context of architectural view recovery this means discovering architectural views that others have already defined. 
 
 
-To support sharing and discovering architectural views we have created the {\em Global Architectural View Repository} (GVR) -- a public repository that indexes architectural views generated with Softwarenaut (presented in \fref{fig:gvr}). The GVR is implemented as a relational database\footnote{A PostgreSQL database} which can be publicly accessed by instances of Softwarenaut or other tools. %In the future we plan to provide a web services interface to the GVR. 
+To support sharing and discovering architectural views we have created the {\em Global Architectural View Repository} (GVR) -- a public repository that indexes architectural views generated with Softwarenaut. \fref{fig:gvr} presents the idea behind the GVR. The $save(v1,Z)$ function means save view $v1$ for system $Z$. While analyzing system Z, users A and B publish views $v1$ and $v2$. When later user M analyzes the same system, he can already benefit from the previous knowledge by discovering the views that users A and B have published. 
+
 
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.7\linewidth]{images/CollaborationConcept}
+\includegraphics[width=0.9\linewidth]{images/CollaborationConcept}
 \caption{Architectural Views are stored in the Global View Repository. This enables collaboration through knowledge sharing and discovery}
 \flabel{fig:gvr}
 \end{center}
 \end{figure}
 
-The architectural views as saved in the GVR can serve as the basis for monitoring the future architectural evolution of the system. After the publication of a new version of the system, Softwarenaut can automatically detect the views affected by the new changes, and present a {\em visual diff} on top of the view retrieved from the GVR between the state of the system at the moment the view was created and the latest commit.
+The architectural views as saved in the GVR can serve as the basis for monitoring the architectural evolution of the system. After the publication of a new version of the system, Softwarenaut can automatically detect the views affected by the new changes, and present a {\em visual diff} on top of the view retrieved from the GVR between the state of the system at the moment the view was created and the latest commit.
 
 
 
@@ -561,6 +575,7 @@ The architectural views as saved in the GVR can serve as the basis for monitorin
 \end{center}
 \end{figure}
 
+The GVR is implemented as a relational database\footnote{A PostgreSQL database} which can be publicly accessed by instances of Softwarenaut or other tools. %In the future we plan to provide a web services interface to the GVR. 
 
 
 
