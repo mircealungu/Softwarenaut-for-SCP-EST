@@ -424,6 +424,7 @@ Softwarenaut also implements advanced filters for relationships:
 
 \fref{filpan} presents the relation filtering panel as implemented in Softwarenaut. Several filters can be combined to obtain more powerful ones with either the ``and'' or the ``or'' operator. The elements that match the filter can be either ``shown'' or ``hidden''. The user can define new filters by writing simple scripts in Smalltalk. The system is fully reflective, and as soon as a new filter is defined, it will immediately appear in the list of available filters.
 
+\subsection {History Operations} Softwarenaut keeps a history of the exploration and filtering actions to support undo and redo operations. This is a requirement for information exploration tools \cite{shneid-eyes} that few other architecture recovery tools implement.
 
 %\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -567,11 +568,11 @@ The architectural views as saved in the GVR can serve as the basis for monitorin
 
 
 
-\fref{viops} presents several considerations regarding the interaction with the architectural views in Sofwarenaut: 
+\fref{viops} presents the current state of the UI which is responsible with the interaction with the architectural views in Sofwarenaut: 
 
 \begin{itemize}
 
-\item When a user commences the analysis of a given system, Softwarenaut retrieves the list of views that are already defined for that system and/or version in the GVR.
+%\item When a user commences the analysis of a given system, Softwarenaut retrieves the list of views that are already defined for that system and/or version in the GVR.
 
 \item The top part of the inset presents the locally stored views which the user has in the image. For each of them the user can load it, delete it, or push it to the GVR. In the inset, the buttons which have black text represent operations that can be applied on the local views.
 
@@ -651,7 +652,6 @@ One of the tools that benefits from the Global View Repository is the Small Proj
 
 SPO needs to support navigation between the two abstraction levels to support the understanding of  the ecosystem abstraction level. When navigating from the ecosystem abstraction level down to the architectural level SPO must present architectural views of the individual systems. When they are available, the architectural views of the individual systems are obtained from the Global View Repository. SPO can therefore reuse architectural information generated with Softwarenaut.
 
-\subsection {History Operations} Softwarenaut keeps a history of the exploration and filtering actions to support undo and redo operations. This is a requirement for information exploration tools \cite{shneid-eyes} that few other architecture recovery tools implement.
 
 
 % \newpage
@@ -785,7 +785,7 @@ One of our future projects is exploring ways in which the recovered views can fu
 
 \vspace{0.5cm}
 \footnotesize
-{\bf Acknowledgements.} We would like to thank Fabrizio Perin and Oscar Nierstrasz for feedback on earlier drafts of this paper.
+{\bf Acknowledgements.} We would like to thank Fabrizio Perin and Oscar Nierstrasz for feedback on earlier drafts of this paper. We would also like to thank the anonymous reviewers for their constructive feedback and the patience they had to try out the tool.
 
 
 
