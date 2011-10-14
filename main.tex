@@ -521,8 +521,11 @@ One of the limitations of Softwarenaut is the reliance on external fact extracto
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Softwarenaut served as the prototype for many of the research ideas we had during the PhD of the first author. We have integrated the tool with others \cite{lungu-clust, lungu-scico, nier-story} and we provided a framework in which master projects can be developed \cite{boeckmann-mars}. We have also used the tool several times to perform reverse engineering in consulting projects.
+In this section we discuss several aspects related to tool-building in research. We touch usability, the integration in the broader research ecosystem, and using the tool as a testbed for research.
 
+
+\subsection {The Tool as a Vehicle for Research}
+Softwarenaut served as the prototype for many of the research ideas we had during the PhD of the first author. We have integrated the tool with others \cite{lungu-clust, lungu-scico, nier-story} and we provided a framework in which master projects can be developed \cite{boeckmann-mars}. %We have also used the tool several times to perform reverse engineering in consulting projects.
 The tool was the basis for a number of research papers: 
 \begin{itemize}
 \item {\em Package Patterns for Architecture Recovery} \cite{lungu-packages}: The article provides a classification of software packages based on their interaction with the rest of the system. We used Softwarenaut to explore multiple systems and discover these patterns.
@@ -532,18 +535,14 @@ The tool was the basis for a number of research papers:
 \end{itemize}
 
 %\cite{lungu-cutedge, lungu-clust, lungu-packages, lungu-relevo}. 
-For these articles Softwarenaut was the vehicle through which the associated studies could be performed or the ideas could be implemented. The tool served as a testbed for our ideas. %One of the research directions that we use the tool for nowadays is studying how to better support collaborative efforts in architecture recovery.
+%For these articles Softwarenaut was the vehicle through which the associated studies could be performed or the ideas could be implemented. The tool served as a testbed for our ideas. %One of the research directions that we use the tool for nowadays is studying how to better support collaborative efforts in architecture recovery.
 
 
 %In the next section we present a brief discussion on evaluating the tool with students.
 
 \subsection {Studying the Usability of the Tool}
 \label{sec:usability}
-We have often used Softwarenaut to analyze Softwarenaut itself, and this has determined several re-architecting sessions as well as UI improvements. We also used the tool in the practical part of the Software Evolution master course at the University of Lugano to get feedback on its usability and usefulness. 
-
-In the second year of using the tool in the Software Evolution course we decided to have an exploratory study to evaluate the usability and usefulness of the tool. We asked the students to analyze a large software system they have never seen before with the help of Softwarenaut and to produce an architectural report. Our main goal in organizing the experiment was to get feedback on the usability of the tool; our second goal was to collect anecdotal evidence on its usefulness for architecture recovery.
-
-Eight users, one PhD and seven master students participated in the experiment. We presented the tool during one hour. Then they had two hours to perform the tasks presented in \tref{questions}. The case study was ArgoUML. We had them work in teams of two and asked them to provide us with a report of their findings. After providing us with the report, they had to fill a questionnaire on the usability of the tool. 
+We have often used Softwarenaut to analyze Softwarenaut itself, and this has determined several re-architecting sessions as well as UI improvements. We also used the tool in the practical part of the Software Evolution master course at the University of Lugano to test its usability and usefulness. 
 
 \begin{table}[b!]
 \begin{center}
@@ -562,6 +561,11 @@ Eight users, one PhD and seven master students participated in the experiment. W
 \label{tab:questions}
 \end{center}
 \end{table}
+
+In the second year of using the tool in the Software Evolution course we decided to have an exploratory study to evaluate the usability and usefulness of the tool. We asked the students to analyze a large software system they have never seen before with the help of Softwarenaut and to produce an architectural report. Our main goal in organizing the experiment was to get feedback on the usability of the tool; our second goal was to collect anecdotal evidence on its usefulness for architecture recovery.
+
+Eight users, one PhD and seven master students participated in the experiment. We presented the tool during one hour. Then they had two hours to perform the tasks presented in \tref{questions}. The case study was ArgoUML. We had them work in teams of two and asked them to provide us with a report of their findings. After providing us with the report, they had to fill a questionnaire on the usability of the tool. 
+
 
 By analyzing their reports we observed several things:
 
@@ -649,7 +653,7 @@ This might not be a unique experience, but it is a reminder that when building r
 \subsection {Installation and Documentation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Softwarenaut is written in Smalltalk programming language and is released under the open source MIT Licence. The tool is available online at {\footnotesize \url{http://scg.unibe.ch/softwarenaut/}}. On the homepage of the tool we provide screencasts that present its various features together with documentation, installation instructions, and instructions on how to obtain the source code and to contribute.
+Softwarenaut is written in Smalltalk and is released under the open source MIT Licence. The tool is available online at {\footnotesize \url{http://scg.unibe.ch/softwarenaut/}}. The homepage of the tool provides screencasts, documentation, installation instructions, and directions on how to obtain the source code and to contribute.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
