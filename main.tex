@@ -101,7 +101,7 @@ Aggregating horizontal relationships between software artifacts along the contai
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=\linewidth]{DependencyAggregation}
+\includegraphics[width=0.7\linewidth]{DependencyAggregation}
 \caption{The aggregation of explicit dependencies into implicit ones along the containment relationships between methods, classes, and packages in a Java system}
 \flabel{dep-agg}
 \end{center}
@@ -115,8 +115,8 @@ Aggregating the relationships across the vertical hierarchy has an $O(n^2)$ orde
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.9\linewidth]{HigraphModel}
-\caption{The {\em hierarchical graph} implementation in Softwarenaut.}
+\includegraphics[width=\linewidth]{HigraphModel}
+\caption{The {\em hierarchical graph} model as implemented in Softwarenaut.}
 \flabel{hmodel}
 \end{center}
 \end{figure}
@@ -187,31 +187,52 @@ The exploration operations supported by Softwarenaut are:
 
 \begin{description}
 
-\item {\em Expand}. The expand operation applied to a node N of the hierarchical graph (HG) in the working set (WS) replaces the node in the working set with nodes that represent its children. We define the expand operation as follows: 
+\item {\em Expand}. The expand operation applied to a node of the hierarchical graph in the working set replaces the node in the working set with nodes that represent its children. 
 
-$ Expand_{N,HG} (WS) = WS - N + Children (N, HG)$, 
+%We define the expand operation as follows: 
+%
+%$ Expand_{N,HG} (WS) = WS - N + Children (N, HG)$, 
+%
+%where $Children(N,HG)$ is a function which returns the children of node $N$ in hierarchical graph $HG$ and ``+'' and ``-'' represent respectively set union and set subtraction.
+%
+\item {\em Collapse}. The collapse operation applied to a module in a working set removes the module and all its siblings from the view and replaces them with their parent module. 
 
-where $Children(N,HG)$ is a function which returns the children of node $N$ in hierarchical graph $HG$ and ``+'' and ``-'' represent respectively set union and set subtraction.
+%We define the collapse operation as follows:
+%
+%$ Collapse_{N,HG} (WS) = WS - N - Siblings (N, HG) + Parent (N, HG)$
+%
+%where $Siblings(N, HG)$ is a function which returns the nodes that have the same parent with $N$ in the hierarchical graph denoted with $HG$, and $parent(N,HG)$ is a function which returns the parent of node $N$ in hierarchical graph $HG$. 
+%
+\item {\em Filter}. The filter operation applied to a node removes that node from the working set. 
 
-\item {\em Collapse}. The collapse operation applied to a module in a working set removes the module and all its siblings from the view and replaces them with their parent module. We define the collapse operation as follows:
+%We define the filter operation as follows:
+%
+%$ Filter_{N,HG} (WS) = WS - N$
+%
 
-$ Collapse_{N,HG} (WS) = WS - N - Siblings (N, HG) + Parent (N, HG)$
+\item {\em Group}. The group operation applied to several modules in a working set removes the modules from the set and adds instead a unique new node representing the entire group. 
 
-where $Siblings(N, HG)$ is a function which returns the nodes that have the same parent with $N$ in the hierarchical graph denoted with $HG$, and $parent(N,HG)$ is a function which returns the parent of node $N$ in hierarchical graph $HG$. 
+\item {\em Focus On}. Applied to a node, this operation removes all the nodes and relationships that are not related to a given node from the view and reorganizes the rest of the elements in the view around the node that is under focus.
 
-\item {\em Filter}. The filter operation applied to a node removes that node from the working set. We define the filter operation as follows:
+\item {\em Zoom In}. This operation removes all the other nodes from the view and zooms in into the subject node. It is different than the {\em Expand} ans is useful when expanding the node would bring too much detail into the view. It is in fact equivalent with a {\em Filter} of all the unrelated nodes and then an {\em Expand}.
 
-$ Filter_{N,HG} (WS) = WS - N$
-
-\item {\em Group}. The group operation applied to several modules in a working set removes the modules from the set and adds instead a unique new node representing the entire group. We define the group operation as follows: 
-
-$ Group_{N_{i},HG} = WS - N_i + NewGroupNode $
-
-where $N_i$ is the set of nodes the user wants to group.
-
+%We define the group operation as follows: 
+%
+%$ Group_{N_{i},HG} = WS - N_i + NewGroupNode $
+%
+%where $N_i$ is the set of nodes the user wants to group.
+%
 \end{description}
 
 As the user refines the view, and climbs down in the hierarchy of the system, he brings more and more elements into the view. He can use the Filter and Group operations on explicit sets of nodes to decrease the number of nodes displayed on screen and therefore cope with the complexity of large graphs. One type of modules that benefit the user when filtered out are the {\em omnipresent modules} which contribute little to the understanding of the architecture of the system, and heavily clutter the view \cite{mitchell-bunch}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection {History Operations} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+An important requirement for information exploration tools is keeping track of the interaction and providing undo/redo operations \cite{shneid-eyes}. Few architecture recovery tools implement this feature. We have discovered this requirement while testing an earlier version of the tool with users (see \sref{usability} for more). In its latest version Softwarenaut implements undo/redo operations.
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection {Details-on-Demand} \slab{dod}
@@ -225,37 +246,45 @@ The Detail panel of Softwarenaut is one of the ways in which one can understand 
 \subsubsection {Detail Views for Modules}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The detail views for modules present various details of a module under focus. Softwarenaut provides a variated set of detail views for nodes that allow understanding the module under focus. Two example views are: 
+The detail views for modules present various details of a module under focus. Softwarenaut provides a variated set of detail views for nodes that allow understanding the module under focus. \fref{moduledetails} presents two example views: 
 
 \begin{itemize}
 
-\item The {\em Class List} detail view lists all the classes contained in a module and its submodules together. For these classes the user can select various software metrics. The left column of \fref{detail-views} presents the {\em Class Metrics} detail view on some of the classes in the Softwarenaut system itself together with the WLOC metric.
-
-\item The {\em Module Evolution Filmstrip} presents the evolution of a given module when multiple versions of the system are loaded. 
-
+\item The {\em Class List} detail view lists all the classes contained in a module and its submodules together. For these classes the user can select various software metrics. The left figure in \fref{moduledetails} presents the classes in the {\em persistence} module from ArgoUML. The largest class in the system is the class responsible with serializing the UML diagram to disk.
+\item The {\em Module Evolution Filmstrip} detail view presents the evolution of a given module when multiple versions of the system are loaded. The classes that are new in a version of the module are highlighted with yellow. The classes that are modified with blue -- and the more a class has changed, the darker its shade of blue. In \fref{moduledetails} one can see that where the only two classes that existed in the module in the first analyzed version disappear in the second. By inspecting the names of the classes one observes that two classes responsible to interfacing with the database are replaced with classes responsible with writing on the disk.
 \end{itemize}
+
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=0.8\linewidth]{images/ModuleDetails}
+\caption{The Class List detail view (left) and the Module Evolution Filmstrip detail view (right) present two complementary aspects of the {\em persistence} module from ArgoUML} 
+\flabel{moduledetails}
+\end{center}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection {Detail Views for Relationships}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The detail views for relationships present information about the selected relationships. Since understanding the relationships is critical for understanding the view, Softwarenaut provides a broad set of detail views for relationships which cover both structural and evolutionary aspects of the relationships \cite{lungu-cutedge, lungu-relevo}. Two examples of such interactive detail views are:
 
-\begin{description}
-
-\item The {\em Invoked Artefacts} view lists all the artefacts invoked by the selected high-level dependency. The right column of \fref{detail-views} presents such a view. The tree has on its first level the invoked classes, on the second level invoked methods, and on the third level call sites. The user can navigate to any of the presented code artifacts from this view.
-
-\item The {\em Relationship Evolution Filmstrip} view presents the evolution of the given relationship in all the versions of the system which are available for analysis. The two modules and the associated relationship are represented in every analyzed version. Section \ref{sec:evol} presents more details about the Evolution Filmstrip while discussing evolutionary aspects of the tool.
-
-\end{description}
-
-\begin{figure}[ht]
+\begin{figure}[t]
 \begin{center}
-\includegraphics[width=\linewidth]{DetailsForEdgesAndNodes}
-\caption{Detail Views: Class Metrics (left) and Invoked Artifacts (right)} 
+\includegraphics[width=0.44\linewidth]{DetailsForEdgesAndNodes}
+\caption{The Invoked Artifacts detail view presents information about the classes that are invoked in a relationship} 
 \flabel{detail-views}
 \end{center}
 \end{figure}
+
+Understanding the relationships is critical for understanding an architectural view. Softwarenaut provides a broad set of detail views for relationships which present information about the selected relationships. The available detail views for relationships cover both structural and evolutionary aspects \cite{lungu-cutedge, lungu-relevo}. \fref{detail-views} and \fref{evostrip} present two types of detail views for relationships: 
+
+\begin{description}
+
+\item The {\em Invoked Artefacts} view lists all the artefacts invoked by the selected high-level dependency. \fref{detail-views} presents such a view for the dependency between one other module to the {\em cognitive} module in ArgoUML. The tree has on its first level the invoked classes, on the second level invoked methods, and on the third level call sites. The user can navigate to any of the presented code artifacts from this view.
+
+\item The {\em Relationship Evolution Filmstrip} view presents the evolution of the given relationship in all the versions of the system which are available for analysis. \fref{evostrip} presents such a view. The two modules and the associated relationship are represented in every analyzed version with metrics providing information about the dynamics of the relationship. Section \ref{sec:evol} presents more details about the Evolution Filmstrip while discussing evolutionary aspects of the tool.
+
+\end{description}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection {Rule-Based Filtering} \slab{filtering}
@@ -301,12 +330,6 @@ Softwarenaut also implements advanced filters for relationships:
 
 \fref{filpan} presents the relation filtering panel as implemented in Softwarenaut. Several filters can be combined to obtain more powerful ones with either the ``and'' or the ``or'' operator. The elements that match the filter can be either ``shown'' or ``hidden''. The user can define new filters by writing simple scripts in Smalltalk. The system is fully reflective, and as soon as a new filter is defined, it will immediately appear in the list of available filters.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection {History Operations} 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Softwarenaut keeps a history of the exploration and filtering actions to support undo and redo operations. This is a requirement for information exploration tools \cite{shneid-eyes} that few other architecture recovery tools implement.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section {Evolutionary Analysis} \slab{evol}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -337,11 +360,11 @@ One of the applications of multi-version analysis is the {\em Relationship Evolu
 \begin{center}
 \includegraphics[width=\linewidth]{images/Filmstrip}
 \caption{The Relationship Evolution Filmstrip presents the evolution of a given relationship through the multiple versions of the system available for analysis}
-\flabel{fig:evolstrip}
+\flabel{evostrip}
 \end{center}
 \end{figure}
 
-\fref{fig:evolstrip} presents two examples of relationship evolution filmstrips from two of our case-studies: Azureus and ArgoUML. In the film strip, the arrows between the modules represent implicit dependencies of different types (the invocation dependencies are represented in black and the inheritance dependencies are represented in red). The width of the dependency arrows is proportional to the number of low-level dependencies abstracted in the corresponding implicit dependency \cite{lungu-relevo}. The representation of the width of the dependencies provides insight into the quantitative dynamics of the inter-module relationship.
+\fref{evostrip} presents two examples of relationship evolution filmstrips from two of our case-studies: Azureus and ArgoUML. In the film strip, the arrows between the modules represent implicit dependencies of different types (the invocation dependencies are represented in black and the inheritance dependencies are represented in red). The width of the dependency arrows is proportional to the number of low-level dependencies abstracted in the corresponding implicit dependency \cite{lungu-relevo}. The representation of the width of the dependencies provides insight into the quantitative dynamics of the inter-module relationship.
 
 In the first case the figure shows that the relationships between the two modules evolved heavily during the evolution. In the second case we see that the relationship is recent and weak: it shows that the kernel depends on the internationalization ({\em i18n}) module. 
 
@@ -430,7 +453,7 @@ The architectural views as saved in the GVR can serve as the basis for monitorin
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=\linewidth]{ViewOperations}
+\includegraphics[width=1.05\linewidth]{ViewOperations}
 \caption{Views are first-class entities in Softwarenaut. They can be saved, deleted locally, but also published and retrieved from the Global Architectural View Repository.}
 \flabel{viops}
 \end{center}
@@ -513,6 +536,7 @@ These papers could have not been written if it were not for the Softwarenaut whi
 %In the next section we present a brief discussion on evaluating the tool with students.
 
 \subsection {Studying the Usability of the Tool}
+\label{sec:usability}
 We have often used Softwarenaut to analyze Softwarenaut itself, and this has determined several re-architecting sessions as well as UI improvements. We also used the tool in the practical part of the Software Evolution master course at the University of Lugano to get feedback on its usability and usefulness. 
 
 In the second year of using the tool in the Software Evolution course we decided to have an exploratory study to evaluate the usability and usefulness of the tool. We asked the students to analyze a large software system they have never seen before with the help of Softwarenaut and to produce an architectural report. Our main goal in organizing the experiment was to get feedback on the usability of the tool; our second goal was to collect anecdotal evidence on its usefulness for architecture recovery.
