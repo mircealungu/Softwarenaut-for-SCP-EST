@@ -513,7 +513,7 @@ One of the tools that benefits from the Global View Repository is the Small Proj
 
 SPO needs to support navigation between the two abstraction levels to support the understanding of  the ecosystem abstraction level. When navigating from the ecosystem abstraction level down to the architectural level SPO must present architectural views of the individual systems. When they are available, the architectural views of the individual systems are obtained from the Global View Repository. SPO can therefore reuse architectural information generated with Softwarenaut.
 
-One of the limitations of Softwarenaut is the reliance on external fact extractors. This means that finding case-studies was always less than straightforward. To address this, in a collaboration with the researchers at UC Irvine we have integrated the tool with the SourcererDB database \cite{linstead-sourcerer}. Softwarenaut has now a broad range of available case-studies while the database can benefit from the analysis services of Softwarenaut.
+One of the limitations of Softwarenaut is the reliance on external fact extractors. This means that finding case-studies was always less than straightforward. To address this, in a collaboration with the researchers at UC Irvine we have integrated the tool with the SourcererDB database \cite{linstead-sourcerer}. Softwarenaut has now a broad range of available case-studies while the database can benefit from the analysis services of Softwarenaut. The integration with the SourcererDB was eased by the service based architecture of Sourcerer and intermediated by the FAMIX meta-model: Sourcerer provides a service which exports FAMIX models of its systems. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -525,13 +525,15 @@ Softwarenaut served as the prototype for many of the research ideas we had durin
 
 The tool was the basis for a number of research papers: 
 \begin{itemize}
+\item {\em Package Patterns for Architecture Recovery} \cite{lungu-packages}: The article provides a classification of software packages based on their interaction with the rest of the system. We used Softwarenaut to explore multiple systems and discover these patterns.
 \item {\em Exploring Inter-Module Relationships in Software Systems} \cite{lungu-relevo}: The article presents a taxonomy of inter-module dependencies in software systems based on their evolution patterns.
 \item {\em Interactive Exploration of Semantic Clusters} \cite{lungu-clust}: The article proposes a technique for visualizing dendrograms of software systems using an exploration approach. In order to be able to visualize dentrograms resulted from hierarchical clustering we had to adapt our model.
 \item {\em Cutting Edge Visualization in Software} \cite{lungu-cutedge}: The short article argues for the importance of providing detail views that allow one to understand dependencies in software.
 \end{itemize}
 
 %\cite{lungu-cutedge, lungu-clust, lungu-packages, lungu-relevo}. 
-These papers could have not been written if it were not for the Softwarenaut which was a testbed for our ideas. 
+For these articles Softwarenaut was the vehicle through which the associated studies could be performed or the ideas could be implemented. The tool served as a testbed for our ideas. %One of the research directions that we use the tool for nowadays is studying how to better support collaborative efforts in architecture recovery.
+
 
 %In the next section we present a brief discussion on evaluating the tool with students.
 
@@ -543,10 +545,10 @@ In the second year of using the tool in the Software Evolution course we decided
 
 Eight users, one PhD and seven master students participated in the experiment. We presented the tool during one hour. Then they had two hours to perform the tasks presented in \tref{questions}. The case study was ArgoUML. We had them work in teams of two and asked them to provide us with a report of their findings. After providing us with the report, they had to fill a questionnaire on the usability of the tool. 
 
-\begin{table}[t!]
+\begin{table}[b!]
 \begin{center}
 \begin{tabular}{l p{\linewidth}}
-\# & \footnotesize{Task} \\ \hline
+& \footnotesize{Task} \\ \hline
 \footnotesize{1} & \footnotesize{Discover one or more architectural views on the system which present modules and their interactions} \\
 \footnotesize{2} & \footnotesize {Is there a subset of the modules that you consider to be at the core of the system?} \\
 \footnotesize{3} & \footnotesize {Is there a core module in the system? Why? How does it interact with the others?} \\
@@ -637,7 +639,9 @@ This has been an early exploratory study with few participants and we can not cl
 \subsection {Depending on other research prototypes }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Depending on other research prototypes and platforms has been a benefit because we had the opportunity of using cutting edge technology, and building on the shoulders of giants, and in the same time, it made our life harder since the tools that we depended on kept moving ``under our feet'' and at times they were not maintained anymore. For example during the development of the tool the Moose framework was ported from VisualWorks Smalltalk to Pharo Smalltalk for licence reasons. The FAMIX 2.1 meta-model was declared deprecated and FAMIX 3.0 is now the version supported by the community. The SourcererDB has been going through an upgrade of their database and that meant that we didn't have access to their case studies for a period of time. 
+Depending on other research prototypes and platforms has been a benefit because we had the opportunity of using cutting edge technology and building on the shoulders of giants. In the same time it made our life harder since the tools that we depended on kept moving ``under our feet'' and at times they were not maintained anymore. For example during the development of the tool the Moose framework was ported from VisualWorks Smalltalk to Pharo Smalltalk for license reasons. Together with this the FAMIX 2.1 meta-model was replaced with the 3.0 version. This introduces a small compatibility issue between the tools that work in Pharo and VisualWorks. Since until now we did not have the engineering effort required to port all our code to Pharo we remained dependent on the VisualWorks Moose version. 
+
+A totally different problem is when one depends on a web service. There he can not shield himself from the changes on the other side. Recently the SourcererDB has been going through a database upgrade: for some time the Softwarenaut users did not have access to the large pool of case studies.
 
 This might not be a unique experience, but it is a reminder that when building research prototypes that relies on other research prototypes one needs either to shield himself from changes upstream or to be ready to constantly adapt to the changes. We believe that the best strategy is a combination of both and that the benefits of being part of a research ecosystem outweigh the difficulties.
 
@@ -645,7 +649,8 @@ This might not be a unique experience, but it is a reminder that when building r
 \subsection {Installation and Documentation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Softwarenaut is written in Smalltalk programming language and is released under the open source MIT Licence. The tool is available online at {\footnotesize \url{http://scg.unibe.ch/softwarenaut/}}. On the homepage of the tool there are a set of screencasts that present its various features together with other documentation, installation instructions, and instructions on how to obtain the source code. 
+Softwarenaut is written in Smalltalk programming language and is released under the open source MIT Licence. The tool is available online at {\footnotesize \url{http://scg.unibe.ch/softwarenaut/}}. On the homepage of the tool we provide screencasts that present its various features together with documentation, installation instructions, and instructions on how to obtain the source code and to contribute.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section {Related Work} \label {sec:rel}
@@ -695,7 +700,7 @@ There are two main research directions in which we would like to bring Softwaren
 
 \end{description}
 
-\paragraph{Acknowledgements} We would like to thank Fabrizio Perin and Oscar Nierstrasz for feedback on earlier drafts of this paper. We would also like to thank the anonymous reviewers for their constructive feedback and the patience they had to try out Softwarenaut.
+\paragraph{Acknowledgements} We would like to thank Fabrizio Perin and Oscar Nierstrasz for feedback on earlier drafts of this paper. We would like to acknowledge Joel Ossher who provided the web-service which exports FAMIX models from the SourcererDB database. We would also like to thank the anonymous reviewers for their constructive feedback and the patience they had while trying out Softwarenaut.
 
 \bibliographystyle{model1-num-names}
 \bibliography{scg,mircea}
