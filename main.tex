@@ -304,7 +304,7 @@ During exploration, the user interacts mostly with the High-level filters. There
 
 \begin{enumerate}
 
-\item {\em Metric-based filters} for entities and relationships are defined with respect to the metrics computed for artifacts. For example filtering out {\em the weak dependencies} or {\em the small modules} in a view.
+\item {\em Metric-based filters} for entities and relationships are defined with respect to the metrics computed for artifacts. For example filtering out {\em the weak dependencies} or {\em the small modules}\footnote{These are threshold-based high-pass filters} in a view
 
 \item {\em Type-based filters} for entities and relationships are defined with respect to the type of the artifacts. For example showing {\em only inheritance relationships} or hiding {\em all the classes} from a view.
 
@@ -526,7 +526,7 @@ Softwarenaut served as the prototype for many of the research ideas we had durin
 The tool was the basis for a number of research papers: 
 \begin{itemize}
 \item {\em Exploring Inter-Module Relationships in Software Systems} \cite{lungu-relevo}: The article presents a taxonomy of inter-module dependencies in software systems based on their evolution patterns.
-\item {\em Interactive Exploration of Semantic Clusters} \cite{lungu-clust}: The article proposes a technique for visualizing dendrograms of software systems using an exploration approach.
+\item {\em Interactive Exploration of Semantic Clusters} \cite{lungu-clust}: The article proposes a technique for visualizing dendrograms of software systems using an exploration approach. In order to be able to visualize dentrograms resulted from hierarchical clustering we had to adapt our model.
 \item {\em Cutting Edge Visualization in Software} \cite{lungu-cutedge}: The short article argues for the importance of providing detail views that allow one to understand dependencies in software.
 \end{itemize}
 
@@ -628,7 +628,8 @@ We finally asked what were the features that they thought were missing from the 
 \end{center}
 \end{table}
 
-We had used these results to inform our work on future versions of the tool. Many of these features are included in the tool and have been presented in this article while some are still on the backburner. 
+We had used these results to inform our work on future versions of the tool. Many of these features are included in the tool and have been presented in this article while some are still on the backburner. \footnote{One usability problem which, although not on the list of our participants, we are aware of is the fact that when too many nodes are expanded the view becomes to busy to be useful. We have observed that effect depends heavily on the structure of the system that is being analyzed. }
+
 
 This has been an early exploratory study with few participants and we can not claim that the results generalize. In the future we plan to organize a controlled experiment to evaluate both the usefulness of the tool for the purpose of architecture recovery as well as its usability.
 
