@@ -179,7 +179,7 @@ The main interaction approach in Softwarenaut is to let the user navigate from a
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=\linewidth]{SnautWorkflow}
+\includegraphics[width=0.9\linewidth]{SnautWorkflow}
 \caption{Softwarenaut supports an extract-abstract-view workflow model}
 \flabel{flow}
 \end{center}
@@ -353,7 +353,7 @@ The detail views for modules present various details of a module under focus. So
 
 \begin{itemize}
 \item The {\em Class List} detail view lists all the classes contained in a module and its submodules together. For these classes the user can select various software metrics. The left column of \fref{detail-views} presents the {\em Class Metrics} detail view on some of the classes in the Softwarenaut system itself together with the WLOC metric.
-\item The {\em Method List} is similar to the Class List only that it presents methods and corresponding metrics. 
+\item The {\em Module Evolution Filmstrip} presents the evolution of a given module when multiple versions of the system are loaded. 
 
 \end{itemize}
 
@@ -367,7 +367,7 @@ The detail views for relationships present information about the selected relati
 
 \begin{description}
 \item The {\em Invoked Artefacts} view lists all the artefacts invoked by the selected high-level dependency. The right column of \fref{detail-views} presents such a view. The tree has on its first level the invoked classes, on the second level invoked methods, and on the third level call sites. The user can navigate to any of the presented code artifacts from this view.
-\item The {\em Evolution Filmstrip} view presents the evolution of the given relationship in all the versions of the system which are available for analysis. The two modules and the associated relationship are represented in every analyzed version. Section \ref{sec:evol} presents more details about the Evolution Filmstrip while discussing evolutionary aspects of the tool.
+\item The {\em Relationship Evolution Filmstrip} view presents the evolution of the given relationship in all the versions of the system which are available for analysis. The two modules and the associated relationship are represented in every analyzed version. Section \ref{sec:evol} presents more details about the Evolution Filmstrip while discussing evolutionary aspects of the tool.
 %\fref{dedge} shows a relationship which changed dramatically during the six versions of the system under analysis. 
 \end{description}
 
@@ -610,8 +610,7 @@ The GVR is implemented as a relational database (PostgreSQL) which can be public
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-At the lowest level, Softwarenaut models a system using the Core of the FAMIX meta-model \cite{tichelaar-thesis}, a language independent meta-model that describes the static structure of object-oriented software systems. 
-Given that the FAMIX meta-model is language independent, Softwarenaut can analyze any system written in an object-oriented language. This requires fact extractors that analyze the source code and build the intermediary FAMIX model. For this we use various third-party tools like McC \cite{pepi-mcc} or inFusion\footnote{See \url{http://www.intooitus.com/inFusion}, verified Jan 25 2011.}.
+At the lowest level, Softwarenaut models a system using the Core of the FAMIX meta-model \cite{tichelaar-thesis}. Given that the meta-model is language independent, Softwarenaut can analyze any system written in an object-oriented language. This requires fact extractors that analyze the source code and build the intermediary model. For this we use various third-party tools like McC \cite{pepi-mcc} or inFusion\footnote{See \url{http://www.intooitus.com/inFusion}, verified Jan 25 2011.}.  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %{\bf Entities and relationships in FAMIX.}
@@ -653,6 +652,7 @@ One of the tools that benefits from the Global View Repository is the Small Proj
 
 SPO needs to support navigation between the two abstraction levels to support the understanding of  the ecosystem abstraction level. When navigating from the ecosystem abstraction level down to the architectural level SPO must present architectural views of the individual systems. When they are available, the architectural views of the individual systems are obtained from the Global View Repository. SPO can therefore reuse architectural information generated with Softwarenaut.
 
+One of the limitations of Softwarenaut is the reliance on external fact extractors. This means that finding case-studies was always less than straightforward. To address this, in a collaboration with the researchers at UC Irvine we have integrated the tool with the SourcererDB database \cite{linstead-sourcerer}. Softwarenaut has now a broad range of available case-studies while the database can benefit from the analysis services of Softwarenaut.
 
 
 % \newpage
@@ -774,7 +774,7 @@ This has been an early exploratory study with few participants and we can not cl
 \subsection {Depending on other research prototypes }
 \rewritten
 
-Depending on other research prototypes and platforms has been a benefit because we had the opportunity of using cutting edge technology, and building on the shoulders of giants, and in the same time, it made our life harder since the tools that we depended on kept moving ``under our feet'' and at times they were not maintained anymore. For example during the development of the tool the Moose framework was ported from VisualWorks Smalltalk to Pharo Smalltalk for licence reasons. The FAMIX 2.1 meta-model was declared deprecated and there is now a FAMIX 3.0 which is supported by the community. The SourcererDB has been going through an upgrade of their database and that meant that we didn't have access to their case studies for a good period of time. 
+Depending on other research prototypes and platforms has been a benefit because we had the opportunity of using cutting edge technology, and building on the shoulders of giants, and in the same time, it made our life harder since the tools that we depended on kept moving ``under our feet'' and at times they were not maintained anymore. For example during the development of the tool the Moose framework was ported from VisualWorks Smalltalk to Pharo Smalltalk for licence reasons. The FAMIX 2.1 meta-model was declared deprecated and FAMIX 3.0 is now the version supported by the community. The SourcererDB has been going through an upgrade of their database and that meant that we didn't have access to their case studies for a period of time. 
 
 This might not be a unique experience, but it is a reminder that when building research prototypes that relies on other research prototypes one needs either to shield himself from changes upstream or to be ready to constantly adapt to the changes. We believe that the best strategy is a combination of both and that the benefits of being part of a research ecosystem outweigh the difficulties.
 
@@ -800,13 +800,15 @@ The difference between our tool and Creole is that Softwarenaut can also perform
 Pinzger proposed the ArchView approach \cite{pinzger-thesis} which provides visualizations that present the evolution of the modules in a system. His evolution analysis takes into account the annotations from the versioning system repository. However, there is no support for first-class views in ArchView and the dependencies between the modules are only based on logical coupling. 
 
 
-\subsection {Filtering}
+\subsection {Evolutionary Analysis}
  
 %Most of the architecture recovery tools support filtering \cite{aracic-filtering}. The majority of the tools allow for the explicit filtering of individual relations. 
 
 As far as we are aware we are the only ones to propose filters based on evolutionary aspects of the relationships in the context of software exploration. However, there are two related works. The first is Wierda et al. who recover the architectural decomposition of a system through clustering; they observe that if they use for clustering only those dependencies that were in the system in both the first and the last versions, the decompositions are more precise \cite{wierda-clustering}; this observation supports our idea of considering the lifetime relationships as more relevant for the architecture than the newer relationships. 
 
-The second related work is of Abram Hindle et al. \cite{hindle-yarn} who introduce the YARN visualization prototype which animates the evolution of dependencies between the modules of a system. The main difference between our approach and theirs is that we work on a snapshot-based model and they work on a commit-based model. Their commit-based model is advantageous since they benefit from more detailed information about the system; the disadvantage is that the animation of all the commits is time consuming. They do not support a query mechanism for visualizing only special types of relations.
+The second related work is of Abram Hindle et al. \cite{hindle-yarn} who introduce the YARN visualization prototype which animates the evolution of dependencies between the modules of a system. We represent evolution by building complete models of several system versions while they use an evolutionary model and analyze the information in each commit. The disadvantages of their approach are related to their goal of building an animation: it can be time-consuming to watch all the animations, and they do not support interactive exploration operations such as filtering.
+
+% with a more lightweight model. Their model is advantageous since they benefit from more fine-grained information about the evolution; the disadvantage is that the animation of all the commits is time consuming. They do not support a query mechanism for visualizing only special types of relations.
 
 
 \subsection {First-Class Views and Collaboration} 
@@ -816,7 +818,7 @@ The work of Storey et al. on Shrimp also allows for saving and restoring views \
 
 
 \rewritten
-The work of D’Ambros et al. on Churrasco \cite{dambros-churrasco} and the work of Hattori et al.  on Replay \cite{hattori-replay} are related to the collaboration and evolutionary aspects of our tool. Churrasco supports software evolution modeling, visualization and analysis through a web interface. 
+The work of D'Ambros et al. on Churrasco \cite{dambros-churrasco} and the work of Hattori et al.  on Replay \cite{hattori-replay} are related to the collaboration and evolutionary aspects of our tool. Churrasco supports software evolution modeling, visualization and analysis through a web interface. 
 Through an example scenario they show that Churrasco allows for collaborative software evolution analysis, and they attribute this to the availability on the web of the tool. Replay allows for the chronological replay of changes inside the Eclipse IDE and it supports awareness of team member activity by allowing one to selectively replay the changes of other team members. The information in Replay is much more fine-grained and precise than in our case; it however stays at the lowest level of abstraction while we are interested in architecture. The Churrasco project presents high-level visualizations but it does not provide dependency information which we consider critical for architectural understanding. 
 
 \rewritten
