@@ -181,7 +181,10 @@ The tool allows visualizing a graph with various degrees of visual sophisticatio
 
 \end{description}
 
-In this section we detail the interactive techniques that support the exploration process in Softwarenaut: navigation (\ref{sec:navi}), details-on-demand (\ref{sec:dod}), rule-based filtering (\ref{sec:filtering}). %, and visual querying (\ref{sec:vq}).
+In this section we detail the interactive techniques that support the exploration process in Softwarenaut: navigation (\ref{sec:navi}), 
+rule-based filtering (\ref{sec:filtering}),
+details-on-demand (\ref{sec:dod}). 
+%, and visual querying (\ref{sec:vq}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Navigation} \slab{navi}
@@ -217,7 +220,7 @@ The exploration operations supported by Softwarenaut are:
 %
 %where $Siblings(N, HG)$ is a function which returns the nodes that have the same parent with $N$ in the hierarchical graph denoted with $HG$, and $parent(N,HG)$ is a function which returns the parent of node $N$ in hierarchical graph $HG$. 
 %
-\item {\em Filter}. The filter operation applied to a node removes that node from the working set. 
+\item {\em Remove}. The remove operation applied to a node removes that node from the working set. 
 
 %We define the filter operation as follows:
 %
@@ -251,7 +254,7 @@ As the user refines the view, and climbs down in the hierarchy of the system, he
 \subsection {Rule-Based Filtering} \slab{filtering}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In the previous section we have introduced the Filter operation which works on explicit sets of nodes. Most software architecture recovery tools offer such a filter operation \cite{aracic-filtering}. Softwarenaut implements several categories of advanced {\em rule-based filters} for nodes and edges. Softwarenaut supports two types of basic filters: 
+In the previous section we have introduced the {\em Remove} operation which works on explicit sets of nodes. Most software architecture recovery tools offer such a filtering operation \cite{aracic-filtering}. Softwarenaut implements several categories of advanced {\em rule-based filters} for nodes and edges. Softwarenaut supports two types of basic filters: 
 
 \begin{enumerate}
 
