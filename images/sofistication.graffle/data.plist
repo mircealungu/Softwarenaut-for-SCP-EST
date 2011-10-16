@@ -46,7 +46,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2011-10-16 23:54:32 +0200</string>
+	<string>2011-10-17 00:17:59 +0200</string>
 	<key>Modifier</key>
 	<string>mircea</string>
 	<key>NotesVisible</key>
@@ -121,12 +121,12 @@
 			<key>ColumnSpacing</key>
 			<real>36</real>
 			<key>DisplayScale</key>
-			<string>1 0/72 in = 1 0/72 in</string>
+			<string>1 0/72 in = 1.0000 in</string>
 			<key>GraphicsList</key>
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{337.333, 137.492}, {114.605, 100.667}}</string>
+					<string>{{326.666, 137.492}, {114.605, 100.667}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
@@ -156,7 +156,7 @@
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{65.3333, 137.492}, {119.524, 100.667}}</string>
+					<string>{{76.0012, 137.492}, {119.524, 100.667}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>

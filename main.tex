@@ -168,8 +168,8 @@ The tool allows visualizing a graph with various degrees of visual sophisticatio
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=\linewidth]{images/sofistication}
-\caption{The tool allows for visualizing a graph with different degrees of sophistication}
+\includegraphics[width=1.04\linewidth]{images/sofistication}
+\caption{The tool allows for visualizing a graph with different degrees of sophistication. Left: simple nodes and edges; Middle: polymetric view; Right: Treemap-like view}
 
 \flabel{sofistication}
 \end{center}
@@ -181,7 +181,7 @@ The tool allows visualizing a graph with various degrees of visual sophisticatio
 
 \end{description}
 
-In this section we detail the interactive techniques that support the exploration process in Softwarenaut: navigation (\ref{sec:navi}), details-on-demand (\ref{sec:dod}), rule-based filtering (\ref{sec:filtering}), and visual querying (\ref{sec:vq}).
+In this section we detail the interactive techniques that support the exploration process in Softwarenaut: navigation (\ref{sec:navi}), details-on-demand (\ref{sec:dod}), rule-based filtering (\ref{sec:filtering}). %, and visual querying (\ref{sec:vq}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Navigation} \slab{navi}
@@ -244,7 +244,53 @@ As the user refines the view, and climbs down in the hierarchy of the system, he
 %\subsection {History Operations} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-An important requirement for information exploration tools is keeping track of the interaction and providing undo/redo operations \cite{shneid-eyes}. Few architecture recovery tools implement this feature. We have discovered this requirement while testing an earlier version of the tool with users (see \sref{usability} for more). In its latest version Softwarenaut implements undo/redo operations.
+\paragraph {History Operations} An important requirement for information exploration tools is keeping track of the interaction and providing undo/redo operations \cite{shneid-eyes}. Few architecture recovery tools implement this feature. We have discovered this requirement while testing an earlier version of the tool with users (see \sref{usability} for more). In its latest version Softwarenaut implements undo/redo operations.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection {Rule-Based Filtering} \slab{filtering}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In the previous section we have introduced the Filter operation which works on explicit sets of nodes. Most software architecture recovery tools offer such a filter operation \cite{aracic-filtering}. Softwarenaut implements several categories of advanced {\em rule-based filters} for nodes and edges. Softwarenaut supports two types of basic filters: 
+
+\begin{enumerate}
+
+\item {\em Low-level filters} act on the hierarchical graph itself. They remove from the hierarchical graph the low-level elements that match a given condition, e.g., all the invocation relationships that go to polymorphic classes.
+
+\item {\em High-level filters} act on the high-level elements and relationships between them in the working set, e.g., hiding all the high-level dependencies that abstract few low-level dependencies.
+
+\end{enumerate}
+
+During exploration, the user interacts mostly with the High-level filters. There are two types of filters that apply to both artifacts and relationships: 
+
+\begin{enumerate}
+
+\item {\em Metric-based filters} for entities and relationships are defined with respect to the metrics computed for artifacts. For example filtering out {\em the weak dependencies} or {\em the small modules}\footnote{These are threshold-based high-pass filters} in a view
+
+\item {\em Type-based filters} for entities and relationships are defined with respect to the type of the artifacts. For example showing {\em only inheritance relationships} or hiding {\em all the classes} from a view.
+
+\end{enumerate}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=\linewidth]{SnautFilteringPanel}
+\caption{The UI for applying relationship filters in Softwarenaut}
+\flabel{filpan}
+\end{center}
+\end{figure}
+
+
+Softwarenaut also implements advanced filters for relationships:
+
+\begin{itemize}
+
+\item {\em Evolutionary filters} are defined based on the historical evolution of an inter-module relationship in the system\footnote{Evolution-based filters require models of multiple versions of a system loaded}. For example showing only the {\em relationships that existed in all the versions of a system} or hiding all the {\em unstable relationships} \cite{lungu-relevo}.
+
+\item {\em Directional filters} are defined based on the direction of the relationship between two modules. For example, filtering out the unidirectional relationships from an architectural view is useful for highlighting the modules that have mutual dependencies between themselves. 
+
+\end{itemize}
+
+\fref{filpan} presents the relation filtering panel as implemented in Softwarenaut. Several filters can be combined to obtain more powerful ones with either the ``and'' or the ``or'' operator. The elements that match the filter can be either ``shown'' or ``hidden''. The user can define new filters by writing simple scripts in Smalltalk. The system is fully reflective, and as soon as a new filter is defined, it will immediately appear in the list of available filters.
 
 
 
@@ -301,53 +347,7 @@ Understanding the relationships is critical for understanding an architectural v
 \end{description}
 
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection {Rule-Based Filtering} \slab{filtering}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-In the previous section we have introduced the Filter operation which works on explicit sets of nodes. Most software architecture recovery tools offer such a filter operation \cite{aracic-filtering}. Softwarenaut implements several categories of advanced {\em rule-based filters} for nodes and edges. Softwarenaut supports two types of basic filters: 
-
-\begin{enumerate}
-
-\item {\em Low-level filters} act on the hierarchical graph itself. They remove from the hierarchical graph the low-level elements that match a given condition, e.g., all the invocation relationships that go to polymorphic classes.
-
-\item {\em High-level filters} act on the high-level elements and relationships between them in the working set, e.g., hiding all the high-level dependencies that abstract few low-level dependencies.
-
-\end{enumerate}
-
-During exploration, the user interacts mostly with the High-level filters. There are two types of filters that apply to both artifacts and relationships: 
-
-\begin{enumerate}
-
-\item {\em Metric-based filters} for entities and relationships are defined with respect to the metrics computed for artifacts. For example filtering out {\em the weak dependencies} or {\em the small modules}\footnote{These are threshold-based high-pass filters} in a view
-
-\item {\em Type-based filters} for entities and relationships are defined with respect to the type of the artifacts. For example showing {\em only inheritance relationships} or hiding {\em all the classes} from a view.
-
-\end{enumerate}
-
-\begin{figure}[ht]
-\begin{center}
-\includegraphics[width=\linewidth]{SnautFilteringPanel}
-\caption{The UI for applying relationship filters in Softwarenaut}
-\flabel{filpan}
-\end{center}
-\end{figure}
-
-
-Softwarenaut also implements advanced filters for relationships:
-
-\begin{itemize}
-
-\item {\em Evolutionary filters} are defined based on the historical evolution of an inter-module relationship in the system\footnote{Evolution-based filters require models of multiple versions of a system loaded}. For example showing only the {\em relationships that existed in all the versions of a system} or hiding all the {\em unstable relationships} \cite{lungu-relevo}.
-
-\item {\em Directional filters} are defined based on the direction of the relationship between two modules. For example, filtering out the unidirectional relationships from an architectural view is useful for highlighting the modules that have mutual dependencies between themselves. 
-
-\end{itemize}
-
-\fref{filpan} presents the relation filtering panel as implemented in Softwarenaut. Several filters can be combined to obtain more powerful ones with either the ``and'' or the ``or'' operator. The elements that match the filter can be either ``shown'' or ``hidden''. The user can define new filters by writing simple scripts in Smalltalk. The system is fully reflective, and as soon as a new filter is defined, it will immediately appear in the list of available filters.
-
-\subsection {Visual Querying}
+%\subsection {Visual Querying}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
