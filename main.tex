@@ -18,7 +18,8 @@
 
 %% Title, authors and addresses
 
-\title{Softwarenaut: The Software Architecture Recovery Tool}
+\title{Evolutionary and Collaborative Software Architecture Recovery With Softwarenaut}
+%\title{Softwarenaut: A Tool for Architecture Recovery }
 
 \author{Mircea Lungu}
 \address{Software Composition Group - University of Bern, Switzerland}
@@ -46,7 +47,7 @@ Architecture Recovery \sep Visualization \sep Reverse Engineering
 \section{Introduction} \label{sec:Introduction}
 %%%%%%%%%%%%%%%%%%%%%%
 
-No software system is an island. Instead, a system exists and functions in an environment. When the environment changes the system must change too or become obsolete\cite{lehman-softev}. As a result, maintaining a software system implies a continuous effort to keep it up to date with the unanticipated changes in its environment. Having a clear and up to date understanding of the architecture of a system is critical for its maintenance and evolution \cite{Duca09c, pollet-sar}.
+Each software systems exists and functions in an environment and when the environment changes the system must change too or become obsolete \cite{lehman-softev}. As a result, maintaining a software system implies a continuous effort to keep it up to date with the unanticipated changes in its environment. Having a clear and up to date understanding of the architecture of a system is critical for its maintenance and evolution \cite{Duca09c, pollet-sar}.
 
 As a system evolves, the architecture erodes \cite{perry-foundations} and an architectural mismatch appears between the {\em as-defined} and {\em as-is} architecture \cite{garlan-mismatch}. One accompanying property of this continuous drift between the actual architecture and the defined architecture of the system is an increasing brittleness of the system \cite{perry-foundations}. 
 
@@ -58,36 +59,38 @@ In the case of large software systems the architecture is specified through mult
 
 Architecture recovery tools focus on recovering module views through visualization and interaction \cite{murphy-reflexion, muller-rigi, storey-shrimp}. While some steps of the process can be automated (e.g., fact extraction, view generation), human intervention is crucial. In some cases the user has to group related artifacts together based on their similarity of purpose \cite{muller-rigi}. In other cases the user has to compare the architecture as-extracted with the architecture as-predicted \cite{murphy-reflexion} or the user has to decide which exploration paths to follow \cite{storey-shrimp}.
 
-We present Softwarenaut \cite{lungu-relevo, lungu-packages} - the architecture recovery tool that we have developed. Softwarenaut provides interactive exploration mechanisms that support the semi-automated discovery of architectural views of any object-oriented system and allows the sharing of such architectural views. 
+In this article we present Softwarenaut --- our architecture recovery tool.
+%We present Softwarenaut \cite{lungu-relevo, lungu-packages} - the architecture recovery tool that we have developed. Softwarenaut provides interactive exploration mechanisms that support the semi-automated discovery of architectural views of any object-oriented system and allows the sharing of such architectural views. 
 
-\paragraph{Structure of the article} \sref{over} is an overview of Softwarenaut. We then discuss two phases in the workflow of any architecture recovery tool: information aggregation (\sref{org}) and interactive exploration (\sref{interact}). In \sref{evol} we detail the way in which Softwarenaut provides support for evolutionary analysis. In \sref{views} we show how sharing architectural views enables collaboration. In \sref{archi} we discuss architectural considerations and in \sref{disc} we discuss the tool-building experience. In \sref{rel} we present related work. In \sref{conc} we conclude and outline future work.
+\paragraph{Structure of the article} We start with an overview of the tool (\sref{over}) and continue with describing its particularities in two of the phases of architecture recovery: information aggregation (\sref{org}) and interactive exploration (\sref{interact}). In \sref{evol} we detail how Softwarenaut provides support for evolutionary analysis. In \sref{views} we show how sharing architectural views enables collaboration. In \sref{archi} we discuss architectural considerations and in \sref{disc} we discuss the tool-building experience. In \sref{rel} we present related work. In \sref{conc} we conclude and outline future work.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section {Softwarenaut in a Nutshell} \label{sec:over}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Softwarenaut is an architecture recovery tool based on interactive exploration, with the goal of discovering architecturally relevant views \cite{lungu-packages}.
+Softwarenaut is an architecture recovery tool based on interactive exploration which takes advantage of evolutionary information to provide better support for analysis. The tool allows collaboration through sharing and discovering of architectural views. 
 
-The main interaction approach in Softwarenaut is to let the user navigate from an automatically aggregated high-level view on the system downwards, also known as {\em top-down exploration}.
+%with the goal of discovering architecturally relevant views \cite{lungu-packages}.
 
-Like other architecture recovery tools \cite{pollet-sar}, Softwarenaut conforms to a classical extract-abstract-view architecture. \fref{flow} presents the three main steps of this architecture. 
+% The main interaction approach in Softwarenaut is to let the user navigate from an automatically aggregated high-level view on the system downwards, also known as {\em top-down exploration}.
 
-\begin{figure}[ht]
+
+Like other architecture recovery tools \cite{pollet-sar}, Softwarenaut conforms to a classical extract-abstract-view architecture as presented in \fref{flow}. The figure highlights the fact that the tool is focused on providing support for the second and third steps of the workflow: 
+
+% The tool uses external fact extraction tools and provides support for the second and third steps of the workflow in \fref{flow}:
+
+\begin{itemize}
+\item {\em Information Aggregation.} The tool takes into account the hierarchical decomposition of a system as a basis for aggregating artifacts and relationships. In the case of a missing hierarchical decomposition the tool can automatically generate one. When multiple versions of a system are available the tool models their evolution.
+\item {\em Interactive Visualization and Exploration.} The tool allows for interactive exploration built around the ``overview, zoom and filter, then details on demand'' information visualization mantra \cite{shneid-eyes}. It provides a powerful set of filtering mechanisms and allows the recovered architectural views to be shared between users and tools.
+\end{itemize}
+
+\begin{figure}[h]
 \begin{center}
 \includegraphics[width=\linewidth]{SnautWorkflow}
-\caption{Softwarenaut supports an extract-abstract-view workflow model}
+\caption{Softwarenaut provides the last two phases of an extract-abstract-view model}
 \flabel{flow}
 \end{center}
 \end{figure}
-
-
-In each of the three steps the tool offers state of the art features:
-
-\begin{itemize}
-\item {\em Fact Extraction.} The tool can analyze any object-oriented system through a system of pluggable fact extractors which export information to a well-known meta-model. 
-\item {\em Information Aggregation.} The tool takes into account the hierarchical decomposition of a system as a basis for aggregating artifacts and relationships. In the case of a missing hierarchical decomposition the tool can automatically generate one.
-\item {\em Interactive Visualization and Exploration.} The tool allows for an overview, zoom and filter, and details on demand approach. The tool provides a powerful set of filtering mechanisms. The recovered architectural views can be shared between users, and reused by other tools.
-\end{itemize}
 
 The article continues with detailing the second and third step, the first one being discussed later in the section on architectural concerns regarding the tool.
 
@@ -135,7 +138,7 @@ Implicit Relationships are derived from the explicit relationships by aggregatin
 
 \end{description}
 
-The static analysis of object-oriented system has limitations. One of them is that some dependencies cannot be unequivocally resolved. In the presence of a method that is defined in a base class and overridden in the subclasses it is impossible to know just by static analysis to which of the classes a method call will directed. The decision will be taken by the model extractor. Whatever the decision, the relationships that are extracted by the extractor will be modeled in the hierarchical graph with explicit relationships.
+The static analysis of object-oriented system has limitations. One of them is that some dependencies cannot be unequivocally resolved. In the presence of a method that is defined in a base class and overridden in the subclasses it is impossible to know by static analysis to which of the classes a method call will directed. The decision will be taken by the model extractor. Whatever the decision, the relationships that are extracted by the extractor will be modeled in the hierarchical graph with explicit relationships.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -153,13 +156,24 @@ The UI of Softwarenaut contains three linked complementary visual perspectives t
 \end{center}
 \end{figure}
 
-The linked complementary perspectives support the ``overview first, zoom and filter, and details on demand'' principle of information visualization \cite{shneid-eyes}. 
+The linked complementary perspectives support the ``overview first, zoom and filter, and details on demand'' architecture of information visualization tools proposed by Shneiderman \cite{shneid-eyes}. 
 
 The three complementary views that the tool supports are the architectural, the detail, and the overview views:
 
 \begin{description}
 
-\item The {\em Architectural View} is Softwarenaut's main view. It is a graph-based representation of modules and their dependencies. The nodes in the graph represent modules and the edges represent the dependencies between the modules. Each dependency edge is an aggregation of low-level dependencies between the two associated modules. To represent the nodes and edges here we use Lanza's polymetric approach \cite{lanza-pv, lanza-oomp}. 
+\item The {\em Architectural View} is Softwarenaut's main view. It is a graph-based representation of modules and their dependencies. The nodes in the graph represent modules and the edges represent the dependencies between the modules. Each dependency edge is an aggregation of low-level dependencies between the two associated modules. 
+
+The tool allows visualizing a graph with various degrees of visual sophistication. \fref{sofistication} shows three levels of visual detail\footnote{The tool implements even more levels of visual detail}: (a) the leftmost presents a dependency graph as simple nodes and edges; (b) the middle presents a polymetric view \cite{lanza-pv} in which the width of a dependency is proportional to the number of abstracted explicit relationships, and the size of a module is proportional to its size; (c) the rightmost presents a modified treemap layout which shows all the contained submodules and classes inside a module. 
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=\linewidth]{images/sofistication}
+\caption{The tool allows for visualizing a graph with different degrees of sophistication}
+
+\flabel{sofistication}
+\end{center}
+\end{figure}
 
 \item The {\em Detail} panel presents details for an entity selected in the Exploration panel. The goal is to supplement details of the element selected in the exploration panel. The detail panel implements the ``details-on-demand'' part of Shneiderman's visualization mantra \cite{shneid-eyes}.
 
@@ -167,7 +181,7 @@ The three complementary views that the tool supports are the architectural, the 
 
 \end{description}
 
-In this section we detail the interactive techniques that support the exploration process in Softwarenaut: navigation (\ref{sec:navi}), details-on-demand (\ref{sec:dod}), rule-based filtering (\ref{sec:filtering}) and first-class views and collaboration (\ref{sec:views}).  
+In this section we detail the interactive techniques that support the exploration process in Softwarenaut: navigation (\ref{sec:navi}), details-on-demand (\ref{sec:dod}), rule-based filtering (\ref{sec:filtering}), and visual querying (\ref{sec:vq}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Navigation} \slab{navi}
@@ -227,7 +241,7 @@ The exploration operations supported by Softwarenaut are:
 As the user refines the view, and climbs down in the hierarchy of the system, he brings more and more elements into the view. He can use the Filter and Group operations on explicit sets of nodes to decrease the number of nodes displayed on screen and therefore cope with the complexity of large graphs. One type of modules that benefit the user when filtered out are the {\em omnipresent modules} which contribute little to the understanding of the architecture of the system, and heavily clutter the view \cite{mitchell-bunch}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection {History Operations} 
+%\subsection {History Operations} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 An important requirement for information exploration tools is keeping track of the interaction and providing undo/redo operations \cite{shneid-eyes}. Few architecture recovery tools implement this feature. We have discovered this requirement while testing an earlier version of the tool with users (see \sref{usability} for more). In its latest version Softwarenaut implements undo/redo operations.
@@ -246,28 +260,30 @@ The Detail panel of Softwarenaut is one of the ways in which one can understand 
 \subsubsection {Detail Views for Modules}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The detail views for modules present various details of a module under focus. Softwarenaut provides a variated set of detail views for nodes that allow understanding the module under focus. \fref{moduledetails} presents two example views: 
+% The detail views for modules present various details of a module under focus. Softwarenaut provides a variated set of detail views for nodes that allow understanding the module under focus. 
+Understanding and being able to inspect individual modules is part of understanding an architectural view. Softwarenaut provides a series of predefined detail views for modules. \fref{moduledetails} presents two example views: 
 
 \begin{itemize}
 
 \item The {\em Class List} detail view lists all the classes contained in a module and its submodules together. For these classes the user can select various software metrics. The left figure in \fref{moduledetails} presents the classes in the {\em persistence} module from ArgoUML. The largest class in the system is the class responsible with serializing the UML diagram to disk.
-\item The {\em Module Evolution Filmstrip} detail view presents the evolution of a given module when multiple versions of the system are loaded. The classes that are new in a version of the module are highlighted with yellow. The classes that are modified with blue -- and the more a class has changed, the darker its shade of blue. In \fref{moduledetails} one can see that where the only two classes that existed in the module in the first analyzed version disappear in the second. By inspecting the names of the classes one observes that two classes responsible to interfacing with the database are replaced with classes responsible with writing on the disk.
-\end{itemize}
 
-\begin{figure}[t]
+\begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.8\linewidth]{images/ModuleDetails}
+\includegraphics[width=0.7\linewidth]{images/ModuleDetails}
 \caption{The Class List detail view (left) and the Module Evolution Filmstrip detail view (right) present two complementary aspects of the {\em persistence} module from ArgoUML} 
 \flabel{moduledetails}
 \end{center}
 \end{figure}
 
+\item The {\em Module Evolution Filmstrip} detail view presents the evolution of a given module when multiple versions of the system are loaded. The classes that are new in a version of the module are highlighted with yellow. The classes that are modified with blue -- and the more a class has changed, the darker its shade of blue. In \fref{moduledetails} one can see that where the only two classes that existed in the module in the first analyzed version disappear in the second. By inspecting the names of the classes one observes that two classes responsible to interfacing with the database (DBReader and DBWriter) are replaced with classes responsible with writing on the disk.
+\end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection {Detail Views for Relationships}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+Understanding the relationships is critical for understanding an architectural view. Softwarenaut provides a broad set of detail views for relationships which present information about the selected relationships. The available detail views for relationships cover both structural and evolutionary aspects \cite{lungu-cutedge, lungu-relevo}. \fref{detail-views} and \fref{evostrip} present two types of detail views for relationships: 
 
-\begin{figure}[t]
+\begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.44\linewidth]{DetailsForEdgesAndNodes}
 \caption{The Invoked Artifacts detail view presents information about the classes that are invoked in a relationship} 
@@ -275,7 +291,6 @@ The detail views for modules present various details of a module under focus. So
 \end{center}
 \end{figure}
 
-Understanding the relationships is critical for understanding an architectural view. Softwarenaut provides a broad set of detail views for relationships which present information about the selected relationships. The available detail views for relationships cover both structural and evolutionary aspects \cite{lungu-cutedge, lungu-relevo}. \fref{detail-views} and \fref{evostrip} present two types of detail views for relationships: 
 
 \begin{description}
 
@@ -284,6 +299,7 @@ Understanding the relationships is critical for understanding an architectural v
 \item The {\em Relationship Evolution Filmstrip} view presents the evolution of the given relationship in all the versions of the system which are available for analysis. \fref{evostrip} presents such a view. The two modules and the associated relationship are represented in every analyzed version with metrics providing information about the dynamics of the relationship. Section \ref{sec:evol} presents more details about the Evolution Filmstrip while discussing evolutionary aspects of the tool.
 
 \end{description}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -310,6 +326,15 @@ During exploration, the user interacts mostly with the High-level filters. There
 
 \end{enumerate}
 
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=\linewidth]{SnautFilteringPanel}
+\caption{The UI for applying relationship filters in Softwarenaut}
+\flabel{filpan}
+\end{center}
+\end{figure}
+
+
 Softwarenaut also implements advanced filters for relationships:
 
 \begin{itemize}
@@ -320,15 +345,10 @@ Softwarenaut also implements advanced filters for relationships:
 
 \end{itemize}
 
-\begin{figure}[ht]
-\begin{center}
-\includegraphics[width=\linewidth]{SnautFilteringPanel}
-\caption{The UI for applying relationship filters in Softwarenaut}
-\flabel{filpan}
-\end{center}
-\end{figure}
-
 \fref{filpan} presents the relation filtering panel as implemented in Softwarenaut. Several filters can be combined to obtain more powerful ones with either the ``and'' or the ``or'' operator. The elements that match the filter can be either ``shown'' or ``hidden''. The user can define new filters by writing simple scripts in Smalltalk. The system is fully reflective, and as soon as a new filter is defined, it will immediately appear in the list of available filters.
+
+\subsection {Visual Querying}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section {Evolutionary Analysis} \slab{evol}
@@ -403,11 +423,11 @@ The usefulness of the filters is hinted by the fact that in both the views, the 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section {First-Class Views and Collaboration} \slab{views}
+\section {Collaboration Through First-Class Views} \slab{views}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Traditionally software analysis tools were designed with a {\em throw-away} attitude  in mind. One was supposed to start the analysis, arrive at some results, and then conclude the analysis. In Softwarenaut we want to allow the interruption and continuation of the analysis, and the reuse of the results of the analysis between sessions. Moreover, traditional software analysis never reuse the information that one user has gained about a certain version of the system. This is wrong since once published a version never changes and therefore the results of one analysis can inform further analyses. In Softwarenaut these two problems are addressed with the help of {\em first-class views} and the concept of a {\em Global View Repository}, a mechanism for publishing and discovering existing views.
+Traditionally software analysis tools were designed with a {\em analysis-in-one-sitting} attitude  in mind. One was supposed to start the analysis, arrive at some results, and then conclude the analysis. In Softwarenaut we want to allow the interruption and continuation of the analysis, and the reuse of the results of the analysis between sessions. Moreover, traditional software analysis never reuse the information that one user has gained about a certain version of the system. This is wrong since once published a version never changes and therefore the results of one analysis can inform further analyses. In Softwarenaut these two problems are addressed with the help of {\em first-class views} and the concept of a {\em Global View Repository}, a mechanism for publishing and discovering existing views.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection {First-Class Views}
@@ -435,11 +455,7 @@ The model of the system is not saved together with the view. We assume that mode
 \subsection {The Sharing and Discovering of Architectural Views}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Once published, a given version of a system never changes. It makes therefore sense to make public all the analyses regarding that version, such that when other users analyze the same version or system they can benefit from the previous work and insight. In the context of architectural view recovery this means discovering architectural views that others have already defined. 
-
-To support sharing and discovering architectural views we have created the {\em Global Architectural View Repository} (GVR) -- a public repository that indexes architectural views generated with Softwarenaut. \fref{fig:gvr} presents the idea behind the GVR. The $save(v1,Z)$ function means save view $v1$ for system $Z$. While analyzing system Z, users A and B publish views $v1$ and $v2$. When later user M analyzes the same system, he can already benefit from the previous knowledge by discovering the views that users A and B have published. 
-
-
+Once published, a given version of a system never changes. It makes therefore sense to make public all the analysis results regarding that version, such that when other users analyze the same system they can corroborate results and benefit from the previous insights. In the context of architectural view recovery this means discovering architectural views that others have already defined. 
 
 \begin{figure}[ht]
 \begin{center}
@@ -448,6 +464,10 @@ To support sharing and discovering architectural views we have created the {\em 
 \flabel{fig:gvr}
 \end{center}
 \end{figure}
+
+
+To support sharing and discovering architectural views we have created the {\em Global Architectural View Repository} (GVR) -- a public repository that indexes architectural views. \fref{fig:gvr} presents the concept behind the GVR through a simplified example. While analyzing system Z, users A and B publish views $v1$ and $v2$\footnote{The $publish(v1,Z)$ notation means publishing to the GVR the view $v1$ for system $Z$}. When later user M analyzes the same system, he can already benefit from the previous knowledge by discovering the views that users A and B have published. 
+
 
 The architectural views as saved in the GVR can serve as the basis for monitoring the architectural evolution of the system. After the publication of a new version of the system, Softwarenaut can automatically detect the views affected by the new changes, and present a {\em visual diff} on top of the view retrieved from the GVR between the state of the system at the moment the view was created and the latest commit.
 
