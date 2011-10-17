@@ -7,6 +7,7 @@
 \input {utils}
 \graphicspath{{images/}}
 
+\newcommand{\cd}[1]{{\em{#1}}}
 \newcommand{\ra}{$\rightarrow$}
 \newcommand{\chg}[2]{\textcolor{red}{\sout{#1}}{\ra}\textcolor{blue}{\uline{#2}}} % please change
 \newcommand{\ins}[1]{\textcolor{blue}{\uline{#1}}} % please insert
@@ -254,25 +255,27 @@ As the user refines the view, and climbs down in the hierarchy of the system, he
 \subsection {Rule-Based Filtering} \slab{filtering}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In the previous section we have introduced the {\em Remove} operation which works on explicit sets of nodes. Most software architecture recovery tools offer such a filtering operation \cite{aracic-filtering}. Softwarenaut implements several categories of advanced {\em rule-based filters} for nodes and edges. Softwarenaut supports two types of basic filters: 
+In the previous section we have introduced the {\em Remove} operation which works on explicit sets of nodes. Most software architecture recovery tools offer such a filtering operation \cite{aracic-filtering}. 
+Softwarenaut implements two main categories of advanced {\em rule-based filters} for nodes and edges. 
+%Softwarenaut supports two main types of filters: 
 
 \begin{enumerate}
 
-\item {\em Low-level filters} act on the hierarchical graph itself. They remove from the hierarchical graph the low-level elements that match a given condition, e.g., all the invocation relationships that go to polymorphic classes.
+\item {\em Low-level filters} act on the hierarchical graph itself. They remove from the hierarchical graph the elements that match a given condition, e.g., all the invocation relationships that go to polymorphic classes.
 
-\item {\em High-level filters} act on the high-level elements and relationships between them in the working set, e.g., hiding all the high-level dependencies that abstract few low-level dependencies.
+\item {\em High-level filters} act on the high-level elements and relationships between them in the working set, e.g., hiding all the high-level dependencies that abstract only a few low-level dependencies.
 
 \end{enumerate}
 
-During exploration, the user interacts mostly with the High-level filters. There are two types of filters that apply to both artifacts and relationships: 
+During exploration, the user needs mostly the high-level filters. There are three types of filters that apply to both artifacts and relationships: 
 
-\begin{enumerate}
-
+\begin{description}
 \item {\em Metric-based filters} for entities and relationships are defined with respect to the metrics computed for artifacts. For example filtering out {\em the weak dependencies} or {\em the small modules}\footnote{These are threshold-based high-pass filters} in a view
 
 \item {\em Type-based filters} for entities and relationships are defined with respect to the type of the artifacts. For example showing {\em only inheritance relationships} or hiding {\em all the classes} from a view.
 
-\end{enumerate}
+\item {\em Evolutionary filters} are defined based on the historical evolution of a module or an inter-module relationship in the system\footnote{Evolution-based filters require models of multiple versions of a system loaded}. For example showing only the {\em relationships that existed in all the versions of a system}, hiding all the {\em unstable relationships} \cite{lungu-relevo}, or displaying only the modules that were introduced in the last version of the system.
+\end{description}
 
 \begin{figure}[ht]
 \begin{center}
@@ -283,19 +286,15 @@ During exploration, the user interacts mostly with the High-level filters. There
 \end{figure}
 
 
-Softwarenaut also implements advanced filters for relationships:
-
-\begin{itemize}
-
-\item {\em Evolutionary filters} are defined based on the historical evolution of an inter-module relationship in the system\footnote{Evolution-based filters require models of multiple versions of a system loaded}. For example showing only the {\em relationships that existed in all the versions of a system} or hiding all the {\em unstable relationships} \cite{lungu-relevo}.
-
-\item {\em Directional filters} are defined based on the direction of the relationship between two modules. For example, filtering out the unidirectional relationships from an architectural view is useful for highlighting the modules that have mutual dependencies between themselves. 
-
-\end{itemize}
+Softwarenaut also implements filters that work only for relationships. One such example are the {\em Directional filters} which are defined based on the direction of the relationship between two modules. For example, filtering out the unidirectional relationships from an architectural view is useful for highlighting the modules that have mutual dependencies between themselves. 
 
 \fref{filpan} presents the relation filtering panel as implemented in Softwarenaut. Several filters can be combined to obtain more powerful ones with either the ``and'' or the ``or'' operator. The elements that match the filter can be either ``shown'' or ``hidden''. The user can define new filters by writing simple scripts in Smalltalk. The system is fully reflective, and as soon as a new filter is defined, it will immediately appear in the list of available filters.
 
 
+\subsection {Querying and Highlighting}
+Highlighting is related to filtering only that it does not remove the elements from the view but instead it emphasizes them. One can highlight based on pattern matching in the names of the entities (e.g. all the classes that nave ``Test'' in their name) or based on structural properties of the code (e.g. all the classes that define the Main method). 
+
+One special type of highlighting can be used for when the modules are represented with a treemap view. In that case one can see all the classes in the system in the same view so he can map various metrics that are available about those classes on their color. \fref{sos} presents a view in which the color intensity of a class is proportional to the FANOUT of that class.% -- the number of outgoing calls from that class to other classes in the system.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection {Details-on-Demand} \slab{dod}
@@ -318,13 +317,17 @@ Understanding and being able to inspect individual modules is part of understand
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.7\linewidth]{images/ModuleDetails}
+\includegraphics[width=0.8\linewidth]{images/ModuleDetails}
 \caption{The Class List detail view (left) and the Module Evolution Filmstrip detail view (right) present two complementary aspects of the {\em persistence} module from ArgoUML} 
 \flabel{moduledetails}
 \end{center}
 \end{figure}
 
-\item The {\em Module Evolution Filmstrip} detail view presents the evolution of a given module when multiple versions of the system are loaded. The classes that are new in a version of the module are highlighted with yellow. The classes that are modified with blue -- and the more a class has changed, the darker its shade of blue. In \fref{moduledetails} one can see that where the only two classes that existed in the module in the first analyzed version disappear in the second. By inspecting the names of the classes one observes that two classes responsible to interfacing with the database (DBReader and DBWriter) are replaced with classes responsible with writing on the disk.
+\item The {\em Module Evolution Filmstrip} detail view presents the evolution of a given module when multiple versions of the system are loaded. 
+
+\fref{moduledetails} presents an example. The versions of the module are presented chronologically from top to bottom. In each version evolutionary aspects are highlighted: the classes that are new in that version of the module with respect to the previous one are highlighted with yellow; the classes that are modified with blue and the intensity of the color is proportional to the amount of changes -- the more a class has changed with respect to its previous version, the darker its shade of blue. 
+
+In \fref{moduledetails} one can see that where the only two classes that existed in the module in the first analyzed version disappear in the second. By inspecting the names of the classes one observes that two classes responsible to interfacing with the database (DBReader and DBWriter) are replaced with classes responsible with writing on the disk.
 \end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection {Detail Views for Relationships}
@@ -357,7 +360,7 @@ Understanding the relationships is critical for understanding an architectural v
 \section {Evolutionary Analysis} \slab{evol}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Softwarenaut can take evolutionary information into account to provide better detail views and filters.
+Softwarenaut can take evolutionary information into account to provide advanced detail views and historical filters.
 
 To support multi-version analysis Softwarenaut requires that models of multiple versions of the system under analysis be available. \fref{fig:mva} shows that a system history in Softwarenaut is composed of a list of hierarchical graphs, one for each analyzed version. This approach is conceptually the same as the one of G{\^i}rba \cite{girba-thesis}. One limitation of such an approach is that the number of versions that can be analyzed can not be too large. As a result one needs a strategy for selecting the versions that compose the history.
 
@@ -492,7 +495,6 @@ The architectural views as saved in the GVR can serve as the basis for monitorin
 
 \end{itemize}
 
-The GVR is implemented as a relational database (PostgreSQL) which can be publicly accessed by instances of Softwarenaut or other tools. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -518,7 +520,37 @@ When a hierarchical decomposition is not provided, we can automatically generate
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-We built Softwarenaut on top of the Moose Analysis Platform \cite{nier-story}. The main feature that the tool uses from Moose is the FAMIX Core meta-model for representing object-oriented systems. Softwarenaut makes uses of several of the views defined in Moose for the detail panel (e.g. the views that present entity metrics). Also, since behind any visual element of Softwarenaut lays a TreeNode object which wraps often a FAMIX entity (e.g. FAMIXPackage or FAMIXClass) the user can spawn other Moose analyses by selecting any of the elements of a Softwarenaut architectural view. In the same time, any tool in the Moose platform can spawn a Softwarenaut architectural analysis on any group of entities which have containment relationships and dependencies between themselves.
+We built Softwarenaut on top of the Moose Analysis Platform \cite{nier-story}. The main feature that the tool uses from Moose is the FAMIX Core meta-model. Softwarenaut also makes use of several of the views defined in Moose for the detail panel (e.g. the views that present entity metrics). Also, since behind any visual element of Softwarenaut lays a TreeNode object which wraps often a FAMIX entity (e.g. FAMIXPackage or FAMIXClass) the user can spawn other Moose analyses by selecting any of the elements of a Softwarenaut architectural view. In the same time, any tool in the Moose platform can spawn a Softwarenaut architectural analysis on any group of entities which have containment relationships and dependencies between themselves.
+\subsection {An Extensible Architecture}
+%The tool is built with extensibility in mind. 
+Many of the features of the tool are loaded at run-time through reflexion such that that all one needs to do is to know what are the extension points. Here we give examples of several of the features that are loaded reflexively together with the rules by which they are discovered.
+
+\begin{description}
+\item {\em Detail Views for Modules and Dependencies}. In order to provide a new detail view for a module or a relationship one needs to implement a subclass of {\em DetailView} which implements three messages: \cd{canDisplay: anObject}, \cd{tabName} and \cd{display: anObject}. The first message tests whether the detail view can display a certain object, the second gives the name of the view, and the third actually displays the object. \fref{filmstrip-sample} shows the implementation of the first two methods in the Relationship Filmstrip\footnote{The examples are in Smalltalk}.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=10cm]{images/filmstrip-sample}
+\caption{Two methods allow the runtime discovery of a detail view}
+\flabel{filmstrip-sample}
+\end{center}
+\end{figure}
+
+\item {\em Filters for Modules and Dependencies}. In order to provide a new filter one needs to add a new method in the corresponding filter class (\cd{NodeFilter} or \cd{DependencyFilter}) and annotate it with the \cd{filter} annotation. \fref{filter-sample} shows the code for the definition of the {\em newborn} relationships -- these are relationships that have a history of size one (line 5) and their last version is not empty (line 6). Line 1 shows the annotation.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=10cm]{images/filter-sample}
+\caption{Annotating methods in the Filter classes allows run-time discovery}
+\flabel{filter-sample}
+\end{center}
+\end{figure}
+
+
+\item {\em Module Representations}. In order to provide a new method for representing a module one needs to subclass the \cd{ModuleFigureBuilder} class and implement the \cd{moduleFigureFor:withBounds:} message in his new class. The method receives the object it is supposed to draw together with the rectangle in which it has to fit the visual representation of the object.
+
+\end{description} 
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection {Softwarenaut Synergies}
@@ -537,6 +569,7 @@ One of the tools that benefits from the Global View Repository is the Small Proj
 SPO needs to support navigation between the two abstraction levels to support the understanding of  the ecosystem abstraction level. When navigating from the ecosystem abstraction level down to the architectural level SPO must present architectural views of the individual systems. When they are available, the architectural views of the individual systems are obtained from the Global View Repository. SPO can therefore reuse architectural information generated with Softwarenaut.
 
 One of the limitations of Softwarenaut is the reliance on external fact extractors. This means that finding case-studies was always less than straightforward. To address this, in a collaboration with the researchers at UC Irvine we have integrated the tool with the SourcererDB database \cite{linstead-sourcerer}. Softwarenaut has now a broad range of available case-studies while the database can benefit from the analysis services of Softwarenaut. The integration with the SourcererDB was eased by the service based architecture of Sourcerer and intermediated by the FAMIX meta-model: Sourcerer provides a service which exports FAMIX models of its systems. 
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -580,7 +613,7 @@ We have often used Softwarenaut to analyze Softwarenaut itself, and this has det
 \footnotesize{7} & \footnotesize {Overall what do you think about the structure of the system? Is it well modularized?} \\
 \footnotesize{8} & \footnotesize {You want to add support for generating code in a new language. Which module do you change? Which others are impacted? How much time do you need?} \\ \hline
 \end{tabular}
-\caption{The eight tasks the students had to solve in two hours.}
+\caption{The eight tasks the participants had to solve in two hours.}
 \label{tab:questions}
 \end{center}
 \end{table}
@@ -601,7 +634,7 @@ By analyzing their reports we observed several things:
 
 After they submitted their reports we asked the users to fill a questionnaire and evaluate the usability of the tool. 
 
-The first part of the questionnaire contained several assertions. The users had to mark the strength of their agreement with each assertion on a scale from 1 to 5. \tref{postsurvey} presents the assertions together with the average agreement level. Although not statistically relevant the results show that the tool was easy to use, the students felt confident that the results they provided were reliable.%, and they found the dependency analysis easy to use. 
+The first part of the questionnaire contained several assertions. The users had to mark the strength of their agreement with each assertion on a scale from 1 to 5. \tref{postsurvey} presents the assertions together with the average agreement level. Although not statistically relevant the results show that the tool was easy to use, the participants felt confident that the results they provided were reliable.%, and they found the dependency analysis easy to use. 
  There was less agreement on whether the user interface was intuitive and whether ArgoUML was an appropriate case study. We believe that these two last answers were due to the limited time they had at disposition. %to accommodate themselves with the tool and the difficulty of ArgoUML as a case study.
 
 \begin{table}[ht]
@@ -619,7 +652,7 @@ The first part of the questionnaire contained several assertions. The users had 
 \end{center}
 \end{table}
 
-The second part of the questionnaire were open questions. We first asked the students what were the capabilities of the tool that they found the most useful during their analysis. Two of the teams answered with {\em "all the features we have used"} and {\em "many features, you can do a lot"}. \tref{useful} shows that the others were content with the dependency analysis and the exploration operations.
+The second part of the questionnaire were open questions. We first asked the participants what were the capabilities of the tool that they found the most useful during their analysis. Two of the teams answered with {\em "all the features we have used"} and {\em "many features, you can do a lot"}. \tref{useful} shows that the others were content with the dependency analysis and the exploration operations.
 
 \begin{table}[ht]
 \begin{center}
@@ -678,6 +711,7 @@ This might not be a unique experience, but it is a reminder that when building r
 
 Softwarenaut is written in Smalltalk and is released under the open source MIT Licence. The tool is available online at {\footnotesize \url{http://scg.unibe.ch/softwarenaut/}}. The homepage of the tool provides screencasts, documentation, installation instructions, and directions on how to obtain the source code and to contribute.
 
+The GVR is implemented as a PostgreSQL database which can be publicly accessed by instances of Softwarenaut or other tools. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section {Related Work} \label {sec:rel}
