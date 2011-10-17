@@ -398,7 +398,7 @@ In the first case the figure shows that the relationships between the two module
 \subsection {Evolutionary Filters}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Filters for relationships and modules are a powerful mechanism for coping with the large graphs that some systems entail. They allow displaying only those elements in an architectural view that are important for a given task and this focusing the analysis. Evolutionary filters for both relationships and entities can be classified in two main categories:
+Filters for relationships and modules are a powerful mechanism for coping with the large graphs that some systems entail. They allow displaying only those elements in an architectural view that are important for a given task and thus focus the analysis. Evolutionary filters for both relationships and entities can be classified in two main categories:
 
 \begin{description}
 \item {\em Age-based} filters take into account the number of versions in which the relationships or modules existed in the system. {\em Lifetime relationships} have existed in all the versions of the system, {\em Newborn relationship} have appeared only in the last analyzed version \cite{lungu-relevo}, {\em Historical modules} have existed since the first analyzed versions of the system.
@@ -513,14 +513,14 @@ FAMIX represents both artifacts and relationships as first-class entities. The m
 A class of relationships which have a special importance in Softwarenaut are the containment relationships which organize a software system in a vertical hierarchy: classes contain methods, modules contain classes, systems contain modules. This containment mechanism is a powerful way of coping with the complexity of large software systems.
 
 At an architectural level, different languages provide different mechanisms for the hierarchical organization of the system. C/C++ developers use the directory structure to organize systems hierarchically; Java developers use the package hierarchy; Smalltalk developers use the bundles hierarchy, etc. 
-When a hierarchical decomposition is not provided, we can automatically generate one using clustering techniques \cite{koschke-thesis}. We presented elsewhere an experiment with clustering the classes in a system based on natural language similarity\cite{Lung05a}.
+When a hierarchical decomposition is not provided, we can automatically generate one using clustering techniques \cite{koschke-thesis}. We presented elsewhere an experiment with clustering the classes in a system based on language similarity\cite{Lung05a}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection {Integration with the Moose Analysis Platform}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-We built Softwarenaut on top of the Moose Analysis Platform \cite{nier-story}. The main feature that the tool uses from Moose is the FAMIX Core meta-model. Softwarenaut also makes use of several of the views defined in Moose for the detail panel (e.g. the views that present entity metrics). Also, since behind any visual element of Softwarenaut lays a TreeNode object which wraps often a FAMIX entity (e.g. FAMIXPackage or FAMIXClass) the user can spawn other Moose analyses by selecting any of the elements of a Softwarenaut architectural view. In the same time, any tool in the Moose platform can spawn a Softwarenaut architectural analysis on any group of entities which have containment relationships and dependencies between themselves.
+Softwarenaut is integrated in the Moose Analysis Platform \cite{nier-story}. Softwarenaut reuses several of the views defined in Moose for the detail panel (e.g. the views that present entity metrics). Also, since behind any visual element of Softwarenaut lays a TreeNode object which wraps often a FAMIX entity (e.g. FAMIXPackage or FAMIXClass) the user can spawn other Moose analyses by selecting any of the elements of a Softwarenaut architectural view. In the same time, any tool in the Moose platform can spawn a Softwarenaut architectural analysis on any group of entities which have containment relationships and dependencies between themselves.
 \subsection {An Extensible Architecture}
 %The tool is built with extensibility in mind. 
 Many of the features of the tool are loaded at run-time through reflexion such that that all one needs to do is to know what are the extension points. Here we give examples of several of the features that are loaded reflexively together with the rules by which they are discovered.
@@ -699,7 +699,9 @@ This has been an early exploratory study with few participants and we can not cl
 \subsection {Depending on other research prototypes }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Depending on other research prototypes and platforms has been a benefit because we had the opportunity of using cutting edge technology and building on the shoulders of giants. In the same time it made our life harder since the tools that we depended on kept moving ``under our feet'' and at times they were not maintained anymore. For example during the development of the tool the Moose framework was ported from VisualWorks Smalltalk to Pharo Smalltalk for license reasons. Together with this the FAMIX 2.1 meta-model was replaced with the 3.0 version. This introduces a small compatibility issue between the tools that work in Pharo and VisualWorks. Since until now we did not have the engineering effort required to port all our code to Pharo we remained dependent on the VisualWorks Moose version. 
+Depending on other research prototypes and platforms has been a benefit because we had the opportunity of using cutting edge technology and building on the shoulders of giants. In the same time it made our life harder since the tools that we depended on kept moving ``under our feet'' and at times they were not maintained anymore. 
+
+For example during the development of the tool the Moose framework was ported from VisualWorks Smalltalk to Pharo Smalltalk for license reasons. Together with this the FAMIX 2.1 meta-model was replaced with the 3.0 version. This introduces a small compatibility issue between the tools that work in Pharo and VisualWorks. Since until now we did not have the engineering effort required to port all our code to Pharo we remained dependent on the VisualWorks Moose version. 
 
 A totally different problem is when one depends on a web service. There he can not shield himself from the changes on the other side. Recently the SourcererDB went through a database upgrade: for some time the Softwarenaut users did not have access to the large pool of case studies.
 
@@ -709,9 +711,9 @@ This might not be a unique experience, but it is a reminder that when building r
 \subsection {Installation and Documentation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Softwarenaut is written in Smalltalk and is released under the open source MIT Licence. The tool is available online at {\footnotesize \url{http://scg.unibe.ch/softwarenaut/}}. The homepage of the tool provides screencasts, documentation, installation instructions, and directions on how to obtain the source code and to contribute.
+Softwarenaut is written in Smalltalk and is released under the open source MIT License. The tool is available online at {\footnotesize \url{http://scg.unibe.ch/softwarenaut/}}. The homepage of the tool provides screencasts, documentation, installation instructions, and directions on how to obtain the source code and to contribute.
 
-The Global Architectural View Repository is implemented as a PostgreSQL database which can be publicly accessed by instances of Softwarenaut or other tools. 
+The Global Architectural View Repository (GAVR) is implemented as a PostgreSQL database which can be publicly accessed by instances of Softwarenaut or other tools. The online documentation provides more informations about ways of accessing the GAVR. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section {Related Work} \label {sec:rel}
