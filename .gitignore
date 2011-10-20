@@ -4,3 +4,6 @@
 *.spl
 *.log
 
+_gitPull.command
+_gitPullPush.command
+main.pdf
