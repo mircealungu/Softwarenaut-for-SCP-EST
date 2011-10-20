@@ -28,13 +28,16 @@
 \author{Michele Lanza}
 \address{REVEAL @ Faculty of Informatics - University of Lugano, Switzerland}
 
+\author{Oscar Nierstrasz}
+\address{Software Composition Group - University of Bern, Switzerland}
+
 %%% abstract %%%
 
 \begin{abstract}
 
 When the initial architecture of a system has eroded the only solution is architecture recovery. However, when the system under analysis is large, the user must use dedicated tools to support the recovery process. 
 
-We present Softwarenaut -- a tool which supports architecture recovery through interactive exploration, evolutionary analysis and visualization. The tool provides overview and detailed perspectives which support the architecture recovery process as well as powerful navigation primitives and filtering mechanisms that allow managing the complexity of large software systems. The recovered architectural views can be shared between users through a Global Architectural View Repository thus allowing collaborative architecture recovery.
+We present Softwarenaut -- a tool which supports architecture recovery through interactive exploration, evolutionary analysis and visualization. It provides overview and detailed perspectives which support the architecture recovery process as well as navigation primitives and filtering mechanisms that allow managing the complexity of large software systems. The recovered architectural views can be shared between users through a Global Architectural View Repository thus allowing collaborative architecture recovery.
 
 \end{abstract}
 
@@ -50,7 +53,7 @@ Architecture Recovery \sep Visualization \sep Reverse Engineering
 
 Each software systems exists and functions in an environment and when the environment changes the system must change too or become obsolete \cite{lehman-softev}. As a result, maintaining a software system implies a continuous effort to keep it up to date with the unanticipated changes in its environment. Having a clear and up to date understanding of the architecture of a system is critical for its maintenance and evolution \cite{Duca09c, pollet-sar}.
 
-As a system evolves, the architecture erodes \cite{perry-foundations} and an architectural mismatch appears between the {\em as-defined} and {\em as-is} architecture \cite{garlan-mismatch}. One accompanying property of this continuous drift between the actual architecture and the defined architecture of the system is an increasing brittleness of the system \cite{perry-foundations}. 
+As a system evolves, its architecture erodes \cite{perry-foundations}: an architectural mismatch appears between the {\em as-defined} and {\em as-is} architecture \cite{garlan-mismatch}. One accompanying property of this continuous drift between the actual and the defined architecture of the system is an increasing brittleness of the system \cite{perry-foundations}. 
 
 The main reason for architectural erosion and drift is widespread lack of programming language support for expressing the architecture, as well as the lack of tools that associate architectural decisions with the source code. The problem is an instance of the documentation problem: it is well known that the documentation of the system becomes quickly obsolete unless developers dedicate conscientious effort towards keeping it up to date \cite{riva-report}.
 
@@ -60,7 +63,7 @@ In the case of large software systems the architecture is specified through mult
 
 Architecture recovery tools focus on recovering module views through visualization and interaction \cite{murphy-reflexion, muller-rigi, storey-shrimp}. While some steps of the process can be automated (e.g., fact extraction, view generation), human intervention is crucial. In some cases the user has to group related artifacts together based on their similarity of purpose \cite{muller-rigi}. In other cases the user has to compare the architecture as-extracted with the architecture as-predicted \cite{murphy-reflexion} or the user has to decide which exploration paths to follow \cite{storey-shrimp}.
 
-In this article we present Softwarenaut --- our architecture recovery tool.
+%In this article we present Softwarenaut --- our architecture recovery tool.
 %We present Softwarenaut \cite{lungu-relevo, lungu-packages} - the architecture recovery tool that we have developed. Softwarenaut provides interactive exploration mechanisms that support the semi-automated discovery of architectural views of any object-oriented system and allows the sharing of such architectural views. 
 
 \paragraph{Structure of the article} We start with an overview of the tool (\sref{over}) and continue with describing its particularities in two of the phases of architecture recovery: information aggregation (\sref{org}) and interactive exploration (\sref{interact}). In \sref{evol} we detail how Softwarenaut provides support for evolutionary analysis. In \sref{views} we show how sharing architectural views enables collaboration. In \sref{archi} we discuss architectural considerations and in \sref{disc} we discuss the tool-building experience. In \sref{rel} we present related work. In \sref{conc} we conclude and outline future work.
@@ -317,7 +320,7 @@ Understanding and being able to inspect individual modules is part of understand
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.8\linewidth]{images/ModuleDetails}
+\includegraphics[width=0.75\linewidth]{images/ModuleDetails}
 \caption{The Class List detail view (left) and the Module Evolution Filmstrip detail view (right) present two complementary aspects of the {\em persistence} module from ArgoUML} 
 \flabel{moduledetails}
 \end{center}
@@ -337,7 +340,7 @@ Understanding the relationships is critical for understanding an architectural v
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.44\linewidth]{DetailsForEdgesAndNodes}
+\includegraphics[width=0.5\linewidth]{DetailsForEdgesAndNodes}
 \caption{The Invoked Artifacts detail view presents information about the classes that are invoked in a relationship} 
 \flabel{detail-views}
 \end{center}
@@ -384,13 +387,13 @@ One of the applications of multi-version analysis is the {\em Relationship Evolu
 
 \begin{figure}[ht!]
 \begin{center}
-\includegraphics[width=\linewidth]{images/Filmstrip}
+\includegraphics[width=0.8\linewidth]{images/Filmstrip}
 \caption{The Relationship Evolution Filmstrip presents the evolution of a given relationship through the multiple versions of the system available for analysis}
 \flabel{evostrip}
 \end{center}
 \end{figure}
 
-\fref{evostrip} presents two examples of relationship evolution filmstrips from two of our case-studies: Azureus and ArgoUML. In the film strip, the arrows between the modules represent implicit dependencies of different types (the invocation dependencies are represented in black and the inheritance dependencies are represented in red). The width of the dependency arrows is proportional to the number of low-level dependencies abstracted in the corresponding implicit dependency \cite{lungu-relevo}. The representation of the width of the dependencies provides insight into the quantitative dynamics of the inter-module relationship.
+\fref{evostrip} presents two examples of relationship evolution filmstrips from Azureus and ArgoUML. In the film strip, the arrows between the modules represent implicit dependencies of different types (the invocation dependencies are represented in black and the inheritance dependencies are represented in red). The width of the dependency arrows is proportional to the number of low-level dependencies abstracted in the corresponding implicit dependency \cite{lungu-relevo}. The representation of the width of the dependencies provides insight into the quantitative dynamics of the inter-module relationship.
 
 In the first case the figure shows that the relationships between the two modules evolved heavily during the evolution. In the second case we see that the relationship is recent and weak: it shows that the kernel depends on the internationalization ({\em i18n}) module. 
 
@@ -768,7 +771,7 @@ There are two main research directions in which we would like to bring Softwaren
 
 \end{description}
 
-\paragraph{Acknowledgements} We would like to thank Fabrizio Perin and Oscar Nierstrasz for feedback on earlier drafts of this paper. We would like to acknowledge Joel Ossher who provided the web-service which exports FAMIX models from the SourcererDB database. We would also like to thank the anonymous reviewers for their constructive feedback and the patience they had while trying out Softwarenaut.
+\paragraph{Acknowledgements} We would like to thank Fabrizio Perin and Oscar Nierstrasz for feedback on earlier drafts of this paper. We would like to acknowledge Joel Ossher who provided the web-service which exports FAMIX models from the SourcererDB database. We would also like to thank the anonymous reviewers for their constructive feedback and the patience they had while trying out Softwarenaut. Lanza acknowledges the financial support of the SNF through project SOSYA (SNF Project No. 132175).
 
 \bibliographystyle{model1-num-names}
 \bibliography{scg,mircea}
