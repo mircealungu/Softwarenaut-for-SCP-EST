@@ -175,7 +175,7 @@ I went to the website for software naut and to the online book, but I did not le
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=\linewidth]{SnautWorkflow}
-\caption{Softwarenaut addresses the last two phases of an extract-abstract-view model}
+\caption{Softwarenaut addresses the last two phases of an {\em extract-abstract-view} process}
 \flabel{flow}
 \end{center}
 \end{figure}
@@ -189,40 +189,38 @@ The article continues by detailing the second and third steps, the first one bei
 Aggregating horizontal relationships between software artifacts along the containment relationships is the fundamental technique that enables abstraction in Softwarenaut. 
 \on{! (I wish I knew what that meant)}
 
-\fref{dep-agg} exemplifies the aggregation of low-level relationships between methods and classes along the containment hierarchy of a Java system.
+\fref{dep-agg} exemplifies the aggregation of low-level relationships between methods and classes along the containment hierarchy of a Java system. The case study is ArgoUML\footnote{Throughout this article we will continue using ArgoUML as a case study. When we do not specify otherwise we refer to version 0.24.} and the figure focuses on the relationships between four classes from three different packages: \cd{uml}, \cd{uml.kernel}, \cd{uml.ui}, and \cd{persistence}. All these packages contain many classes but the visualized entities are sufficient for illustration purposes. 
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.7\linewidth]{DependencyAggregation}
-\caption{The aggregation of explicit dependencies into implicit ones along the containment relationships between methods, classes, and packages in a Java system.
-\on{avoid foobar examples!!!}
-\on{Don't rely on colors in diagrams unless you really need to! (use different kinds arrowheads or lines to distinguish arrows, not colors)}
-\on{use UML conventions if they exist (use UML arrows, not invented ones, where available)}
-}
+\includegraphics[width=0.75\linewidth]{DependencyAggregation}
+\caption{The aggregation of explicit dependencies into implicit ones along the containment hierarchy of methods, classes, and packages in several classes from the ArgoUML case study.}
 \flabel{dep-agg}
 \end{center}
 \end{figure}
  
-The figure contains for example the following two explicit low-level dependencies: the method calls between \cod{mX} and respectively \cod{mY} and \cod{mZ}. These explicit dependencies propagate as implicit relationships vertically along the containment relationships (\eg \cod{mX $\rightarrow$ CA2 $\rightarrow$ A2  $\rightarrow$A}, where $\rightarrow$ represents containment relationships). The highest level implicit relationship is the one between A and B. 
-\on{Since it's a foobar example, I have no idea what this implicit relationship is, or whether it makes any sense!}
+The figure contains three method calls that can be obtained through static analysis of the system: the method calls between \cd{actionPerformed} and respectively \cd{getCurrentProject}, \cd{getInstance}, and \cd{getExtension}. These explicit relationships propagate as implicit relationships vertically along the containment relationships that exist between methods, classes and packages. Some of the implicit relationships that can thus be derived are the dependencies between the \cd{ui} package and the \cd{PersistenceManager} class as well as the dependency between the \cd{uml} package and the \cd{persistence} package. 
 
-Aggregating the relationships across the \ugh{vertical} \on{you haven't explained what you mean by "vertical" and "horizontal" --- software has no inherent direction!} hierarchy has an $O(n^2)$ order of complexity \cite{buchsbaum-hierarchicalgraphs}. This means that for non-trivial systems, the on-the-fly computation of the dependencies can make interactive analysis sluggish.
-\on{Nonsense! $O(n^2)$ in theory does not imply $O(n^2)$ in practice!  (The worst-case probably occurs when everything is related to everything else, which is not the case in well-designed software!) You must justify this claim.}
-To \chg{allow}{enable} interactivity one \ugh{must} pre-compute the dependencies between the nodes in the hierarchy. The data structure that \chg{allows keeping}{is used to keep} \on{Please avoid this construct ("allows doing") -- it is ungrammatical and you use it too often.} track of the pre-computed dependencies is a {\em hierarchical graph}. 
 
-\fref{hmodel} presents a class diagram of Softwarenaut's hierarchical graphs.
+% The figure contains for example the following two explicit low-level dependencies: the method calls between \cod{mX} and respectively \cod{mY} and \cod{mZ}. These explicit dependencies propagate as implicit relationships vertically along the containment relationships (\eg \cod{mX $\rightarrow$ CA2 $\rightarrow$ A2  $\rightarrow$A}, where $\rightarrow$ represents containment relationships). The highest level implicit relationship is the one between A and B. 
+% \on{Since it's a foobar example, I have no idea what this implicit relationship is, or whether it makes any sense!}
+
+Aggregating explicit relationships across the hierarchy has a worst case order of complexity of $O(n^2)$ \cite{buchsbaum-hierarchicalgraphs}. Even if in real systems there are never relationships between all the leaves of the tree, so the worst case scenario is never encountered, it is common that for non-trivial systems, the on-the-fly computation of the dependencies can make interactive analysis sluggish. To enable interactivity on large systems it is efficient to pre-compute the dependencies between the nodes in the hierarchy \cite{buchsbaum-hierarchicalgraphs}.
+%\on{Nonsense! $O(n^2)$ in theory does not imply $O(n^2)$ in practice!  (The worst-case probably occurs when everything is related to everything else, which is not the case in well-designed software!) You must justify this claim.}
+
+
 
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[width=\linewidth]{HigraphModel}
-\caption{The {\em hierarchical graph} model as implemented in Softwarenaut.
-\on{why do you emphasize "implemented"?}}
+\caption{The {\em hierarchical graph} model in Softwarenaut.
+%\on{why do you emphasize "implemented"?}
+}
 \flabel{hmodel}
 \end{center}
 \end{figure}
 
-A Hierarchical Graph contains two types of entities: 
-\on{how about a few words of introduction? what are hierarchical graphs for?  are they the internal data structures used by softwarenaut to model everything? if so, say so.}
+The data structure that Softwarenaut uses to keep track of the pre-computed dependencies in a software system is a {\em hierarchical graph}. The data structure is central to the architecture of the system itself. \fref{hmodel} presents a class diagram of the classes that implement the concept. The figure shows that a hierarchical graph contains two types of entities: 
 
 \begin{description}
 
@@ -240,6 +238,7 @@ The static analysis of object-oriented system has limitations. One of them is th
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section {Interactive Exploration} \label {sec:interact}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -258,29 +257,29 @@ The UI of Softwarenaut contains three linked complementary visual perspectives t
 
 The linked complementary perspectives support the ``overview first, zoom and filter, and details on demand'' architecture of information visualization tools proposed by Shneiderman \cite{shneid-eyes}. 
 
-The three complementary views that the tool supports are the architectural, the detail, and the overview views:
+The three complementary views that the tool supports are the architectural view, the inspector, and the overview panel:
 
 \on{Sometime before here it would be nice to know what Softwarenaut considers an architecture to be. It certainly is not (just) a hierarchy graph.  Architecture is all about constraints and resulting properties.}
 
 \begin{description}
 
-\item The {\em Architectural View} is Softwarenaut's main view. It is a graph-based representation of modules and their dependencies. The nodes in the graph represent modules and the edges represent the dependencies between the modules. Each dependency edge is an aggregation of low-level dependencies between the two associated modules. 
+\item The {\em Architectural View} is Softwarenaut's is a graph-based representation of modules and their dependencies. The nodes in the graph represent modules and the edges represent the dependencies between the modules as extracted from the software system. Each dependency edge is an aggregation of low-level dependencies between the two associated modules. 
 
-The tool \ugh{allows \del{visualizing}} a graph \ins{to be visualized} with various degrees of visual sophistication. \fref{sofistication} shows three levels of visual detail\footnote{The tool implements also other levels of visual detail. \sref{extensible} presents the way one can extend the tool with new representations for modules}: (a) the leftmost \ins{diagram} presents a dependency graph as simple nodes and edges; (b) the middle presents a polymetric view \cite{lanza-pv} in which the width of a dependency is proportional to the number of abstracted explicit relationships, and the size of a module is proportional to its size; (c) the rightmost \ins{diagram} presents a modified treemap layout which shows all the contained submodules and classes inside a module. 
+The tool enables the visualization of a graph at various degrees of visual sophistication. \fref{sofistication} shows three levels of visual detail\footnote{The tool implements also other levels of visual detail. \sref{extensible} presents the way one can extend the tool with new representations for modules.}: (a) the leftmost diagram presents a dependency graph as simple nodes and edges; (b) the middle presents a polymetric view \cite{lanza-pv} in which the width of a dependency is proportional to the number of abstracted explicit relationships, and the size of a module is proportional to its size; (c) the rightmost diagram presents a modified treemap layout which shows all the contained submodules and classes inside a module. 
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=1.04\linewidth]{images/sofistication}
-\caption{The tool \chg{allows for visualizing}{visualizes} a graph with different degrees of sophistication. Left: simple nodes and edges; Middle: polymetric view; Right: a modified treemap view}
+\caption{The tool visualizes a graph with different degrees of sophistication. Left: simple nodes and edges; Middle: polymetric view; Right: a modified treemap view}
 
 \flabel{sofistication}
 \end{center}
 \end{figure}
 
-\item The {\em Detail} panel presents details for an entity selected in the Exploration panel. The goal is to supplement details of the element selected in the exploration panel. The detail panel implements the ``details-on-demand'' part of Shneiderman's visualization mantra \cite{shneid-eyes}.
+\item The {\em Inspector} panel presents details for an entity selected in the Exploration panel. The goal is to supplement details of the element selected in the exploration panel. The detail panel implements the ``details-on-demand'' part of Shneiderman's visualization mantra \cite{shneid-eyes}.
 \on{dunno what that is}
 
-\item The {\em Overview} panel presents the entire hierarchy of a system and highlights the modules that are visible in the exploration panel. The Overview panel presents a horizontal slice through a system \cite{wong-thesis}, offering an orientation aid which is critical for successful navigation \cite{storey-awareness}.
+\item The {\em Overview hierarchy} presents the entire hierarchy of a system and highlights the modules that are visible in the exploration panel. It presents a vertical slice through a system \cite{wong-thesis}, offering an orientation aid which is critical for successful navigation \cite{storey-awareness}.
 
 \end{description}
 
@@ -405,32 +404,30 @@ One special type of highlighting can be used for when the modules are represente
 
 The elements of every architectural view in Softwarenaut are nodes that represent modules and edges that represent relationships between them. For the user to be confident that he {\em understands} such a view he needs to understand the role of every node and the meaning of every edge. Metaphorically, if the view were a phrase, the nodes would be the nouns and the edges would be the verbs. One can understand the message only when he has understood all the nouns and the verbs.
 
-The Detail panel of Softwarenaut is one of the ways in which one can understand the individual nodes and edges in an architectural view; it presents different views depending on the selected element in the exploration view. 
+The Inspector panel of Softwarenaut is one of the ways in which one can understand the individual nodes and edges in an architectural view; it presents different views depending on the selected element in the exploration view. 
 
 \on{This is really boring.  It is really just a description of a tool. I am not getting any insight into why any of this is interesting or essential for architectural recovery.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection {Detail Views for Modules}
+\subsubsection {Inspectors for Modules}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\on{should be "detailed views"}
-
 % The detail views for modules present various details of a module under focus. Softwarenaut provides a variated set of detail views for nodes that allow understanding the module under focus. 
-Understanding and being able to inspect individual modules is part of understanding an architectural view. Softwarenaut provides a series of predefined detail views for modules. \fref{moduledetails} presents two example views: 
+Understanding and being able to inspect individual modules is part of understanding an architectural view. Softwarenaut provides a series of predefined inspectors for modules. \fref{moduledetails} presents two example views: 
 
 \begin{itemize}
 
-\item The {\em Class List} detail view lists all the classes contained in a module and its submodules together. For these classes the user can select various software metrics. The left figure in \fref{moduledetails} presents the classes in the {\em persistence} module from ArgoUML. The largest class in the system is the class responsible with serializing the UML diagram to disk.
+\item The {\em Class List} inspector lists all the classes contained in a module and its submodules together. For these classes the user can select various software metrics. The left figure in \fref{moduledetails} presents the classes in the {\em persistence} module from ArgoUML. The largest class in the system is the class responsible with serializing the UML diagram to disk.
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.75\linewidth]{images/ModuleDetails}
-\caption{The Class List detail view (left) and the Module Evolution Filmstrip detail view (right) present two complementary aspects of the {\em persistence} module from ArgoUML} 
+\caption{Two Inspectors: The Class List (left) and the Module Evolution Filmstrip (right) present two complementary aspects of the {\em persistence} module from ArgoUML} 
 \flabel{moduledetails}
 \end{center}
 \end{figure}
 
-\item The {\em Module Evolution Filmstrip} detail view presents the evolution of a given module when multiple versions of the system are loaded. 
+\item The {\em Module Evolution Filmstrip} presents the evolution of a given module when multiple versions of the system are loaded. 
 
 The right view in \fref{moduledetails} presents an example. The versions of the module are presented chronologically from top to bottom. In each version evolutionary aspects are highlighted: the classes that are new in that version of the module with respect to the previous one are highlighted with yellow; the classes that are modified with blue and the intensity of the color is proportional to the amount of changes -- the more a class has changed with respect to its previous version, the darker its shade of blue. 
 
@@ -439,17 +436,15 @@ The right view in \fref{moduledetails} presents an example. The versions of the 
 In \fref{moduledetails} one can see that where the only two classes that existed in the module in the first analyzed version disappear in the second. By inspecting the names of the classes one observes that two classes responsible to interfacing with the database (DBReader and DBWriter) are replaced with classes responsible with writing on the disk.
 \end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection {Detail Views for Relationships}
+\subsubsection {Inspectors for Relationships}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\on{should be "detailed views"}
-
-Understanding the relationships is critical for understanding an architectural view. Softwarenaut provides a broad set of detail views for relationships which present information about the selected relationships. The available detail views for relationships cover both structural and evolutionary aspects \cite{lungu-cutedge, lungu-relevo}. \fref{detail-views} and \fref{evostrip} present two types of detail views for relationships: 
+Understanding the relationships is critical for understanding an architectural view. Softwarenaut provides a broad and extensible set of inspectors for relationships. They cover both structural and evolutionary aspects \cite{lungu-cutedge, lungu-relevo} of the relationships. \fref{detail-views} and \fref{evostrip} present two types of relationships inspectors: 
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.5\linewidth]{DetailsForEdgesAndNodes}
-\caption{The Invoked Artifacts detail view presents information about the classes that are invoked in a relationship} 
+\caption{The Invoked Artifacts inspector presents information about the classes that are invoked in a relationship} 
 \flabel{detail-views}
 \end{center}
 \end{figure}
@@ -473,9 +468,8 @@ Understanding the relationships is critical for understanding an architectural v
 
 \on{It seems to me that the paper should start with this section.}
 
-Softwarenaut can take evolutionary information into account to provide advanced detail views and historical filters.
+Softwarenaut can take evolutionary information into account to provide advanced inspectors and historical filters.
 
-\on{should be "detailed views"}
 
 To support multi-version analysis Softwarenaut requires that models of multiple versions of the system under analysis be available. \fref{fig:mva} shows that a system history in Softwarenaut is composed of a list of hierarchical graphs, one for each analyzed version. This approach is conceptually the same as the one of G{\^i}rba \cite{girba-thesis}. One limitation of such an approach is that the number of versions that can be analyzed cannot be too large. As a result one needs a strategy for selecting the versions that compose the history.
 
@@ -489,16 +483,15 @@ To \ugh{\del{allow monitoring}} \on{why "allow"?} \ins{monitor} the evolution of
 \end{center}
 \end{figure}
 
-The two applications of multi-version analysis in Softwarenaut are detail views and filters, which we discuss in the following sections.
-\on{?! But we saw them already!}
+In the following section we show examples of inspectors and filters that take advantage of the available multi-version analysis. 
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection {Evolutionary Detail Views}
+\subsection {Inspectors for Evolutionary Information}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\on{should be "detailed views"}
 
-One of the applications of multi-version analysis is the {\em Relationship Evolution Filmstrip} \cite{lungu-relevo}. The Filmstrip is a detail view which presents the evolution of a given relationship between two modules over the time. %The view can be useful for understanding a relationship based on its history.
+One of the applications of multi-version analysis is the {\em Relationship Evolution Filmstrip} \cite{lungu-relevo}. The Filmstrip is an inspector which presents the evolution of a given relationship between two modules over the time. %The view can be useful for understanding a relationship based on its history.
 
 \begin{figure}[ht!]
 \begin{center}
@@ -590,10 +583,10 @@ Once published, a given version of a system never changes. It makes therefore se
 \end{figure}
 
 
-To support sharing and discovering architectural views we have created the {\em Global Architectural View Repository} (GAVR) -- a public repository that indexes architectural views. \fref{fig:gvr} presents the concept behind the GAVR through a simplified example. While analyzing system Z, users A and B publish views $v1$ and $v2$\footnote{The $publish(v1,Z)$ notation means publishing to the GAVR the view $v1$ for system $Z$}. When later user M analyzes the same system, he can already benefit from the previous knowledge by discovering the views that users A and B have published. 
+To support sharing and discovering architectural views we have created the {\em Global Architectural View Repository} (GVR) -- a public repository that indexes architectural views. \fref{fig:gvr} presents the concept behind the GVR through a simplified example. While analyzing system Z, users A and B publish views $v1$ and $v2$\footnote{The $publish(v1,Z)$ notation means publishing to the GVR the view $v1$ for system $Z$}. When later user M analyzes the same system, he can already benefit from the previous knowledge by discovering the views that users A and B have published. 
 
 
-The architectural views as saved in the GAVR can serve as the basis for monitoring the architectural evolution of the system. After the publication of a new version of the system, Softwarenaut can automatically detect the views affected by the new changes, and present a {\em visual diff} on top of the view retrieved from the GAVR between the state of the system at the moment the view was created and the latest commit.
+The architectural views as saved in the GVR can serve as the basis for monitoring the architectural evolution of the system. After the publication of a new version of the system, Softwarenaut can automatically detect the views affected by the new changes, and present a {\em visual diff} on top of the view retrieved from the GVR between the state of the system at the moment the view was created and the latest commit.
 
 \begin{figure}[ht]
 \begin{center}
@@ -607,9 +600,9 @@ The architectural views as saved in the GAVR can serve as the basis for monitori
 
 \begin{itemize}
 
-\item The top part of the inset presents the locally stored views which the user has in the image. For each of them the user can load it, delete it, or push it to the GAVR. In the inset, the buttons which have black text represent operations that can be applied on the local views.
+\item The top part of the inset presents the locally stored views which the user has in the image. For each of them the user can load it, delete it, or push it to the GVR. In the inset, the buttons which have black text represent operations that can be applied on the local views.
 
-\item The bottom part presents the views which exist for the given system in the GAVR. From the global view repository he can pull views in the local repository, or if he is the creator of such a view he can delete it from the global repository too. 
+\item The bottom part presents the views which exist for the given system in the GVR. From the global view repository he can pull views in the local repository, or if he is the creator of such a view he can delete it from the global repository too. 
 
 \end{itemize}
 
@@ -640,7 +633,7 @@ When a hierarchical decomposition is not provided, we can automatically generate
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-Softwarenaut is integrated in the Moose Analysis Platform \cite{nier-story}. Softwarenaut reuses several of the views defined in Moose for the detail panel (\eg the views that present entity metrics). Also, since behind any visual element of Softwarenaut lays a TreeNode object which wraps often a FAMIX entity (\eg FAMIXPackage or FAMIXClass) the user can spawn other Moose analyses by selecting any of the elements of a Softwarenaut architectural view. At the same time, any tool in the Moose platform can spawn a Softwarenaut architectural analysis on any group of entities which have containment relationships and dependencies between themselves.
+Softwarenaut is integrated in the Moose Analysis Platform \cite{nier-story}. Softwarenaut reuses several of the views defined in Moose for its inspectors (\eg the inspectors that show entity metrics). Also, since behind any visual element of Softwarenaut lays a TreeNode object which wraps often a FAMIX entity (\eg FAMIXPackage or FAMIXClass) the user can spawn other Moose analyses by selecting any of the elements of a Softwarenaut architectural view. At the same time, any tool in the Moose platform can spawn a Softwarenaut architectural analysis on any group of entities which have containment relationships and dependencies between themselves.
 
 \subsection {Mechanisms for Tool Extension}
 \label{sec:extensible}
@@ -648,12 +641,12 @@ Softwarenaut is integrated in the Moose Analysis Platform \cite{nier-story}. Sof
 Many of the features of the tool are loaded at run-time through \ugh{reflexion} \on{use consistent spelling!} so that that all one needs is to know the extension points. Here we give examples of several of the features that are loaded \ugh{reflexively} together with the rules by which they are discovered.
 
 \begin{description}
-\item {\em Detail Views for Modules and Dependencies}. In order to provide a new detail view for a module or a relationship one needs to implement a subclass of {\em DetailView} which implements three messages: \cd{canDisplay: anObject}, \cd{tabName} and \cd{display: anObject}. The first message tests whether the detail view can display a certain object, the second gives the name of the view, and the third actually displays the object. \fref{filmstrip-sample} shows the implementation of the first two methods in the Relationship Filmstrip\footnote{The examples are in Smalltalk}.
+\item {\em Inspectors for Modules and Dependencies}. In order to provide a new inspector for a module or a relationship one needs to implement a subclass of {\em Inspector} which implements three messages: \cd{canDisplay: anObject}, \cd{tabName} and \cd{display: anObject}. The first message tests whether the inspector can display a certain object, the second gives the name of the view, and the third actually displays the object. \fref{filmstrip-sample} shows the implementation of the first two methods in the Relationship Filmstrip\footnote{The examples are in Smalltalk}.
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=10cm]{images/filmstrip-sample}
-\caption{Two methods \chg{allow}{enable} the runtime discovery of a detail view}
+\caption{Two methods \chg{allow}{enable} the runtime discovery of inspectors}
 \flabel{filmstrip-sample}
 \end{center}
 \end{figure}
@@ -784,7 +777,7 @@ The second part of the questionnaire were open questions. We first asked the par
 \footnotesize {Showing dependencies between modules} & \footnotesize{(2 teams)} \\
 \footnotesize {The exploration operations} &\footnotesize{(2 teams)} \\
 \footnotesize {Filters} &\footnotesize{(1 team)} \\
-\footnotesize {Detail views} &\footnotesize{(1 team)} \\
+\footnotesize {Inspectors} &\footnotesize{(1 team)} \\
 \hline
 \end{tabular}
 \caption{The features that the users considered the most useful}
@@ -835,7 +828,7 @@ This might not be a unique experience, but it is a reminder that when building r
 
 Softwarenaut is written in Smalltalk and is released under the open source MIT License. The tool is available online at {\footnotesize \url{http://scg.unibe.ch/softwarenaut/}}. The homepage of the tool provides screencasts, documentation, installation instructions, and directions on how to obtain the source code and to contribute.
 
-The Global Architectural View Repository (GAVR) is implemented as a PostgreSQL database which can be publicly accessed by instances of Softwarenaut or other tools. The online documentation provides more informations about ways of accessing the GAVR. 
+The Global Architectural View Repository (GVR) is implemented as a PostgreSQL database which can be publicly accessed by instances of Softwarenaut or other tools. The online documentation provides more informations about ways of accessing the GVR. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section {Related Work} \label {sec:rel}
