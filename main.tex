@@ -528,13 +528,13 @@ The {\em Module Evolution Filmstrip} presents the evolution of a given module wh
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.4\linewidth]{images/ModuleFilmstrip}
+\includegraphics[width=0.45\linewidth]{images/ModuleFilmstrip}
 \caption{The evolution of the \cd{persistence} module in ArgoUML shows that the system migrated form a database serialization policy to a file-based one between 2003 and 2005}
 \flabel{modulestrip}
 \end{center}
 \end{figure}
 
-In \fref{modulestrip} one can see that in the version of ArgoUML from 2003 (the top version) there are only two classes that form the \cd{persistence} module and they disappear by the version in 2005 (the second version from the top), as it is implied by the fact that all the classes in the next version are coloured in yellow. By inspecting the names of the classes in the first version (\cd{DBReader} and \cd{DBWriter}) we conclude that they are responsible for interfacing with the database. By inspecting the names of the classes that are in the next version (\eg \cd{XMIParser} or \cd{XMLInputStream}) we conclude that the new classes are responsible with file serialization. 
+In \fref{modulestrip} one can see that in the version of ArgoUML from 2003 (the top version) there are only two classes that form the \cd{persistence} module\footnote{The persistence module is marked with (6) in \fref{sos}} and they disappear by the version in 2005 (the second version from the top), as it is implied by the fact that all the classes in the next version are coloured in yellow. By inspecting the names of the classes in the first version (\cd{DBReader} and \cd{DBWriter}) we conclude that they are responsible for interfacing with the database. By inspecting the names of the classes that are in the next version (\eg \cd{XMIParser} or \cd{XMLInputStream}) we conclude that the new classes are responsible with file serialization. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection {Evolutionary Filters}
@@ -557,14 +557,14 @@ Evolutionary filters assume that not all the entities are equally relevant for t
 
 \end{enumerate}
 
-\fref{lvr} presents two views on the same modules that are also present in \fref{filpan} but with age-based filters activated. The left side presents only the {\em lifetime relationships}: 21 relationships that existed between the displayed modules in all the versions of the system. The right side presents only the {\em newborn relationships}: 36 relationships introduced in the system in the latest version. 
+\fref{lvr} presents two views on the same modules that are also present in \fref{sos} first without any relationship filters and second with age-based filters activated. The left side contains 47 relationships. The right side contains only the {\em lifetime relationships}: 22 relationships that existed between the displayed modules in all the versions of the system. 
 
-The usefulness of the filters is hinted by the fact that in both the views, the number of relationships is very low compared with the total number of relationships that are present in the last version of the system; ergo, both types of filters function as powerful information reducers.
+The usefulness of the filters is hinted by the fact that in both the views, the number of relationships is very low compared with the total number of relationships that are present in the last version of the system; thus age-based filters can function as mechanisms for reducing the information overload. A more in-depth study on the power of age-based filters as information reducers is found elsewhere \cite{lungu-relevo}.
 
 \begin{figure}
 \begin{center}
 \includegraphics[width=\linewidth]{Architecture-LifetimeVsRecent}
-\caption{The left part of the figure shows the {\em lifetime relationships} while the right part of the figure presents the {\em newborn relationships} in the Azureus case study}
+\caption{The left part of the figure shows all the relationships while the right part presents only the {\em lifetime relationships} between the ArgoUML modules from \fref{sos}}
 \flabel{lvr}
 \end{center}
 \end{figure}
@@ -575,7 +575,7 @@ The usefulness of the filters is hinted by the fact that in both the views, the 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Traditionally software analysis tools were designed with a {\em analysis-in-one-sitting} attitude  in mind. One was supposed to start the analysis, arrive at some results, and then conclude the analysis. In Softwarenaut we want to enable the interruption and continuation of the analysis, and the reuse of the results of the analysis between sessions. Moreover, traditional software analysis never reuses the information that one user has gained about a certain version of the system. This is \chg{wrong}{unfortunate} since once published a version never changes and therefore the results of one analysis can \chg{inform}{contribute to} further analyses. In Softwarenaut these two problems are addressed with the help of {\em first-class views} and the concept of a {\em Global View Repository}, a mechanism for publishing and discovering existing views.
+Traditionally software analysis tools were designed with a {\em analysis-in-one-sitting} attitude  in mind. One was supposed to start the analysis, arrive at some results, and then conclude the analysis. In Softwarenaut we want to enable the interruption and continuation of the analysis, and the reuse of the results of the analysis between sessions. Moreover, traditional software analysis never reuses the information that one user has gained about a certain version of the system. This is {unfortunate} since once published a version never changes and therefore the results of one analysis can {contribute to} further analyses. In Softwarenaut these two problems are addressed with the help of {\em first-class views} and the concept of a {\em Global View Repository}, a mechanism for publishing and discovering existing views.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection {First-Class Views}
@@ -889,7 +889,7 @@ One of our original contributions is the possibility of filtering information in
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection {Collaboration} 
 
-Shrimp, the tool of Storey \etal, also allows for saving and restoring views \cite{rayside-flow}. The views are saved inside a ``Filmstrip'' which is persistent. Through the intermediation of the filmstrips the users can restore exploration sessions or even share certain views. This type of information enables people that know about each other to share information by emailing the files. The advantage of the Global View Repository is that it \chg{allows to share information that other users have discovered.}{allows information that other users have discovered to be shared}.
+Shrimp, the tool of Storey \etal, also allows for saving and restoring views \cite{rayside-flow}. The views are saved inside a ``Filmstrip'' which is persistent. Through the intermediation of the filmstrips the users can restore exploration sessions or even share certain views. This type of information enables people that know about each other to share information by emailing the files. The advantage of the Global View Repository is that it {allows information that other users have discovered to be shared}.
 
 The work of D'Ambros \etal on Churrasco \cite{dambros-churrasco} and the work of Hattori \etal  on Replay \cite{hattori-replay} are related to both the collaboration and evolutionary aspects of our tool. Churrasco supports software evolution modeling, visualization and analysis through a web interface. Through an example scenario they show that Churrasco allows for collaborative software evolution analysis, and they attribute this to the availability on the web of the tool. Replay allows for the chronological replay of changes inside the Eclipse IDE and it supports awareness of team member activity by allowing one to selectively replay the changes of other team members. The information in Replay is much more fine-grained and precise than in our case; it however stays at the lowest level of abstraction while we are interested in architecture. Churrasco presents high-level visualizations but it does not provide dependency information which we consider critical for architectural understanding. 
 
