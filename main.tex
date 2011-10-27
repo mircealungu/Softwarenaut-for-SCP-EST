@@ -243,26 +243,21 @@ The static analysis of object-oriented system has limitations. One of them is th
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\on{This section is really boring because it is presented as a list of disconnected features. It would be more interesting with a running example, showing how all these features are used to explore a specific system.}
+%%\on{This section is really boring because it is presented as a list of disconnected features. It would be more interesting with a running example, showing how all these features are used to explore a specific system.}
 
-The UI of Softwarenaut contains three linked complementary visual perspectives that present information about a system during the exploration. \fref{sos} presents Softwarenaut visualizing an architectural view of itself. 
+The UI of Softwarenaut contains three linked complementary visual perspectives that present information about a system during the exploration. The linked perspectives support the ``overview first, zoom and filter, and details on demand'' architecture of information visualization tools proposed by Shneiderman \cite{shneid-eyes}. 
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=\linewidth]{SnautOnSnaut.pdf}
-\caption{Linked views present complementary perspectives on a software system }
+\includegraphics[width=\linewidth]{SnautOnArgo.pdf}
+\caption{The three linked views present complementary perspectives on a software system. In this case the analyzed system is ArgoUML}
 \flabel{sos}
 \end{center}
 \end{figure}
 
-The linked complementary perspectives support the ``overview first, zoom and filter, and details on demand'' architecture of information visualization tools proposed by Shneiderman \cite{shneid-eyes}. 
-
-The three complementary views that the tool supports are the architectural view, the inspector, and the overview panel:
-
-\on{Sometime before here it would be nice to know what Softwarenaut considers an architecture to be. It certainly is not (just) a hierarchy graph.  Architecture is all about constraints and resulting properties.}
+\fref{sos} presents Softwarenaut during an analysis session on ArgoUML. The three complementary views that the tool provides are highlighted in the figure: 
 
 \begin{description}
-
 \item The {\em Architectural View} is Softwarenaut's is a graph-based representation of modules and their dependencies. The nodes in the graph represent modules and the edges represent the dependencies between the modules as extracted from the software system. Each dependency edge is an aggregation of low-level dependencies between the two associated modules. 
 
 The tool enables the visualization of a graph at various degrees of visual sophistication. \fref{sofistication} shows three levels of visual detail\footnote{The tool implements also other levels of visual detail. \sref{extensible} presents the way one can extend the tool with new representations for modules.}: (a) the leftmost diagram presents a dependency graph as simple nodes and edges; (b) the middle presents a polymetric view \cite{lanza-pv} in which the width of a dependency is proportional to the number of abstracted explicit relationships, and the size of a module is proportional to its size; (c) the rightmost diagram presents a modified treemap layout which shows all the contained submodules and classes inside a module. 
@@ -276,12 +271,13 @@ The tool enables the visualization of a graph at various degrees of visual sophi
 \end{center}
 \end{figure}
 
-\item The {\em Inspector} panel presents details for an entity selected in the Exploration panel. The goal is to supplement details of the element selected in the exploration panel. The detail panel implements the ``details-on-demand'' part of Shneiderman's visualization mantra \cite{shneid-eyes}.
-\on{dunno what that is}
+\item The {\em Inspector} panel presents details for an entity selected in the Exploration panel. The goal is to supplement details of the element selected in the exploration panel. %The detail panel implements the ``details-on-demand'' part of Shneiderman's visualization mantra \cite{shneid-eyes}.
 
 \item The {\em Overview hierarchy} presents the entire hierarchy of a system and highlights the modules that are visible in the exploration panel. It presents a vertical slice through a system \cite{wong-thesis}, offering an orientation aid which is critical for successful navigation \cite{storey-awareness}.
 
 \end{description}
+
+\on{Sometime before here it would be nice to know what Softwarenaut considers an architecture to be. It certainly is not (just) a hierarchy graph.  Architecture is all about constraints and resulting properties.}
 
 In this section we detail the interactive techniques that support the exploration process in Softwarenaut: navigation (\ref{sec:navi}), 
 rule-based filtering (\ref{sec:filtering}),
@@ -371,11 +367,11 @@ Softwarenaut implements two main categories of advanced {\em rule-based filters}
 During exploration, the user needs mostly the high-level filters. There are three types of filters that apply to both artifacts and relationships: 
 
 \begin{description}
-\item {\em Metric-based filters} for entities and relationships are defined with respect to the metrics computed for artifacts. For example filtering out {\em the weak dependencies} or {\em the small modules}\footnote{These are threshold-based high-pass filters} in a view
+\item {\em Metric-based filters} for entities and relationships are defined with respect to the metrics computed for artifacts. For example filtering out {\em the weak dependencies} or {\em the small modules}\footnote{These are threshold-based high-pass filters} in a view. The graph presented in \fref{sos} contains only relationships that abstract more than 50 low-level dependencies.
 
-\item {\em Type-based filters} for entities and relationships are defined with respect to the type of the artifacts. For example showing {\em only inheritance relationships} or hiding {\em all the classes} from a view.
+\item {\em Type-based filters} for entities and relationships are defined with respect to the type of the artifacts. For example showing {\em only inheritance relationships} or hiding {\em all the classes} from a view. The graph presented in \fref{sos} presents only invocation relationships and filters out any other type of relationship.
 
-\item {\em Evolutionary filters} are defined based on the historical evolution of a module or an inter-module relationship in the system\footnote{Evolution-based filters require models of multiple versions of a system loaded}. For example showing only the {\em relationships that existed in all the versions of a system}, hiding all the {\em unstable relationships} \cite{lungu-relevo}, or displaying only the modules that were introduced in the last version of the system.
+\item {\em Evolutionary filters} are defined based on the historical evolution of a module or an inter-module relationship in the system\footnote{Evolution-based filters require models of multiple versions of a system loaded. We talk more about them in \sref{evol}}. For example showing only the {\em relationships that existed in all the versions of a system}, hiding all the {\em unstable relationships} \cite{lungu-relevo}, or displaying only the modules that were introduced in the last version of the system.
 \end{description}
 
 \begin{figure}[ht]
@@ -387,10 +383,9 @@ During exploration, the user needs mostly the high-level filters. There are thre
 \end{figure}
 
 
-Softwarenaut also implements filters that work only for relationships. One such example is {\em Directional filters} which are defined based on the direction of the relationship between two modules. For example, filtering out the unidirectional relationships from an architectural view is useful for highlighting the modules that have mutual dependencies between themselves. 
-\on{You keep talking about "architecture", but all I see is structure and dependencies. That's not what architecture is all about!}
+Softwarenaut also implements filters that work only for relationships. One such example is {\em Directional filters} which are defined based on the direction of the relationship between two modules. For example, filtering out the unidirectional relationships from a view is useful for highlighting the modules that have mutual dependencies; these are the candidates to refactoring since mutual dependencies prevent an organization of the system based on layers.
 
-\fref{filpan} presents the relation filtering panel as implemented in Softwarenaut. Several filters can be combined to obtain more powerful ones with either the ``and'' or the ``or'' operator. The elements that match the filter can be either ``shown'' or ``hidden''. The user can define new filters by writing simple scripts in Smalltalk. \del{The system is fully reflective, and} \on{why is that relevant here?} as soon as a new filter is defined, it will immediately appear in the list of available filters.
+\fref{filpan} presents the relation filtering panel as implemented in Softwarenaut. Several filters can be combined to obtain more powerful ones with either the ``and'' or the ``or'' operator. The elements that match the filter can be either ``shown'' or ``hidden''. The user can define new filters by writing simple scripts in Smalltalk. Once a new filter is defined, it will be readily available for use without even restarting the tool.
 
 
 \subsection {Highlighting}
@@ -402,7 +397,7 @@ One special type of highlighting can be used for when the modules are represente
 \subsection {Details-on-Demand} \slab{dod}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The elements of every architectural view in Softwarenaut are nodes that represent modules and edges that represent relationships between them. For the user to be confident that he {\em understands} such a view he needs to understand the role of every node and the meaning of every edge. Metaphorically, if the view were a phrase, the nodes would be the nouns and the edges would be the verbs. One can understand the message only when he has understood all the nouns and the verbs.
+The elements of every architectural view in Softwarenaut are nodes that represent modules and edges that represent relationships between them. To {\em understand} such a view the user needs to understand the role of every node and the meaning of every edge. Metaphorically, if the view were a phrase, the nodes would be the nouns and the edges would be the verbs. One can understand the message only when he has understood all the nouns and the verbs.
 
 The Inspector panel of Softwarenaut is one of the ways in which one can understand the individual nodes and edges in an architectural view; it presents different views depending on the selected element in the exploration view. 
 
@@ -826,7 +821,7 @@ This might not be a unique experience, but it is a reminder that when building r
 \subsection {Availability and Documentation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Softwarenaut is written in Smalltalk and is released under the open source MIT License. The tool is available online at {\footnotesize \url{http://scg.unibe.ch/softwarenaut/}}. The homepage of the tool provides screencasts, documentation, installation instructions, and directions on how to obtain the source code and to contribute.
+Softwarenaut is written in Smalltalk and is released under the open source MIT License. The tool runs on Windows, Linux, and OS X and is available online at {\footnotesize \url{http://scg.unibe.ch/softwarenaut/}}. The homepage of the tool provides screencasts, documentation, installation instructions, and directions on how to obtain the source code and to contribute.
 
 The Global Architectural View Repository (GVR) is implemented as a PostgreSQL database which can be publicly accessed by instances of Softwarenaut or other tools. The online documentation provides more informations about ways of accessing the GVR. 
 
