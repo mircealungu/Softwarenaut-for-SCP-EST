@@ -273,7 +273,7 @@ The tool enables the visualization of a graph at various degrees of visual sophi
 
 \item The {\em Inspector} panel presents details for an entity selected in the Exploration panel. The goal is to supplement details of the element selected in the exploration panel. %The detail panel implements the ``details-on-demand'' part of Shneiderman's visualization mantra \cite{shneid-eyes}.
 
-\item The {\em Overview hierarchy} presents the entire hierarchy of a system and highlights the modules that are visible in the exploration panel. It presents a vertical slice through a system \cite{wong-thesis}, offering an orientation aid which is critical for successful navigation \cite{storey-awareness}.
+\item The {\em Overview hierarchy} presents the entire hierarchy of a system and highlights the modules that are visible in the exploration panel. It presents a vertical slice through a system \cite{wong-thesis}, offering an orientation aid which is critical for successful navigation \cite{storey-awareness}. In \fref{sos} the package tree of ArgoUML is present and on it the packages that are present in the view are highlighted with green. The subtree of the currently selected element (\cd{uml}) is highlighted in gray. 
 
 \end{description}
 
@@ -293,7 +293,7 @@ The dominant exploration mechanism of Softwarenaut is navigation along the verti
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[width=\linewidth]{SnautSequence}
-\caption{The expand and collapse complementary operations that \chg{allow}{enable} vertical navigation in the hierarchical graph}
+\caption{The expand and collapse complementary operations that enable vertical navigation in the hierarchical graph}
 \label{}
 \end{center}
 \end{figure}
@@ -376,7 +376,7 @@ During exploration, the user needs mostly the high-level filters. There are thre
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.95\linewidth]{SnautFilteringPanel}
+\includegraphics[width=\linewidth]{SnautFilteringPanel}
 \caption{The UI for applying relationship filters in Softwarenaut}
 \flabel{filpan}
 \end{center}
@@ -391,65 +391,84 @@ Softwarenaut also implements filters that work only for relationships. One such 
 \subsection {Highlighting}
 Highlighting is related to filtering only in that it does not remove the elements from the view but instead it emphasizes them. One can highlight based on pattern matching in the names of the entities (\eg all the classes that nave ``Test'' in their name) or based on structural properties of the code (\eg all the classes that define the Main method). 
 
-One special type of highlighting can be used for when the modules are represented with a modified treemap view. In that case one can see all the classes in the system in one view and map various metrics that are available for those classes on their color. In \fref{sos} the color intensity of a class is proportional to the FANOUT of that class. With such a view one can discover the hotspots of the system. % -- the number of outgoing calls from that class to other classes in the system.
+One special type of highlighting can be used for when the modules are represented with a modified treemap view. In that case one can see all the classes in the system in one view and map various metrics that are available for those classes on their color. In \fref{sos} the color intensity of a class is proportional to the FANOUT of that class. With such a view one can discover the classes that control the logic in the system. In the ArgoUML case study two classes stand out: the \cd{ProjectBrowser} (marked with 3) and the \cd{UmlDiagramRenderer} (marked with 4); the first is the main window of the application and the second is a Factory for figures representing UML elements.
+
+% -- the number of outgoing calls from that class to other classes in the system.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection {Details-on-Demand} \slab{dod}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The elements of every architectural view in Softwarenaut are nodes that represent modules and edges that represent relationships between them. To {\em understand} such a view the user needs to understand the role of every node and the meaning of every edge. Metaphorically, if the view were a phrase, the nodes would be the nouns and the edges would be the verbs. One can understand the message only when he has understood all the nouns and the verbs.
+The elements of every architectural view in Softwarenaut are nodes that represent modules and edges that represent relationships between them. To {\em understand} such a view the user needs to understand the role of the nodes and the meaning and reason for the existence of the edges. Metaphorically, if the view were a phrase, the nodes would be the nouns and the edges would be the verbs. One can understand the message only when he has understood all the nouns and the verbs.
 
-The Inspector panel of Softwarenaut is one of the ways in which one can understand the individual nodes and edges in an architectural view; it presents different views depending on the selected element in the exploration view. 
+The Inspector panel enables the analysis of individual elements in an architectural view. When one artifact is selected in the architectural view the available inspectors are loaded as tabs in the Inspector panel. There are different inspectors for modules and relationships. 
 
-\on{This is really boring.  It is really just a description of a tool. I am not getting any insight into why any of this is interesting or essential for architectural recovery.}
+
+%\on{This is really boring.  It is really just a description of a tool. I am not getting any insight into why any of this is interesting or essential for architectural recovery.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection {Inspectors for Modules}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % The detail views for modules present various details of a module under focus. Softwarenaut provides a variated set of detail views for nodes that allow understanding the module under focus. 
-Understanding and being able to inspect individual modules is part of understanding an architectural view. Softwarenaut provides a series of predefined inspectors for modules. \fref{moduledetails} presents two example views: 
+The modules presented in the architectural view are abstractions of large number of elements. The inspectors for modules have the responsibility of shedding light on two aspects regarding these elements:
+
+%Understanding and being able to inspect individual modules is part of understanding an architectural view. Softwarenaut provides a series of predefined inspectors for modules. \fref{moduledetails} presents two example views: 
 
 \begin{itemize}
 
-\item The {\em Class List} inspector lists all the classes contained in a module and its submodules together. For these classes the user can select various software metrics. The left figure in \fref{moduledetails} presents the classes in the {\em persistence} module from ArgoUML. The largest class in the system is the class responsible with serializing the UML diagram to disk.
+\item {\em Detailing the internals of a module.} Such inspectors can either summarize the contents of a module or present them in a more detailed form than it is possible in the architectural view. The Class Metrics inspector shows metrics for all the classes contained in a module and its submodules. 
+
+The left part of \fref{moduledetails} presents the Class Metrics inspector for the \cd{cognitive} module\footnote{The module is marked with (1) in \fref{sos}}. The module abstracts 73 classes and for each the view displays the number of methods (NOM). Some of the largest classes in the module are: \cd{ToDoList}, \cd{Designer}, \cd{ToDoItem}. %The module contains the classes that model the corresponding concepts.
+The names of the classes give away the functionality of the module: providing cognitive support for task management.
+
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.75\linewidth]{images/ModuleDetails}
-\caption{Two Inspectors: The Class List (left) and the Module Evolution Filmstrip (right) present two complementary aspects of the {\em persistence} module from ArgoUML} 
+\includegraphics[width=\linewidth]{images/ModuleDetails}
+\caption{Two Inspectors: The Class Metrics (left) and the Module Interface (right) present two complementary aspects of the {\em cognitive} module from ArgoUML} 
 \flabel{moduledetails}
 \end{center}
 \end{figure}
 
-\item The {\em Module Evolution Filmstrip} presents the evolution of a given module when multiple versions of the system are loaded. 
+\item {\em Detailing the interaction of a module with the rest of the system.} Such inspectors summarize the relationships of a module. They are required since the architectural views only present individual relationships between pairs of modules and although these individual relationships can be inspected there is no way of analyzing all of them at once. The Module Interface inspector presents a dependency matrix between the classes from the module (rows in the matrix) and the other modules in the architectural view (columns in the matrix). The cells in the matrix have the color shade proportional to the number of dependencies.
 
-The right view in \fref{moduledetails} presents an example. The versions of the module are presented chronologically from top to bottom. In each version evolutionary aspects are highlighted: the classes that are new in that version of the module with respect to the previous one are highlighted with yellow; the classes that are modified with blue and the intensity of the color is proportional to the amount of changes -- the more a class has changed with respect to its previous version, the darker its shade of blue. 
-
-\on{what is the layout strategy? what does the diagram show me? how can I related diagrams in the film strip?}
-
-In \fref{moduledetails} one can see that where the only two classes that existed in the module in the first analyzed version disappear in the second. By inspecting the names of the classes one observes that two classes responsible to interfacing with the database (DBReader and DBWriter) are replaced with classes responsible with writing on the disk.
+The right part of \fref{moduledetails} presents the Module Interface for \cd{cognitive}. First observation is that some of the classes are widely used by the other modules (\eg the \cd{Designer} and \cd{ToDoItem}) while others are only used by one of the modules (\eg \cd{Critic}). The second is that only 28 out of all the 73 classes are used by the other modules in the system; out of these 28 about half are used rarely as the white coloring of the matrix cells show.
 \end{itemize}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection {Inspectors for Relationships}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Understanding the relationships is critical for understanding an architectural view. Softwarenaut provides a broad and extensible set of inspectors for relationships. They cover both structural and evolutionary aspects \cite{lungu-cutedge, lungu-relevo} of the relationships. \fref{detail-views} and \fref{evostrip} present two types of relationships inspectors: 
+The relationships presented in the architectural view represent collections of low-level relationships. The relationship inspectors provide support for understanding them. They are important since understanding the relationships is critical for understanding an architectural view. Softwarenaut provides a broad and extensible set of inspectors for relationships \cite{lungu-cutedge, lungu-relevo} and to our knowledge is the only architecture recovery tool to provide such a feature. 
+
+The two main roles of relationship inspectors are:
+
+%\fref{detail-views} and \fref{evostrip} present two types of relationships inspectors: 
+\begin{description}
+
+\item {\em Detailing the structure of a given relationship}. The architectural relationships hide many low-level relationships between classes in the two involved modules. The user might be interested to start browsing the entities involved in the relationship either from the client module or from the provider module. To support this two complementary views are available: the {\em Invoked Artefacts} and the {\em Invoking Artefacts} modules which present the artifacts respectively in the target and source modules. 
+
+
+\fref{detail-views} presents the Invoked and Invoking Artefacts inspectors for the dependency between \cd{uml} to \cd{ui} (marked with (2) in \fref{sos}). The left panel contains more than 200 classes that depend on the 37 classes in the right panel. The class that has the largest number of incoming invocations is expanded to show the distribution of these invocations across its methods: the most called method is \cd{getInstance}. In ArgoUML the TargetManager is a Singleton that represents the element currently selected by the user; therefore and a wide range of actions need to act on it.
+
+
+
+%\item The {\em Invoked Artefacts} lists all the artefacts invoked by the selected high-level dependency. \fref{detail-views} presents such a view for the dependency between one other module to the {\em cognitive} module in ArgoUML. The tree has on its first level the invoked classes, on the second level invoked methods, and on the third level call sites. The user can navigate to any of the presented code artifacts from this view.
+
+
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.5\linewidth]{DetailsForEdgesAndNodes}
+\includegraphics[width=\linewidth]{DetailsForEdge}
 \caption{The Invoked Artifacts inspector presents information about the classes that are invoked in a relationship} 
 \flabel{detail-views}
 \end{center}
 \end{figure}
 
 
-\begin{description}
 
-\item The {\em Invoked Artefacts} view lists all the artefacts invoked by the selected high-level dependency. \fref{detail-views} presents such a view for the dependency between one other module to the {\em cognitive} module in ArgoUML. The tree has on its first level the invoked classes, on the second level invoked methods, and on the third level call sites. The user can navigate to any of the presented code artifacts from this view.
-
-\item The {\em Relationship Evolution Filmstrip} view presents the evolution of the given relationship in all the versions of the system which are available for analysis. \fref{evostrip} presents such a view. The two modules and the associated relationship are represented in every analyzed version with metrics providing information about the dynamics of the relationship. Section \ref{sec:evol} presents more details about the Evolution Filmstrip while discussing evolutionary aspects of the tool.
+\item {\em Providing information about the evolutionary dynamics of a relationship}. The Relationship Evolution Filmstrip inspector presents the evolution of the given relationship in all the versions of the system which are available for analysis. \fref{evostrip} presents such a view. The two modules and the associated relationship are represented in every analyzed version with metrics providing information about the dynamics of the relationship. Section \ref{sec:evol} presents more details about the Evolution Filmstrip while discussing evolutionary aspects of the tool.
 
 \end{description}
 
@@ -463,12 +482,12 @@ Understanding the relationships is critical for understanding an architectural v
 
 \on{It seems to me that the paper should start with this section.}
 
-Softwarenaut can take evolutionary information into account to provide advanced inspectors and historical filters.
+Softwarenaut can take evolutionary information into account to provide advanced inspectors and history-enabled filters.
 
 
 To support multi-version analysis Softwarenaut requires that models of multiple versions of the system under analysis be available. \fref{fig:mva} shows that a system history in Softwarenaut is composed of a list of hierarchical graphs, one for each analyzed version. This approach is conceptually the same as the one of G{\^i}rba \cite{girba-thesis}. One limitation of such an approach is that the number of versions that can be analyzed cannot be too large. As a result one needs a strategy for selecting the versions that compose the history.
 
-To \ugh{\del{allow monitoring}} \on{why "allow"?} \ins{monitor} the evolution of the individual elements through multiple versions one needs to link the corresponding elements in the different versions. Although more complicated approaches are available, in our case we perform a name-based matching of the entities.
+To monitor the evolution of the individual elements through multiple versions one needs to link the corresponding elements in the different versions. Although more complicated approaches are available, in our case we perform a name-based matching of the entities.
 
 \begin{figure}[ht]
 \begin{center}
@@ -482,7 +501,7 @@ In the following section we show examples of inspectors and filters that take ad
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection {Inspectors for Evolutionary Information}
+\subsection {Evolutionary Inspectors for Relationships}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -500,11 +519,28 @@ One of the applications of multi-version analysis is the {\em Relationship Evolu
 
 In the first case the figure shows that the relationships between the two modules evolved heavily during the evolution. In the second case we see that the relationship is recent and weak: it shows that the kernel depends on the internationalization ({\em i18n}) module. 
 
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.4\linewidth]{images/ModuleFilmstrip}
+\caption{}
+\flabel{}
+\end{center}
+\end{figure}
+
+\on{what is the layout strategy? what does the diagram show me? how can I related diagrams in the film strip?}
+
+\ugh{to fix up this part}
+The {\em Module Evolution Filmstrip} presents the evolution of a given module when multiple versions of the system are loaded. 
+
+The right view in \fref{moduledetails} presents an example. The versions of the module are presented chronologically from top to bottom. In each version evolutionary aspects are highlighted: the classes that are new in that version of the module with respect to the previous one are highlighted with yellow; the classes that are modified with blue and the intensity of the color is proportional to the amount of changes -- the more a class has changed with respect to its previous version, the darker its shade of blue. 
+
+In \fref{moduledetails} one can see that where the only two classes that existed in the module in the first analyzed version disappear in the second. By inspecting the names of the classes one observes that two classes responsible to interfacing with the database (DBReader and DBWriter) are replaced with classes responsible with writing on the disk.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection {Evolutionary Filters}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Filters for relationships and modules are a powerful mechanism for coping with the large graphs that some systems entail. They \chg{allow displaying}{display} only those elements in an architectural view that are important for a given task and thus focus the analysis. Evolutionary filters for both relationships and entities can be classified in two main categories:
+Filters for relationships and modules are a powerful mechanism for coping with the large graphs that some systems entail. They display only those elements in an architectural view that are important for a given task and thus focus the analysis. Evolutionary filters for both relationships and entities can be classified in two main categories:
 
 \begin{description}
 \item {\em Age-based} filters take into account the number of versions in which the relationships or modules existed in the system. {\em Lifetime relationships} have existed in all the versions of the system, {\em Newborn relationship} have appeared only in the last analyzed version \cite{lungu-relevo}, {\em Historical modules} have existed since the first analyzed versions of the system.
@@ -517,7 +553,7 @@ Evolutionary filters assume that not all the entities are equally relevant for t
 
 \item {\em Architecture Recovery.} When recovering the architecture of a system one needs to discover first the main components of the system. A filter like {\em lifetime relationships} is relevant since the relationships that existed in the system since the first versions are more likely to be part of the architectural backbone of the system. %TODO Reference.
 
-\item {\em Quality Assessment.} When assessing the quality of an architecture the goal is to find the problems, the irregularities. In this context filters like {\em newborn relationships} are of use since they \chg{allow focussing}{focus} on new relationships that were were not validated by time which might be the result of changes performed by new developers that are unaware of the architecture of the system. %Reference
+\item {\em Quality Assessment.} When assessing the quality of an architecture the goal is to find the problems, the irregularities. In this context filters like {\em newborn relationships} are of use since they focus on new relationships that were were not validated by time which might be the result of changes performed by new developers that are unaware of the architecture of the system. %Reference
 
 \end{enumerate}
 
@@ -539,7 +575,7 @@ The usefulness of the filters is hinted by the fact that in both the views, the 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Traditionally software analysis tools were designed with a {\em analysis-in-one-sitting} attitude  in mind. One was supposed to start the analysis, arrive at some results, and then conclude the analysis. In Softwarenaut we want to \chg{allow}{enable} the interruption and continuation of the analysis, and the reuse of the results of the analysis between sessions. Moreover, traditional software analysis never reuses the information that one user has gained about a certain version of the system. This is \chg{wrong}{unfortunate} since once published a version never changes and therefore the results of one analysis can \chg{inform}{contribute to} further analyses. In Softwarenaut these two problems are addressed with the help of {\em first-class views} and the concept of a {\em Global View Repository}, a mechanism for publishing and discovering existing views.
+Traditionally software analysis tools were designed with a {\em analysis-in-one-sitting} attitude  in mind. One was supposed to start the analysis, arrive at some results, and then conclude the analysis. In Softwarenaut we want to enable the interruption and continuation of the analysis, and the reuse of the results of the analysis between sessions. Moreover, traditional software analysis never reuses the information that one user has gained about a certain version of the system. This is \chg{wrong}{unfortunate} since once published a version never changes and therefore the results of one analysis can \chg{inform}{contribute to} further analyses. In Softwarenaut these two problems are addressed with the help of {\em first-class views} and the concept of a {\em Global View Repository}, a mechanism for publishing and discovering existing views.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection {First-Class Views}
@@ -641,7 +677,7 @@ Many of the features of the tool are loaded at run-time through \ugh{reflexion} 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=10cm]{images/filmstrip-sample}
-\caption{Two methods \chg{allow}{enable} the runtime discovery of inspectors}
+\caption{Two methods enable the runtime discovery of inspectors}
 \flabel{filmstrip-sample}
 \end{center}
 \end{figure}
@@ -651,7 +687,7 @@ Many of the features of the tool are loaded at run-time through \ugh{reflexion} 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=10cm]{images/filter-sample}
-\caption{Annotating methods in the Filter classes \chg{allows}{enables} run-time discovery}
+\caption{Annotating methods in the Filter classes enables run-time discovery}
 \flabel{filter-sample}
 \end{center}
 \end{figure}
@@ -697,7 +733,7 @@ The tool was the basis for a number of research papers:
 \item {\em Package Patterns for Architecture Recovery} \cite{lungu-packages}: This article provides a classification of software packages based on their interaction with the rest of the system. We used Softwarenaut to explore multiple systems and discover these patterns.
 \item {\em Exploring Inter-Module Relationships in Software Systems} \cite{lungu-relevo}: This article presents a taxonomy of inter-module dependencies in software systems based on their evolution patterns.
 \item {\em Interactive Exploration of Semantic Clusters} \cite{lungu-clust}: This article proposes a technique for visualizing dendrograms of software systems using an exploration approach. In order to be able to visualize \ugh{dentrograms} \on{dendograms?} resulting from hierarchical clustering we had to adapt our model.
-\item {\em Cutting Edge Visualization in Software} \cite{lungu-cutedge}: This short article argues for the importance of providing detail views that allow one to understand dependencies in software.
+\item {\em Cutting Edge Visualization in Software} \cite{lungu-cutedge}: This short article argues for the importance of providing detail views that enable one to understand dependencies in software.
 \end{itemize}
 
 %\cite{lungu-cutedge, lungu-clust, lungu-packages, lungu-relevo}. 
@@ -853,7 +889,7 @@ One of our original contributions is the possibility of filtering information in
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection {Collaboration} 
 
-Shrimp, the tool of Storey \etal, also allows for saving and restoring views \cite{rayside-flow}. The views are saved inside a ``Filmstrip'' which is persistent. Through the intermediation of the filmstrips the users can restore exploration sessions or even share certain views. This type of information \chg{allows}{enables} people that know about each other to share information by emailing the files. The advantage of the Global View Repository is that it \chg{allows to share information that other users have discovered.}{allows information that other users have discovered to be shared}.
+Shrimp, the tool of Storey \etal, also allows for saving and restoring views \cite{rayside-flow}. The views are saved inside a ``Filmstrip'' which is persistent. Through the intermediation of the filmstrips the users can restore exploration sessions or even share certain views. This type of information enables people that know about each other to share information by emailing the files. The advantage of the Global View Repository is that it \chg{allows to share information that other users have discovered.}{allows information that other users have discovered to be shared}.
 
 The work of D'Ambros \etal on Churrasco \cite{dambros-churrasco} and the work of Hattori \etal  on Replay \cite{hattori-replay} are related to both the collaboration and evolutionary aspects of our tool. Churrasco supports software evolution modeling, visualization and analysis through a web interface. Through an example scenario they show that Churrasco allows for collaborative software evolution analysis, and they attribute this to the availability on the web of the tool. Replay allows for the chronological replay of changes inside the Eclipse IDE and it supports awareness of team member activity by allowing one to selectively replay the changes of other team members. The information in Replay is much more fine-grained and precise than in our case; it however stays at the lowest level of abstraction while we are interested in architecture. Churrasco presents high-level visualizations but it does not provide dependency information which we consider critical for architectural understanding. 
 

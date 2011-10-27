@@ -18,19 +18,17 @@
 	<key>GuidesVisible</key>
 	<string>YES</string>
 	<key>ImageCounter</key>
-	<integer>12</integer>
+	<integer>9</integer>
 	<key>ImageLinkBack</key>
 	<array>
-		<dict/>
 		<dict/>
 		<dict/>
 		<dict/>
 	</array>
 	<key>ImageList</key>
 	<array>
-		<string>image11.png</string>
-		<string>image9.png</string>
-		<string>image5.png</string>
+		<string>image8.png</string>
+		<string>image6.png</string>
 		<string>image2.png</string>
 	</array>
 	<key>LinksVisible</key>
@@ -40,7 +38,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2011-10-27 22:10:12 +0200</string>
+	<string>2011-10-27 21:32:42 +0200</string>
 	<key>Modifier</key>
 	<string>mircea</string>
 	<key>NotesVisible</key>
@@ -120,13 +118,13 @@
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{45, 88}, {226.893, 441.954}}</string>
+					<string>{{28.75, 92}, {250.75, 379.777}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
-					<integer>34</integer>
+					<integer>37</integer>
 					<key>ImageID</key>
-					<integer>5</integer>
+					<integer>8</integer>
 					<key>Shape</key>
 					<string>Rectangle</string>
 					<key>Style</key>
@@ -143,20 +141,20 @@
 						</dict>
 						<key>stroke</key>
 						<dict>
-							<key>Width</key>
-							<real>0.5</real>
+							<key>Draws</key>
+							<string>NO</string>
 						</dict>
 					</dict>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{290.613, 88}, {204.387, 441.954}}</string>
+					<string>{{289, 92}, {245.957, 379.777}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
-					<integer>32</integer>
+					<integer>36</integer>
 					<key>ImageID</key>
-					<integer>2</integer>
+					<integer>6</integer>
 					<key>Shape</key>
 					<string>Rectangle</string>
 					<key>Style</key>
@@ -173,8 +171,8 @@
 						</dict>
 						<key>stroke</key>
 						<dict>
-							<key>Width</key>
-							<real>0.5</real>
+							<key>Draws</key>
+							<string>NO</string>
 						</dict>
 					</dict>
 				</dict>
@@ -267,13 +265,13 @@
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{26.3965, 143}, {250.75, 379.777}}</string>
+					<string>{{290.613, 88}, {204.387, 441.954}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
-					<integer>37</integer>
+					<integer>32</integer>
 					<key>ImageID</key>
-					<integer>11</integer>
+					<integer>2</integer>
 					<key>Shape</key>
 					<string>Rectangle</string>
 					<key>Style</key>
@@ -290,38 +288,8 @@
 						</dict>
 						<key>stroke</key>
 						<dict>
-							<key>Draws</key>
-							<string>NO</string>
-						</dict>
-					</dict>
-				</dict>
-				<dict>
-					<key>Bounds</key>
-					<string>{{286.646, 143}, {245.957, 379.777}}</string>
-					<key>Class</key>
-					<string>ShapedGraphic</string>
-					<key>ID</key>
-					<integer>36</integer>
-					<key>ImageID</key>
-					<integer>9</integer>
-					<key>Shape</key>
-					<string>Rectangle</string>
-					<key>Style</key>
-					<dict>
-						<key>fill</key>
-						<dict>
-							<key>Draws</key>
-							<string>NO</string>
-						</dict>
-						<key>shadow</key>
-						<dict>
-							<key>Draws</key>
-							<string>NO</string>
-						</dict>
-						<key>stroke</key>
-						<dict>
-							<key>Draws</key>
-							<string>NO</string>
+							<key>Width</key>
+							<real>0.5</real>
 						</dict>
 					</dict>
 				</dict>
@@ -394,7 +362,7 @@
 			</dict>
 		</array>
 		<key>Frame</key>
-		<string>{{591, 35}, {1432, 1543}}</string>
+		<string>{{569, 35}, {1432, 1543}}</string>
 		<key>ListView</key>
 		<true/>
 		<key>OutlineWidth</key>
