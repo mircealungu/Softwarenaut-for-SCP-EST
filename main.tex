@@ -105,11 +105,13 @@
 
 Architecture recovery is an activity applied to a system whose initial architecture has eroded. 
 % \ugh{When the initial architecture of a system has eroded the only solution is architecture recovery.}
-When the system under analysis is large, the user must use dedicated tools to support the recovery process. 
+When the system is large, the user must use dedicated tools to support the recovery process. 
 We present Softwarenaut -- a tool which supports architecture recovery through interactive exploration and visualization.
 Classical architecture recovery features such as filtering and details on demand are enhanced with 
 %The tool provides high-level and detailed perspectives which support the architecture recovery process as well as navigation primitives and filtering mechanisms that allow the complexity of large software systems to be managed.
-evolutionary capabilities when multi-version information about a subject system is available. The tool allows sharing and discovering the results of previous analysis sessions through a global repository of architectural views indexed by system versions. We present the features of the tool and the methodology it supports using as a case-study ArgoUML, a successful open source Java system.
+evolutionary capabilities when multi-version information about a subject system is available. The tool allows sharing and discovering the results of previous analysis sessions through a global repository of architectural views indexed by systems. 
+
+We present the features of the tool and the architecture recovery approach that it supports using as a case-study ArgoUML, a successful open source Java system.
 
 % It provides \ugh{overview} and detailed perspectives which support the architecture recovery process as well as navigation primitives and filtering mechanisms that \ugh{allow managing} the complexity of large software systems.
 %The recovered architectural views can be shared between users through a Global Architectural View Repository thus allowing collaborative architecture recovery.
@@ -127,53 +129,31 @@ Architecture Recovery \sep Visualization \sep Reverse Engineering
 \section{Introduction} \label{sec:Introduction}
 %%%%%%%%%%%%%%%%%%%%%%
 
-Any software system exists and functions within an environment; when this environment changes the system must change too or become obsolete \cite{lehman-softev}. As a result, maintaining a software system implies a continuous effort to keep it up to date with unanticipated changes in its environment. Having a clear and up to date understanding of the architecture of a system is critical for its maintenance and evolution \cite{Duca09c, pollet-sar}.
+%Any software system exists and functions within an environment; when this environment changes the system must change too or become obsolete \cite{lehman-softev}. As a result, 
+Maintaining a software system implies a continuous effort to keep it up to date with unanticipated changes in its environment \cite{lehman-softev}. Having therefore a clear and current understanding of the architecture of a system is critical for its maintenance and evolution \cite{Duca09c, pollet-sar}.
 
-As a system evolves, its architecture erodes \cite{perry-foundations}: an architectural mismatch arises between the {\em as-defined} and {\em as-is} architecture \cite{garlan-mismatch}. One accompanying property of this continuous drift between the actual and the defined architecture of the system is an increasing brittleness of the system \cite{perry-foundations}. 
+In the case of large software systems the architecture is specified through multiple architectural views that correspond to a set of given {\em architectural viewpoints}. An architectural viewpoint is a pattern or template from which to develop individual views by establishing the purposes and audience for a view and the techniques for its creation and analysis. Different authors propose different viewpoints \cite{bass-architecture, kruchten-4plus, hof-apparch} but the consensus is that multiple viewpoints are necessary for capturing all the various facets of a system.
 
-The main reason for architectural erosion and drift is widespread lack of programming language support for expressing the architecture, as well as the lack of tools that associate architectural decisions with the source code. The problem is an instance of the documentation problem: it is well known that the documentation of the system becomes quickly obsolete unless developers dedicate conscientious effort towards keeping it up to date \cite{riva-report}.
+As a system evolves, its architecture erodes \cite{perry-foundations} and an architectural mismatch arises between the {\em as-defined} and {\em as-is} architecture \cite{garlan-mismatch}. One accompanying property of this continuous drift between the actual and the defined architecture of the system is an increasing brittleness of the system \cite{perry-foundations}. The main reason for architectural erosion and drift is widespread lack of programming language support for expressing the architecture, as well as the lack of tools that associate architectural decisions with the source code. %The problem is an instance of the documentation problem: it is well known that the documentation of the system becomes quickly obsolete unless developers dedicate conscientious effort towards keeping it up to date \cite{riva-report}.
 
-When the drift and erosion have brought the system architecture too far from the initial state, the solution is to recover the architecture of the system from the source code. Jazayeri defined architecture recovery as ``{\em the techniques and processes used to uncover a system's architecture from available information}'' \cite{jaza-archevo}. 
+When the drift and erosion have brought the system architecture away from the initial state, the solution is to recover the architecture of the system from the source code. Jazayeri defined architecture recovery as ``{\em the techniques and processes used to uncover a system's architecture from available information}'' \cite{jaza-archevo}. 
 
-In the case of large software systems the architecture is specified through multiple architectural views that correspond to a set of given {\em architectural viewpoints}. An architectural viewpoint is a pattern or template from which to develop individual views by establishing the purposes and audience for a view and the techniques for its creation and analysis. Even if different authors propose different viewpoints \cite{bass-architecture, kruchten-4plus, hof-apparch} the consensus is that multiple viewpoints are necessary for capturing all the various facets of a system.
+While some steps of architecture recovery, such as static analysis and fact extraction, can be automated, the process requires human intervention and in this context adequate tool support is crucial. From the multiple existing architectural viewpoints the architecture recovery tools focus on recovering module and connector views through visualization and interaction \cite{murphy-reflexion, muller-rigi, storey-shrimp}. 
 
-Architecture recovery tools focus on recovering module views through visualization and interaction \cite{murphy-reflexion, muller-rigi, storey-shrimp}. While some steps of the process can be automated (\eg fact extraction, view generation), human intervention is crucial. In some cases the user has to group related artifacts together based on their similarity of purpose \cite{muller-rigi}. In other cases the user has to compare the architecture as-extracted with the architecture as-predicted \cite{murphy-reflexion} or the user has to decide which exploration paths to follow \cite{storey-shrimp}.
 
-\on{At this point I have no idea what the cool idea of the paper is. What will I learn?
-OK, it's a special issue about tools, but you should still emphasize the underlying concepts rather than the tool itself!}
+
+
+%In some cases the user has to group related artifacts together based on their similarity of purpose \cite{muller-rigi}. In other cases the user has to compare the architecture as-extracted with the architecture as-predicted \cite{murphy-reflexion} or the user has to decide which exploration paths to follow \cite{storey-shrimp}.
+
+% \on{At this point I have no idea what the cool idea of the paper is. What will I learn?
+%OK, it's a special issue about tools, but you should still emphasize the underlying concepts rather than the tool itself!}
 
 %In this article we present Softwarenaut --- our architecture recovery tool.
 %We present Softwarenaut \cite{lungu-relevo, lungu-packages} - the architecture recovery tool that we have developed. Softwarenaut provides interactive exploration mechanisms that support the semi-automated discovery of architectural views of any object-oriented system and allows the sharing of such architectural views. 
 
-\paragraph{Structure of the article} We start with an overview of the tool (\sref{over}) and continue with describing its particularities in two of the phases of architecture recovery: information aggregation (\sref{org}) and interactive exploration (\sref{interact}). In \sref{evol} we detail how Softwarenaut provides support for evolutionary analysis. In \sref{views} we show how sharing architectural views enables collaboration. In \sref{archi} we discuss architectural considerations and in \sref{disc} we discuss the tool-building experience. In \sref{rel} we present related work. In \sref{conc} we conclude and outline future work.
+\fref{flow} presents the general architecture of an architecture recovery tool. Softwarenaut outsources the first step of the process and focusses on providing support for the last two steps: 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section {Softwarenaut in a Nutshell} \label{sec:over}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\on{OK, here we learn that evolution information is the key. This should be emphasized in the abstract and intro!}
-
-Softwarenaut is an architecture recovery tool based on interactive exploration which takes advantage of evolutionary information to provide better support for analysis. The tool enables collaboration through sharing and discovery of architectural views. 
-
-%with the goal of discovering architecturally relevant views \cite{lungu-packages}.
-
-% The main interaction approach in Softwarenaut is to let the user navigate from an automatically aggregated high-level view on the system downwards, also known as {\em top-down exploration}.
-
-
-Like other architecture recovery tools \cite{pollet-sar}, Softwarenaut conforms to a classical extract-abstract-view architecture as presented in \fref{flow}. The figure highlights the fact that the tool is focused on providing support for the second and third steps of the workflow: 
-
-% The tool uses external fact extraction tools and provides support for the second and third steps of the workflow in \fref{flow}:
-
-\begin{itemize}
-\item {\em Information Aggregation.} The tool takes into account the hierarchical decomposition of a system as a basis for aggregating artifacts and relationships. In the case of a missing hierarchical decomposition the tool can automatically generate one. When multiple versions of a system are available the tool takes them into account to create a history by fully modeling each individual version.
-% such that exploration techniques can make use of evolutionary information.
-\item {\em Interactive Visualization and Exploration.} The tool allows for interactive exploration built around the ``overview, zoom and filter, then details on demand'' information visualization mantra \cite{shneid-eyes}. It provides a variated range of filtering mechanisms and allows the recovered architectural views to be shared between users and tools.
-\end{itemize}
-
-\on{More shell than nut. I did not get the key idea.
-I went to the website for software naut and to the online book, but I did not learn anything :-(}
-
-\begin{figure}[h]
+\begin{figure}[t]
 \begin{center}
 \includegraphics[width=\linewidth]{SnautWorkflow}
 \caption{Softwarenaut addresses the last two phases of an {\em extract-abstract-view} process}
@@ -181,7 +161,25 @@ I went to the website for software naut and to the online book, but I did not le
 \end{center}
 \end{figure}
 
-The article continues by detailing the second and third steps, the first one being discussed later in the section on architectural concerns regarding the tool.
+
+\begin{itemize}
+\item {\em Information Aggregation.} The tool takes into account the hierarchical decomposition of a system as a basis for aggregating artifacts and relationships. In the case of a missing hierarchical decomposition the tool can automatically generate one. When multiple versions of a system are available the tool takes them into account to create a history by fully modeling each individual version.
+% such that exploration techniques can make use of evolutionary information.
+\item {\em Interactive Visualization and Exploration.} The tool allows for interactive exploration built around the ``overview, zoom and filter, then details on demand'' information visualization mantra \cite{shneid-eyes}. It provides a variated range of filtering mechanisms and allows the recovered architectural views to be shared between users and tools.
+\end{itemize}
+
+The following are several of the contributions of the tool to the state of the art in architecture recovery:
+
+\begin{itemize}
+\item Supporting multi-version analysis of software systems and enhancing the exploration, filtering, and details on demand capabilities with evolutionary information.
+\item Providing support for collaboration by allowing users to publish and discover previously published architectural views which are indexed based on the system under analysis.
+\item Providing a rich set of interactive navigation and visualization features that are required for architecture recovery \cite{gallagher-archvis} in the context of an open and extensible architecture.
+\end{itemize}
+
+
+%The article continues by detailing the second and third steps, the first one being discussed later in the section on architectural concerns regarding the tool.
+
+\paragraph{Structure of the article} We start with describing the particularities of the tool in two of the phases of architecture recovery: information aggregation (\sref{org}) and interactive exploration (\sref{interact}). In \sref{evol} we detail how Softwarenaut provides support for evolutionary analysis. In \sref{views} we show how sharing architectural views enables collaboration. In \sref{archi} we discuss architectural considerations and in \sref{disc} we discuss the tool-building experience. In \sref{rel} we present related work and in \sref{conc} we conclude and outline future work.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section {Information Abstraction} \label{sec:org}

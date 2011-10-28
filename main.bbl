@@ -29,35 +29,6 @@
   European Conference on Software Maintenance and Reengineering (CSMR'07)},
   \bibinfo{publisher}{IEEE Computer Society}, \bibinfo{year}{2007}, pp.
   \bibinfo{pages}{137--148}. \bibinfo{note}{Best Paper Award}.
-%Type = Article
-\bibitem[{Perry and Wolf(1992)}]{perry-foundations}
-\bibinfo{author}{D.~E. Perry}, \bibinfo{author}{A.~L. Wolf},
-\newblock \bibinfo{title}{Foundations for the study of software architecture},
-\newblock \bibinfo{journal}{SIGSOFT Softw. Eng. Notes} \bibinfo{volume}{17}
-  (\bibinfo{year}{1992}) \bibinfo{pages}{40--52}.
-%Type = Article
-\bibitem[{Garlan et~al.(2009)Garlan, Allen, and Ockerbloom}]{garlan-mismatch}
-\bibinfo{author}{D.~Garlan}, \bibinfo{author}{R.~Allen},
-  \bibinfo{author}{J.~Ockerbloom},
-\newblock \bibinfo{title}{Architectural mismatch: Why reuse is still so hard},
-\newblock \bibinfo{journal}{IEEE Softw.} \bibinfo{volume}{26}
-  (\bibinfo{year}{2009}) \bibinfo{pages}{66--69}.
-%Type = Inproceedings
-\bibitem[{Riva(2000)}]{riva-report}
-\bibinfo{author}{C.~Riva},
-\newblock \bibinfo{title}{Reverse architecting: An industrial experience
-  report},
-\newblock in: \bibinfo{booktitle}{WCRE '00: Proceedings of the Seventh Working
-  Conference on Reverse Engineering (WCRE'00)}, \bibinfo{publisher}{IEEE
-  Computer Society}, \bibinfo{address}{Washington, DC, USA},
-  \bibinfo{year}{2000}, p.~\bibinfo{pages}{42}.
-%Type = Inproceedings
-\bibitem[{Jazayeri(2002)}]{jaza-archevo}
-\bibinfo{author}{M.~Jazayeri},
-\newblock \bibinfo{title}{On architectural stability and evolution},
-\newblock in: \bibinfo{booktitle}{Reliable Software Technlogies-Ada-Europe
-  2002.}, \bibinfo{publisher}{Springer}, \bibinfo{year}{2002}, pp.
-  \bibinfo{pages}{304--315}.
 %Type = Book
 \bibitem[{Bass et~al.(1997)Bass, Clements, and Kazman}]{bass-architecture}
 \bibinfo{author}{L.~Bass}, \bibinfo{author}{P.~Clements},
@@ -75,6 +46,26 @@
 \bibinfo{author}{C.~Hofmeister}, \bibinfo{author}{R.~Nord},
   \bibinfo{author}{D.~Soni}, \bibinfo{title}{Applied Software Architecture},
   \bibinfo{publisher}{Addison-Wesley}, \bibinfo{year}{2000}.
+%Type = Article
+\bibitem[{Perry and Wolf(1992)}]{perry-foundations}
+\bibinfo{author}{D.~E. Perry}, \bibinfo{author}{A.~L. Wolf},
+\newblock \bibinfo{title}{Foundations for the study of software architecture},
+\newblock \bibinfo{journal}{SIGSOFT Softw. Eng. Notes} \bibinfo{volume}{17}
+  (\bibinfo{year}{1992}) \bibinfo{pages}{40--52}.
+%Type = Article
+\bibitem[{Garlan et~al.(2009)Garlan, Allen, and Ockerbloom}]{garlan-mismatch}
+\bibinfo{author}{D.~Garlan}, \bibinfo{author}{R.~Allen},
+  \bibinfo{author}{J.~Ockerbloom},
+\newblock \bibinfo{title}{Architectural mismatch: Why reuse is still so hard},
+\newblock \bibinfo{journal}{IEEE Softw.} \bibinfo{volume}{26}
+  (\bibinfo{year}{2009}) \bibinfo{pages}{66--69}.
+%Type = Inproceedings
+\bibitem[{Jazayeri(2002)}]{jaza-archevo}
+\bibinfo{author}{M.~Jazayeri},
+\newblock \bibinfo{title}{On architectural stability and evolution},
+\newblock in: \bibinfo{booktitle}{Reliable Software Technlogies-Ada-Europe
+  2002.}, \bibinfo{publisher}{Springer}, \bibinfo{year}{2002}, pp.
+  \bibinfo{pages}{304--315}.
 %Type = Inproceedings
 \bibitem[{Murphy et~al.(1995)Murphy, Notkin, and Sullivan}]{murphy-reflexion}
 \bibinfo{author}{G.~Murphy}, \bibinfo{author}{D.~Notkin},
@@ -108,6 +99,15 @@
 \newblock in: \bibinfo{booktitle}{IEEE Visual Languages},
   \bibinfo{address}{College Park, Maryland 20742, U.S.A.}, pp.
   \bibinfo{pages}{336--343}.
+%Type = Article
+\bibitem[{Gallagher et~al.(2008)Gallagher, Hatch, and
+  Munro}]{gallagher-archvis}
+\bibinfo{author}{K.~Gallagher}, \bibinfo{author}{A.~Hatch},
+  \bibinfo{author}{M.~Munro},
+\newblock \bibinfo{title}{Software architecture visualization: An evaluation
+  framework and its application},
+\newblock \bibinfo{journal}{IEEE Transactions on Software Engineering}
+  \bibinfo{volume}{34} (\bibinfo{year}{2008}) \bibinfo{pages}{260--270}.
 %Type = Inproceedings
 \bibitem[{Buchsbaum and Westbrook(2000)}]{buchsbaum-hierarchicalgraphs}
 \bibinfo{author}{A.~L. Buchsbaum}, \bibinfo{author}{J.~R. Westbrook},
