@@ -237,7 +237,6 @@ The static analysis of object-oriented system has limitations. One of them is th
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
 \section {Interactive Exploration} \label {sec:interact}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -384,8 +383,8 @@ During exploration, the user needs mostly the high-level filters. There are thre
 \end{figure}
 
 
-Softwarenaut also implements filters that work only for relationships. One such example is {\em Directional filters} which are defined based on the direction of the relationship between two modules. For example, filtering out the unidirectional relationships from a view is useful for highlighting the modules that have mutual dependencies; these are the candidates to refactoring since mutual dependencies prevent an organization of the system based on layers.
-\on{I'm not convinced. Why wouldn't two unidirectional dependencies between modules, in opposite directions constitute a mutual dependency? It sounds like that is what you are implying.}
+Softwarenaut also implements filters that work only for relationships. One such example is {\em Directional filters} which are defined based on the direction of the relationship between two modules. For example, filtering out the unidirectional relationships from a view is useful for highlighting the modules that have mutual dependencies; these might be candidates for refactoring as mutual dependencies prevent an organization of the system based on layers.
+% \on{I'm not convinced. Why wouldn't two unidirectional dependencies between modules, in opposite directions constitute a mutual dependency? It sounds like that is what you are implying.}
 
 \fref{filpan} presents the relation filtering panel as implemented in Softwarenaut. Several filters can be combined to obtain more expressive ones with either the ``and'' or the ``or'' operator. The elements that match the filter can be either ``shown'' or ``hidden''. The user can define new filters by writing simple scripts in Smalltalk. Once a new filter is defined, it is immediately available for use.
 
@@ -504,7 +503,6 @@ To monitor the evolution of the individual elements through multiple versions on
 In the following section we show examples of inspectors and filters that take advantage of the available multi-version analysis. 
 
 
-\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection {Evolutionary Inspectors for Relationships}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
