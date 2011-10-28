@@ -7,3 +7,5 @@
 _gitPull.command
 _gitPullPush.command
 main.pdf
+.DS_Store
+images/.DS_Store

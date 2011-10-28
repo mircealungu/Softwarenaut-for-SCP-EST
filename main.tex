@@ -273,7 +273,7 @@ The tool enables the visualization of a graph at various degrees of visual sophi
 
 \item The {\em Inspector} panel presents details for an entity selected in the Exploration panel. The goal is to supplement details of the element selected in the exploration panel. %The detail panel implements the ``details-on-demand'' part of Shneiderman's visualization mantra \cite{shneid-eyes}.
 
-\item The {\em Overview hierarchy} presents the entire hierarchy of a system and highlights the modules that are visible in the exploration panel. It presents a vertical slice through a system \cite{wong-thesis}, offering an orientation aid which is critical for successful navigation \cite{storey-awareness}. In \fref{sos} the package tree of ArgoUML is present and on it the packages that are present in the view are highlighted with green. The subtree of the currently selected element (\eg \cd{uml}) is highlighted in gray. 
+\item The {\em Overview hierarchy} presents the entire hierarchy of a system and highlights the modules that are visible in the exploration panel. It presents a vertical slice through a system \cite{wong-thesis}, offering an orientation aid which is critical for successful navigation \cite{storey-awareness}. In \fref{sos} the package tree of ArgoUML is present and on it the packages that are present in the view are highlighted in green. The subtree of the currently selected element (\eg \cd{uml}) is highlighted in gray. 
 
 \end{description}
 
@@ -384,14 +384,17 @@ During exploration, the user needs mostly the high-level filters. There are thre
 
 
 Softwarenaut also implements filters that work only for relationships. One such example is {\em Directional filters} which are defined based on the direction of the relationship between two modules. For example, filtering out the unidirectional relationships from a view is useful for highlighting the modules that have mutual dependencies; these are the candidates to refactoring since mutual dependencies prevent an organization of the system based on layers.
+\on{I'm not convinced. Why wouldn't two unidirectional dependencies between modules, in opposite directions constitute a mutual dependency? It sounds like that is what you are implying.}
 
-\fref{filpan} presents the relation filtering panel as implemented in Softwarenaut. Several filters can be combined to obtain more powerful ones with either the ``and'' or the ``or'' operator. The elements that match the filter can be either ``shown'' or ``hidden''. The user can define new filters by writing simple scripts in Smalltalk. Once a new filter is defined, it will be readily available for use without even restarting the tool.
+\fref{filpan} presents the relation filtering panel as implemented in Softwarenaut. Several filters can be combined to obtain more \ugh{powerful} \on{like superman? do you mean more "expressive" or more "high-level"?} ones with either the ``and'' or the ``or'' operator. The elements that match the filter can be either ``shown'' or ``hidden''. The user can define new filters by writing simple scripts in Smalltalk. Once a new filter is defined, \chg{it will be readily available for use without even restarting the tool.}{it is immediately available for use.}
 
 
 \subsection {Highlighting}
 Highlighting is related to filtering only in that it does not remove the elements from the view but instead it emphasizes them. One can highlight based on pattern matching in the names of the entities (\eg all the classes that nave ``Test'' in their name) or based on structural properties of the code (\eg all the classes that define the Main method). 
 
-One special type of highlighting can be used for when the modules are represented with a modified treemap view. In that case one can see all the classes in the system in one view and map various metrics that are available for those classes on their color. In \fref{sos} the color intensity of a class is proportional to the FANOUT of that class. With such a view one can discover the classes that control the logic in the system. In the ArgoUML case study two classes stand out: the \cd{ProjectBrowser} (marked with 3) and the \cd{UmlDiagramRenderer} (marked with 4); the first is the main window of the application and the second is a Factory for figures representing UML elements.
+One special type of highlighting can be used when the modules are represented with a modified treemap view. In that case one can see all the classes in the system in one view and map various metrics that are available for those classes on their color. In \fref{sos} the color intensity of a class is proportional to the FANOUT of that class. 
+\on{The figure is too far away, and it is too hard to see what you mean in that figure. I would add a dedicated figure here.}
+With such a view one can discover the classes that control the logic in the system. In the ArgoUML case study two classes stand out: the \cd{ProjectBrowser} (labeled 3) and the \cd{UmlDiagramRenderer} (labeled 4); the first is the main window of the application and the second is a Factory for figures representing UML elements.
 
 % -- the number of outgoing calls from that class to other classes in the system.
 
@@ -399,7 +402,7 @@ One special type of highlighting can be used for when the modules are represente
 \subsection {Details-on-Demand} \slab{dod}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The elements of every architectural view in Softwarenaut are nodes that represent modules and edges that represent relationships between them. To {\em understand} such a view the user needs to understand the role of the nodes and the meaning and reason for the existence of the edges. Metaphorically, if the view were a phrase, the nodes would be the nouns and the edges would be the verbs. One can understand the message only when he has understood all the nouns and the verbs.
+The elements of every architectural view in Softwarenaut are nodes that represent modules and edges that represent relationships between them. To {\em understand} such a view the user needs to understand the role of the nodes and the meaning and reason for the existence of the edges. Metaphorically, if the view were a phrase, the nodes would be the nouns and the edges would be the verbs. One can understand the message only when \chg{he}{one} has understood all the nouns and the verbs.
 
 The Inspector panel enables the analysis of individual elements in an architectural view. When one artifact is selected in the architectural view the available inspectors are loaded as tabs in the Inspector panel. There are different inspectors for modules and relationships. 
 
@@ -417,10 +420,10 @@ The modules presented in the architectural view are abstractions of large number
 
 \begin{itemize}
 
-\item {\em Detailing the internals of a module.} Such inspectors can either summarize the contents of a module or present them in a more detailed form than it is possible in the architectural view. The Class Metrics inspector shows metrics for all the classes contained in a module and its submodules. 
+\item {\em Detailing the internals of a module.} Such inspectors can either summarize the contents of a module or present them in a more detailed form than is possible in the architectural view. The Class Metrics inspector shows metrics for all the classes contained in a module and its submodules. 
 
-The left part of \fref{moduledetails} presents the Class Metrics inspector for the \cd{cognitive} module\footnote{The module is marked with (1) in \fref{sos}}. The module abstracts 73 classes and for each the view displays the number of methods (NOM). Some of the largest classes in the module are: \cd{ToDoList}, \cd{Designer}, \cd{ToDoItem}. %The module contains the classes that model the corresponding concepts.
-The names of the classes give away the functionality of the module: providing cognitive support for task management.
+The left part of \fref{moduledetails} presents the Class Metrics inspector for the \cd{cognitive} module\footnote{The module is labeled (1) in \fref{sos}}. The module abstracts 73 classes and for each the view displays the number of methods (NOM). Some of the largest classes in the module are: \cd{ToDoList}, \cd{Designer}, \cd{ToDoItem}. %The module contains the classes that model the corresponding concepts.
+The names of the classes \chg{give away}{reveal} the functionality of the module: providing cognitive support for task management.
 
 
 \begin{figure}[h]
@@ -433,7 +436,7 @@ The names of the classes give away the functionality of the module: providing co
 
 \item {\em Detailing the interaction of a module with the rest of the system.} Such inspectors summarize the relationships of a module. They are required since the architectural views only present individual relationships between pairs of modules and although these individual relationships can be inspected there is no way of analyzing all of them at once. The Module Interface inspector presents a dependency matrix between the classes from the module (rows in the matrix) and the other modules in the architectural view (columns in the matrix). The cells in the matrix have the color shade proportional to the number of dependencies.
 
-The right part of \fref{moduledetails} presents the Module Interface for \cd{cognitive}. First observation is that some of the classes are widely used by the other modules (\eg the \cd{Designer} and \cd{ToDoItem}) while others are only used by one of the modules (\eg \cd{Critic}). The second is that only 28 out of all the 73 classes are used by the other modules in the system; out of these 28 about half are used rarely as the white coloring of the matrix cells show.
+The right part of \fref{moduledetails} presents the Module Interface for \cd{cognitive}. First observation is that some of the classes are widely used by the other modules (\eg the \cd{Designer} and \cd{ToDoItem}) while others are only used by one of the modules (\eg \cd{Critic}). The second is that only 28 of all the 73 classes are used by the other modules in the system; of these 28 about half are used rarely as the white coloring of the matrix cells show.
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -447,10 +450,10 @@ The two main roles of relationship inspectors are:
 %\fref{detail-views} and \fref{evostrip} present two types of relationships inspectors: 
 \begin{description}
 
-\item {\em Detailing the structure of a given relationship}. The architectural relationships hide many low-level relationships between classes in the two involved modules. The user might be interested to start browsing the entities involved in the relationship either from the client module or from the provider module. To support this two complementary views are available: the {\em Invoked Artefacts} and the {\em Invoking Artefacts} modules which present the artifacts respectively in the target and source modules. 
+\item {\em Detailing the structure of a given relationship}. The architectural relationships hide many low-level relationships between classes in the two involved modules. The user might be interested to start browsing the entities involved in the relationship either from the client module or from the provider module. To support this two complementary views are available: the {\em Invoked Artefacts} and the {\em Invoking Artefacts} \chg{modules}{views} \on{or inspectors?} which present the artifacts respectively in the target and source modules. 
 
 
-\fref{detail-views} presents the Invoked and Invoking Artefacts inspectors for the dependency between \cd{uml} to \cd{ui} (marked with (2) in \fref{sos}). The left panel contains more than 200 classes that depend on the 37 classes in the right panel. The class that has the largest number of incoming invocations is expanded to show the distribution of these invocations across its methods: the most called method is \cd{getInstance}. In ArgoUML the TargetManager is a Singleton that represents the element currently selected by the user; therefore and a wide range of actions need to act on it.
+\fref{detail-views} presents the \chg{Invoked and Invoking}{Invoking and Invoked} Artefacts inspectors for the dependency between \cd{uml} to \cd{ui} (labeled (2) in \fref{sos}). The left panel contains more than 200 classes that depend on the 37 classes in the right panel. The class that has the largest number of incoming invocations is expanded to show the distribution of these invocations across its methods: the most called method is \cd{getInstance}. In ArgoUML the TargetManager is a Singleton that represents the element currently selected by the user; therefore a wide range of actions need to act on it.
 
 
 
@@ -461,14 +464,14 @@ The two main roles of relationship inspectors are:
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=\linewidth]{DetailsForEdge}
-\caption{The Invoked Artifacts inspector presents information about the classes that are invoked in a relationship} 
+\caption{The Invoked Artifacts inspector presents information about the classes that are invoked in a relationship \on{why mention only one of the two? the caption is rather lame}} 
 \flabel{detail-views}
 \end{center}
 \end{figure}
 
 
 
-\item {\em Providing information about the evolutionary dynamics of a relationship}. The Relationship Evolution Filmstrip inspector presents the evolution of the given relationship in all the versions of the system which are available for analysis. \fref{evostrip} presents such a view. The two modules and the associated relationship are represented in every analyzed version with metrics providing information about the dynamics of the relationship. Section \ref{sec:evol} presents more details about the Evolution Filmstrip while discussing evolutionary aspects of the tool.
+\item {\em Providing information about the evolutionary dynamics of a relationship}. The Relationship Evolution Filmstrip inspector presents the evolution of the given relationship in all the versions of the system that are available for analysis. \fref{evostrip} presents such a view. The two modules and the associated relationship are represented in every analyzed version with metrics providing information about the dynamics of the relationship. Section \ref{sec:evol} presents more details about the Evolution Filmstrip while discussing evolutionary aspects of the tool.
 
 \end{description}
 
@@ -480,14 +483,15 @@ The two main roles of relationship inspectors are:
 \section {Evolutionary Analysis} \slab{evol}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\on{It seems to me that the paper should start with this section.}
-
 Softwarenaut can take evolutionary information into account to provide advanced inspectors, history-enabled filters, and highlighters.
 
 
-To support multi-version analysis Softwarenaut requires that models of multiple versions of the system under analysis be available. \fref{fig:mva} shows that a system history in Softwarenaut is composed of a list of hierarchical graphs, one for each analyzed version. This approach is conceptually the same as the one of G{\^i}rba \cite{girba-thesis}. One limitation of such an approach is that the number of versions that can be analyzed cannot be too large. As a result one needs a strategy for selecting the versions that compose the history.
+To support multi-version analysis Softwarenaut requires that models of multiple versions of the system under analysis be available. \fref{fig:mva} shows how a system history in Softwarenaut is composed of a list of hierarchical graphs, one for each analyzed version. This approach is conceptually the same as that of G{\^i}rba \cite{girba-thesis}. One limitation of such an approach is that the number of versions that can be analyzed cannot be too large.
+\on{Why not?}
+As a result one needs a strategy for selecting the versions that compose the history.
 
-To monitor the evolution of the individual elements through multiple versions one needs to link the corresponding elements in the different versions. Although more complicated approaches are available, in our case we perform a name-based matching of the entities.
+To monitor the evolution of the individual elements through multiple versions one needs to link the corresponding elements in the different versions. Although more \ugh{complicated} \on{"elaborate"? "refined"? what is special about these other approaches?} approaches are available, in our case we perform a name-based matching of the entities.
+\on{why? do you have evidence that this is good enough? better rewrite the whole sentence to say what you mean}
 
 \begin{figure}[ht]
 \begin{center}
@@ -512,12 +516,12 @@ One of the applications of multi-version analysis is the {\em Relationship Evolu
 \begin{figure}[ht!]
 \begin{center}
 \includegraphics[width=0.35\linewidth]{images/Filmstrip}
-\caption{The Relationship Evolution Filmstrip presents the evolution of a given relationship through the multiple versions of the system available for analysis}
+\caption{The Relationship Evolution Filmstrip presents the evolution of a given relationship through the multiple versions of the system available for analysis. \on{Is it possible to run the film?}}
 \flabel{evostrip}
 \end{center}
 \end{figure}
 
-\fref{evostrip} presents the evolution filmstrip for the relationship between \cd{uml} and \cd{kernel} (marked with (5) in \fref{sos}). In the film strip, the arrows between the modules represent implicit dependencies of different types (the invocation dependencies are represented in black and the inheritance dependencies are represented in red). The width of the dependency arrows is proportional to the number of low-level dependencies abstracted in the corresponding implicit dependency \cite{lungu-relevo}. The representation of the width of the dependencies provides insight into the quantitative dynamics of the inter-module relationship.
+\fref{evostrip} presents the evolution filmstrip for the relationship between \cd{uml} and \cd{kernel} (labeled (5) in \fref{sos}). In the film strip, the arrows between the modules represent implicit dependencies of different types (the invocation dependencies are represented in black and the inheritance dependencies are represented in red). The width of the dependency arrows is proportional to the number of low-level dependencies abstracted in the corresponding implicit dependency \cite{lungu-relevo}. The representation of the width of the dependencies provides insight into the quantitative dynamics of the inter-module relationship.
 
 In \fref{evostrip} we see that in the initial version the dependency was unidirectional from \cd{uml} to \cd{kernel}. Later a reverse dependency is introduced from the \cd{Project} and \cd{ProjectManager} classes which accesses a few functionalities in the \cd{uml} package.
 
@@ -525,16 +529,17 @@ In \fref{evostrip} we see that in the initial version the dependency was unidire
 The {\em Module Evolution Filmstrip} presents the evolution of a given module when multiple versions of the system are loaded. 
 
 \fref{modulestrip} presents an example. The versions of the module are presented chronologically from top to bottom. Each version is represented with a treemap layout in which the classes are visible inside the module and each class is proportional to its size measured in lines of code. In each version evolutionary deltas related to the previous version are highlighted: the classes that are new in that version of the module with respect to the previous one are highlighted with yellow; the classes that are modified with blue and the intensity of the color is proportional to the amount of changes -- the more a class has changed with respect to its previous version, the darker its shade of blue. 
+\on{Is there no way to visualize deleted entities? i.e. as ghosts in the following version}
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.45\linewidth]{images/ModuleFilmstrip}
-\caption{The evolution of the \cd{persistence} module in ArgoUML shows that the system migrated form a database serialization policy to a file-based one between 2003 and 2005}
+\caption{The evolution of the \cd{persistence} module in ArgoUML shows that the system migrated from a database serialization policy to a file-based one between 2003 and 2005}
 \flabel{modulestrip}
 \end{center}
 \end{figure}
 
-In \fref{modulestrip} one can see that in the version of ArgoUML from 2003 (the top version) there are only two classes that form the \cd{persistence} module\footnote{The persistence module is marked with (6) in \fref{sos}} and they disappear by the version in 2005 (the second version from the top), as it is implied by the fact that all the classes in the next version are coloured in yellow. By inspecting the names of the classes in the first version (\cd{DBReader} and \cd{DBWriter}) we conclude that they are responsible for interfacing with the database. By inspecting the names of the classes that are in the next version (\eg \cd{XMIParser} or \cd{XMLInputStream}) we conclude that the new classes are responsible with file serialization. 
+In \fref{modulestrip} one can see that in the version of ArgoUML from 2003 (the top version) there are only two classes that form the \cd{persistence} module\footnote{The persistence module is labeled (6) in \fref{sos}} and they disappear by the version in 2005 (the second version from the top), as it is implied by the fact that all the classes in the next version are coloured in yellow. By inspecting the names of the classes in the first version (\cd{DBReader} and \cd{DBWriter}) we conclude that they are responsible for interfacing with the database. By inspecting the names of the classes that are in the next version (\eg \cd{XMIParser} or \cd{XMLInputStream}) we conclude that the new classes are responsible for file serialization. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection {Evolutionary Filters}
@@ -544,7 +549,7 @@ Filters for relationships and modules are a powerful mechanism for coping with t
 
 \begin{description}
 \item {\em Age-based} filters take into account the number of versions in which the relationships or modules existed in the system. {\em Lifetime relationships} have existed in all the versions of the system, {\em Newborn relationship} have appeared only in the last analyzed version \cite{lungu-relevo}, {\em Historical modules} have existed since the first analyzed versions of the system.
-\item {\em Dynamics-based} filters take into account the dynamics of the relationships and modules across versions. {\em Stable relationships} do not change much during the evolution of the system, {\em Instable relationships} changed much during the history of the system.
+\item {\em Dynamics-based} filters take into account the dynamics of the relationships and modules across versions. {\em Stable relationships} do not change much during the evolution of the system, {\em Unstable relationships} change frequently during the history of the system.
 \end{description}
 
 Evolutionary filters assume that not all the entities are equally relevant for the task at hand. Different types of evolutionary filters support different goals of analysis. Two such goals and the corresponding filters are:
@@ -553,11 +558,12 @@ Evolutionary filters assume that not all the entities are equally relevant for t
 
 \item {\em Architecture Recovery.} When recovering the architecture of a system one needs to discover first the main components of the system. A filter like {\em lifetime relationships} is relevant since the relationships that existed in the system since the first versions are more likely to be part of the architectural backbone of the system. %TODO Reference.
 
-\item {\em Quality Assessment.} When assessing the quality of an architecture the goal is to find the problems, the irregularities. In this context filters like {\em newborn relationships} are of use since they focus on new relationships that were were not validated by time which might be the result of changes performed by new developers that are unaware of the architecture of the system. %Reference
+\item {\em Quality Assessment.} When assessing \ugh{the quality} \on{which quality? in software engineering you must always specify what kind of quality you are talking about, e.g. maintainability, readability etc etc} of an architecture the goal is to find the problems, the irregularities. In this context filters like {\em newborn relationships} are of use since they focus on new relationships that were were not validated by time which might be the result of changes performed by new developers who are unaware of the architecture of the system. %Reference
 
 \end{enumerate}
 
 \fref{lvr} presents two views on the same modules that are also present in \fref{sos} first without any relationship filters and second with age-based filters activated. The left side contains 47 relationships. The right side contains only the {\em lifetime relationships}: 22 relationships that existed between the displayed modules in all the versions of the system. 
+\on{better: "lifelong" relationships}
 
 The usefulness of the filters is hinted by the fact that in the second view the number of relationships is low compared with the total number of relationships that are present in the last version of the system; thus age-based filters can function as mechanisms for reducing the information overload. A more in-depth study on the power of age-based filters as information reducers is found elsewhere \cite{lungu-relevo}.
 
