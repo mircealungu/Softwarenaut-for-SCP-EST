@@ -1,4 +1,4 @@
-\begin{thebibliography}{46}
+\begin{thebibliography}{48}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \providecommand{\bibinfo}[2]{#2}
 \ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
@@ -139,6 +139,12 @@
   symposium on Software visualization}, \bibinfo{publisher}{ACM},
   \bibinfo{address}{New York, NY, USA}, \bibinfo{year}{2005}, pp.
   \bibinfo{pages}{193--202}.
+%Type = Manual
+\bibitem[{1471-2000(2000)}]{ieee-arch}
+\bibinfo{author}{I.~S. 1471-2000}, \bibinfo{title}{IEEE Std 1471-2000. IEEE
+  recommended practice for architectural description of software-intensive
+  systems.}, \bibinfo{organization}{IEEE Architecture Working Group},
+  \bibinfo{year}{2000}.
 %Type = Inproceedings
 \bibitem[{Robertson et~al.(1991)Robertson, Mackinlay, and
   Card}]{robertson-conetrees}
@@ -187,6 +193,17 @@
 \bibinfo{author}{T.~G{\^\i}rba}, \bibinfo{title}{Modeling History to Understand
   Software Evolution}, Ph.D. thesis, University of Berne,
   \bibinfo{address}{Berne}, \bibinfo{year}{2005}.
+%Type = Inproceedings
+\bibitem[{Antoniol et~al.(2004)Antoniol, Di~Penta, and
+  Merlo}]{antoniol-discontinuities}
+\bibinfo{author}{G.~Antoniol}, \bibinfo{author}{M.~Di~Penta},
+  \bibinfo{author}{E.~Merlo},
+\newblock \bibinfo{title}{An automatic approach to identify class evolution
+  discontinuities},
+\newblock in: \bibinfo{booktitle}{IWPSE '04: Proceedings of the Principles of
+  Software Evolution, 7th International Workshop}, \bibinfo{publisher}{IEEE
+  Computer Society}, \bibinfo{address}{Washington, DC, USA},
+  \bibinfo{year}{2004}, pp. \bibinfo{pages}{31--40}.
 %Type = Phdthesis
 \bibitem[{Tichelaar(2001)}]{tichelaar-thesis}
 \bibinfo{author}{S.~Tichelaar}, \bibinfo{title}{Modeling Object-Oriented
