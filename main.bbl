@@ -242,7 +242,7 @@
   \bibinfo{author}{T.~Girba},
 \newblock \bibinfo{title}{The story of moose: an agile reengineering
   environment},
-\newblock \bibinfo{journal}{SIGSOFT Softw. Eng. Notes} \bibinfo{volume}{30}
+\newblock \bibinfo{journal}{SIGSOFT Soft.Eng. Notes} \bibinfo{volume}{30}
   (\bibinfo{year}{2005}) \bibinfo{pages}{1--10}.
 %Type = Article
 \bibitem[{Lungu et~al.(2009)Lungu, Lanza, G\^{\i}rba, and Robbes}]{lungu-est}
@@ -392,8 +392,7 @@
 \newblock \bibinfo{title}{Software evolution comprehension: Replay to the
   rescue},
 \newblock in: \bibinfo{booktitle}{Proceedings of The 19th IEEE International
-  Conference on Program Comprehension (ICPC 2011)}, pp.
-  \bibinfo{pages}{161--170}.
+  Conference on Program Comprehension}, pp. \bibinfo{pages}{161--170}.
 %Type = Inproceedings
 \bibitem[{Hupfer et~al.(2004)Hupfer, Cheng, Ross, and Patterson}]{hupfer-jazz}
 \bibinfo{author}{S.~Hupfer}, \bibinfo{author}{L.-T. Cheng},
