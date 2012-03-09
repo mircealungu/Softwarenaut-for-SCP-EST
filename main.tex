@@ -261,7 +261,7 @@ The UI of Softwarenaut contains three linked complementary visual perspectives t
 
 %This panel is called {\em architectural} since the views that the user will obtain here should 
 
-The tool enables the visualization of a graph at various degrees of visual sophistication. \fref{sofistication} shows three levels of visual detail\footnote{The tool implements also other levels of visual detail. \sref{extensible} presents the way one can extend the tool with new representations for modules.}: (a) the leftmost diagram presents a dependency graph as simple nodes and edges; (b) the middle presents a polymetric view \cite{lanza-pv} in which the width of a dependency is proportional to the number of abstracted explicit relationships, and the size of a module is proportional to its size; (c) the rightmost diagram presents a modified treemap layout which shows all the contained submodules and classes inside a module. 
+The tool enables the visualization of a graph at various degrees of visual sophistication. \fref{sofistication} shows three levels of visual detail\footnote{The tool also implements other levels of visual detail. \sref{extensible} presents the way one can extend the tool with new representations for modules.}: (a) the leftmost diagram presents a dependency graph as simple nodes and edges; (b) the middle presents a polymetric view \cite{lanza-pv} in which the width of a dependency is proportional to the number of abstracted explicit relationships, and the size of a module is proportional to its size; (c) the rightmost diagram presents a modified treemap layout which shows all the contained submodules and classes inside a module. 
 
 \begin{figure}[h]
 \begin{center}
@@ -339,7 +339,7 @@ The exploration operations supported by Softwarenaut are:
 %
 \end{description}
 
-As the user refines the view, and climbs down the hierarchy of the system, he brings more and more elements into the view. He can use the Filter and Group operations on explicit sets of nodes to decrease the number of nodes displayed on screen and therefore cope with the complexity of large graphs. One type of module that benefits the user when filtered out is {\em omnipresent modules} which contribute little to the understanding of the architecture of the system, and heavily clutter the view \cite{mitchell-bunch}.
+As the user refines the view, and moves down the hierarchy of the system, he brings more and more elements into the view. He can use the Filter and Group operations on explicit sets of nodes to decrease the number of nodes displayed on screen and therefore cope with the complexity of large graphs. One type of module that benefits the user when filtered out is {\em omnipresent modules} which contribute little to the understanding of the architecture of the system, and heavily clutter the view \cite{mitchell-bunch}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\subsection {History Operations} 
@@ -406,7 +406,7 @@ With such a view one can discover the classes that control the logic in the syst
 \subsection {Details-on-Demand} \slab{dod}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The elements of every architectural view in Softwarenaut are nodes that represent modules and edges that represent relationships between them. To {\em understand} such a view the user needs to understand the role of the nodes and the meaning and reason for the existence of the edges. Metaphorically, if the view were a phrase, the nodes would be the nouns and the edges would be the verbs. One can understand the message only when one has understood all the nouns and the verbs.
+The elements of every architectural view in Softwarenaut are nodes that represent modules and edges that represent relationships between them. To {\em understand} such a view the user needs to understand the role of the nodes and the meaning and reason for the existence of the edges. Metaphorically, if the view was a phrase, the nodes would be the nouns and the edges would be the verbs. One can understand the message only when one has understood all the nouns and the verbs.
 
 The Inspector panel enables the analysis of individual elements in an architectural view. When one artifact is selected in the architectural view the available inspectors are loaded as tabs in the Inspector panel. There are different inspectors for modules and relationships. 
 
@@ -622,7 +622,7 @@ Once published, a given version of a system never changes. It makes therefore se
 To support sharing and discovering architectural views we have created the {\em Global Architectural View Repository} (GVR) -- a public repository that indexes architectural views. \fref{fig:gvr} presents the concept behind the GVR through a simplified example. While analyzing system Z, users A and B publish views $v1$ and $v2$\footnote{The $publish(v1,Z)$ notation means publishing to the GVR the view $v1$ for system $Z$}. When later user M analyzes the same system, he can already benefit from the previous knowledge by discovering the views that users A and B have published. 
 
 
-The architectural views as saved in the GVR can serve as the basis for monitoring the architectural evolution of the system. After the publication of a new version of the system, Softwarenaut can automatically detect the views affected by the new changes, and present a {\em visual diff} on top of the view retrieved from the GVR between the state of the system at the moment the view was created and the latest commit.
+The architectural views as saved in the GVR can serve as the basis for monitoring the architectural evolution of the system. After the publication of a new version of the system, Softwarenaut would automatically detect the views affected by the new changes, and present a {\em visual diff} which would make explicit the differences between the state of the system at the moment when the view was created and the latest system version.
 
 \begin{figure}[ht]
 \begin{center}
