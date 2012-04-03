@@ -14,7 +14,7 @@
 %\newcommand{\ins}[1]{\textcolor{blue}{\uline{#1}}} % please insert
 \newcommand{\rewritten}{\textcolor{red}{\uline{Rewritten}\ra\space }} % please insert
 
-% ============================================================
+%============================================================
 % Markup macros for proof-reading
 \usepackage{ifthen}
 \usepackage[normalem]{ulem} % for \sout
@@ -107,11 +107,11 @@ Architecture recovery is an activity applied to a system whose initial architect
 % \ugh{When the initial architecture of a system has eroded the only solution is architecture recovery.}
 When the system is large, the user must use dedicated tools to support the recovery process. 
 We present Softwarenaut -- a tool which supports architecture recovery through interactive exploration and visualization.
-Classical architecture recovery features such as filtering and details on demand are enhanced with 
+Classical architecture recovery features, such as filtering and details on demand, are enhanced with 
 %The tool provides high-level and detailed perspectives which support the architecture recovery process as well as navigation primitives and filtering mechanisms that allow the complexity of large software systems to be managed.
 evolutionary capabilities when multi-version information about a subject system is available. The tool allows sharing and discovering the results of previous analysis sessions through a global repository of architectural views indexed by systems. 
 
-We present the features of the tool and the architecture recovery approach that it supports using as a case-study ArgoUML, a successful open source Java system.
+We present the features of the tool together with the architecture recovery process that it supports using as a case-study ArgoUML, a well-known open source Java system.
 
 % It provides \ugh{overview} and detailed perspectives which support the architecture recovery process as well as navigation primitives and filtering mechanisms that \ugh{allow managing} the complexity of large software systems.
 %The recovered architectural views can be shared between users through a Global Architectural View Repository thus allowing collaborative architecture recovery.
@@ -120,7 +120,7 @@ We present the features of the tool and the architecture recovery approach that 
 \end{abstract}
 
 \begin{keyword}
-Architecture Recovery \sep Visualization \sep Reverse Engineering
+Architecture Recovery \sep Visualization \sep Reverse Engineering \sep Software Tools
 \end{keyword}
 
 \end{frontmatter}
@@ -130,7 +130,7 @@ Architecture Recovery \sep Visualization \sep Reverse Engineering
 %%%%%%%%%%%%%%%%%%%%%%
 
 %Any software system exists and functions within an environment; when this environment changes the system must change too or become obsolete \cite{lehman-softev}. As a result, 
-Maintaining a software system implies a continuous effort to keep it up to date with unanticipated changes in its environment \cite{lehman-softev}. Having therefore a clear and current understanding of the architecture of a system is critical for its maintenance and evolution \cite{Duca09c, pollet-sar}.
+Maintaining a software system implies a continuous effort to keep it up to date with the unanticipated changes in its environment \cite{lehman-softev}. Having therefore a clear and current understanding of the architecture of a system is critical for its maintenance and evolution \cite{Duca09c, pollet-sar}.
 
 In the case of large software systems the architecture is specified through multiple architectural views that correspond to a set of given {\em architectural viewpoints}. An architectural viewpoint is a pattern or template from which to develop individual views by establishing the purposes and audience for a view and the techniques for its creation and analysis. Different authors propose different viewpoints \cite{bass-architecture, kruchten-4plus, hof-apparch} but the consensus is that multiple viewpoints are necessary for capturing all the various facets of a system.
 
@@ -151,7 +151,7 @@ While some steps of architecture recovery, such as static analysis and fact extr
 %In this article we present Softwarenaut --- our architecture recovery tool.
 %We present Softwarenaut \cite{lungu-relevo, lungu-packages} - the architecture recovery tool that we have developed. Softwarenaut provides interactive exploration mechanisms that support the semi-automated discovery of architectural views of any object-oriented system and allows the sharing of such architectural views. 
 
-\fref{flow} presents the general architecture of an architecture recovery tool. Softwarenaut outsources the first step of the process and focusses on providing support for the last two steps: 
+\fref{flow} presents the general architecture of any architecture recovery tool. Softwarenaut relies on external tools for the first step and provides support for the second and third steps:
 
 \begin{figure}[t]
 \begin{center}
@@ -163,29 +163,29 @@ While some steps of architecture recovery, such as static analysis and fact extr
 
 
 \begin{itemize}
-\item {\em Information Aggregation.} The tool takes into account the hierarchical decomposition of a system as a basis for aggregating artifacts and relationships. In the case of a missing hierarchical decomposition the tool can automatically generate one. When multiple versions of a system are available the tool takes them into account to create a history by fully modeling each individual version.
+\item {\em Step 2: Information Aggregation.} The tool takes into account the hierarchical decomposition of a system as a basis for aggregating artifacts and relationships. In the case of a missing hierarchical decomposition the tool can automatically generate one. When multiple versions of a system are available the tool takes them into account to create a history by fully modeling each individual version.
 % such that exploration techniques can make use of evolutionary information.
-\item {\em Interactive Visualization and Exploration.} The tool allows for interactive exploration built around the ``overview, zoom and filter, then details on demand'' information visualization mantra \cite{shneid-eyes}. It provides a variated range of filtering mechanisms and allows the recovered architectural views to be shared between users and tools.
+\item {\em Step 3: Interactive Visualization and Exploration.} The tool allows for interactive exploration built around the ``overview, zoom and filter, then details on demand'' information visualization mantra \cite{shneid-eyes}. It provides a variated range of filtering mechanisms and allows the recovered architectural views to be shared between users and tools.
 \end{itemize}
 
 The following are several of the contributions of the tool to the state of the art in architecture recovery:
 
 \begin{itemize}
 \item Supporting multi-version analysis of software systems and enhancing the exploration, filtering, and details on demand capabilities with evolutionary information.
-\item Providing support for collaboration by allowing users to publish and discover previously published architectural views which are indexed based on the system under analysis.
+\item Providing support for collaboration by allowing users to publish and discover previously published architectural views which are indexed by the analyzed system.
 \item Providing a rich set of interactive navigation and visualization features that are required for architecture recovery \cite{gallagher-archvis} in the context of an open and extensible architecture.
 \end{itemize}
 
 
 %The article continues by detailing the second and third steps, the first one being discussed later in the section on architectural concerns regarding the tool.
 
-\paragraph{Structure of the article} We start with describing the particularities of the tool in two of the phases of architecture recovery: information aggregation (\sref{org}) and interactive exploration (\sref{interact}). In \sref{evol} we detail how Softwarenaut provides support for evolutionary analysis. In \sref{views} we show how sharing architectural views enables collaboration. In \sref{archi} we discuss architectural considerations and in \sref{disc} we discuss the tool-building experience. In \sref{rel} we present related work and in \sref{conc} we conclude and outline future work.
+\paragraph{Structure of the article} We start with describing the particularities of the tool in two of the phases of architecture recovery: information aggregation (\sref{org}) and interactive exploration (\sref{interact}). In \sref{evol} we discuss the integration of evolutionary analysis in Softwarenaut. In \sref{views} we show how sharing architectural views enables collaboration. In \sref{archi} we discuss architectural considerations and in \sref{disc} we discuss the tool-building experience. In \sref{rel} we present related work and in \sref{conc} we conclude and outline future work.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section {Information Abstraction} \label{sec:org}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Aggregating horizontal relationships between software artifacts along the containment relationships is the fundamental technique that enables abstraction in Softwarenaut. 
+The fundamental technique that enables abstraction in Softwarenaut is aggregating horizontal relationships between software artifacts along the containment relationships. 
 %\on{! (I wish I knew what that meant)}
 
 \fref{dep-agg} exemplifies the aggregation of low-level relationships between methods and classes along the containment hierarchy of a Java system. The case study is ArgoUML\footnote{Throughout this article we will continue using ArgoUML as a case study. When we do not specify otherwise we refer to version 0.24.} and the figure focuses on the relationships between four classes from three different packages: \cd{uml}, \cd{uml.kernel}, \cd{uml.ui}, and \cd{persistence}. All these packages contain many classes but the visualized entities are sufficient for illustration purposes. 
@@ -243,7 +243,7 @@ The static analysis of object-oriented system has limitations. One of them is th
 
 %%\on{This section is really boring because it is presented as a list of disconnected features. It would be more interesting with a running example, showing how all these features are used to explore a specific system.}
 
-The UI of Softwarenaut contains three linked complementary visual perspectives that present information about a system during the exploration. The linked perspectives support the ``overview first, zoom and filter, and details on demand'' architecture of information visualization tools proposed by Shneiderman \cite{shneid-eyes}. 
+The UI of Softwarenaut contains three linked complementary visual perspectives that present information about a system during the exploration. The linked perspectives support the ``overview first, zoom and filter, and details on demand'' architecture for information visualization tools proposed by Shneiderman \cite{shneid-eyes}. 
 
 \begin{figure}[ht]
 \begin{center}
@@ -256,16 +256,16 @@ The UI of Softwarenaut contains three linked complementary visual perspectives t
 \fref{sos} presents Softwarenaut during an analysis session on ArgoUML. The three complementary views that the tool provides are highlighted in the figure: 
 
 \begin{description}
-\item The {\em Architectural View} is Softwarenaut's is a graph-based representation of modules and their dependencies. The nodes in the graph represent modules and the edges represent the dependencies between the modules as extracted from the software system. Each dependency edge is an aggregation of low-level dependencies between the two associated modules. 
+\item The {\em Architectural View} is Softwarenaut's graph-based representation of modules and their relationships. The nodes in the graph represent modules and the edges represent the relationships between the modules, relationships extracted from the static analysis of the system. Each edge in the graph is an aggregation of low-level relationships between the two associated modules. 
 
 
 %This panel is called {\em architectural} since the views that the user will obtain here should 
 
-The tool enables the visualization of a graph at various degrees of visual sophistication. \fref{sofistication} shows three levels of visual detail\footnote{The tool implements also other levels of visual detail. \sref{extensible} presents the way one can extend the tool with new representations for modules.}: (a) the leftmost diagram presents a dependency graph as simple nodes and edges; (b) the middle presents a polymetric view \cite{lanza-pv} in which the width of a dependency is proportional to the number of abstracted explicit relationships, and the size of a module is proportional to its size; (c) the rightmost diagram presents a modified treemap layout which shows all the contained submodules and classes inside a module. 
+The tool enables the visualization of a graph with various degrees of visual detail. \fref{sofistication} shows three levels of visual detail\footnote{The tool also implements other levels of visual detail. \sref{extensible} presents the way one can extend the tool with new representations for modules.}: (a) the leftmost diagram presents a dependency graph as simple nodes and edges; (b) the middle presents a polymetric view \cite{lanza-pv} in which the width of a dependency is proportional to the number of abstracted explicit relationships, and the size of a module is proportional to its size; (c) the rightmost diagram presents a modified treemap layout which shows all the contained submodules and classes inside a module. 
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=1.04\linewidth]{images/sofistication}
+\includegraphics[width=1.04\linewidth]{sofistication}
 \caption{The tool visualizes a graph with different degrees of sophistication. Left: simple nodes and edges; Middle: polymetric view; Right: a modified treemap view}
 \flabel{sofistication}
 \end{center}
@@ -277,10 +277,9 @@ The tool enables the visualization of a graph at various degrees of visual sophi
 
 \end{description}
 
+In the context of Softwarenaut we consider architecture as ``the fundamental organization of a system embodied in its components, their relationships to each other'' \cite{ieee-arch}. The software engineering community agrees that the architecture of a complex system must be expressed through various {\em architectural viewpoints}. Softwarenaut can be used for recovering views of the physical architecture of the system.
 
-In the context of Softwarenaut architecture is ``the fundamental organization of a system embodied in its components, their relationships to each other'' \cite{ieee-arch}. The software engineering community accepts that the architecture of a complex system can must be expressed through various {\em architectural viewpoints}. Softwarenaut can be used for recovering views of the physical architecture of the system.
-
-The tool assumes that the hierarchical organization of the system that is provided as input to the tool contains the architectural components of the system or at good approximations of these components. By the interactive exploration of the input hierarchy various perspectives on the architecture can be extracted; these perspectives we call {\em architectural views}. This section continues by detailing the interactive techniques that support the exploration process in Softwarenaut: navigation (\sref{navi}), rule-based filtering (\sref{filtering}), highlighting (\sref{high}), and details on demand (\sref{dod}), 
+The tool assumes that the hierarchical organization of the system that is provided as input to the tool contains the architectural components of the system or at good approximations of these components. By the interactive exploration of the input hierarchy various perspectives on the architecture can be extracted; we call these perspectives {\em architectural views}. This section continues by detailing the interactive techniques that support the exploration process in Softwarenaut: navigation (\sref{navi}), rule-based filtering (\sref{filtering}), highlighting (\sref{high}), and details on demand (\sref{dod}), 
 
 %, and visual querying (\ref{sec:vq}).
 
@@ -339,13 +338,13 @@ The exploration operations supported by Softwarenaut are:
 %
 \end{description}
 
-As the user refines the view, and climbs down the hierarchy of the system, he brings more and more elements into the view. He can use the Filter and Group operations on explicit sets of nodes to decrease the number of nodes displayed on screen and therefore cope with the complexity of large graphs. One type of module that benefits the user when filtered out is {\em omnipresent modules} which contribute little to the understanding of the architecture of the system, and heavily clutter the view \cite{mitchell-bunch}.
+As the user refines the view, and moves down the vertical hierarchy of the system, he brings more and more elements into the view. He can use the Filter and Group operations on explicit sets of nodes to decrease the number of nodes displayed on screen and therefore cope with the complexity of large graphs. One type of module that benefits the user when filtered out is {\em omnipresent modules} which contribute little to the understanding of the architecture of the system, and heavily clutter the view \cite{mitchell-bunch}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\subsection {History Operations} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\paragraph {History Operations} An important requirement for information exploration tools is keeping track of the interaction and providing undo/redo operations \cite{shneid-eyes}. Few architecture recovery tools implement this feature. We have discovered this requirement while testing an earlier version of the tool with users (see \sref{usability} for more). In its latest version Softwarenaut implements undo/redo operations.
+\paragraph {History Operations} An important requirement for information exploration tools is keeping track of the interaction and providing undo/redo operations \cite{shneid-eyes}. Very few architecture recovery tools implement this feature. We have discovered this requirement while testing an earlier version of the tool with users (see \sref{usability} for more). In its latest version Softwarenaut implements undo/redo operations.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -395,10 +394,10 @@ In the figure the current active filter is {\em [Strength] Average} which displa
 
 \subsection {Highlighting}
 \label{sec:high}
-Highlighting is related to filtering only in that it does not remove the elements from the view but instead it emphasizes them. One can highlight based on pattern matching in the names of the entities (\eg all the classes that nave ``Test'' in their name) or based on structural properties of the code (\eg all the classes that define the Main method). 
+Highlighting is a query, like filtering, which does not remove the elements from the view. One can highlight based on pattern matching in the names of the entities (\eg all the classes that nave ``Test'' in their name) or based on structural properties of the code (\eg all the classes that define the Main method). 
 
-One special type of highlighting can be used when the modules are represented with a modified treemap view. In that case one can see all the classes in the system in one view and map various metrics that are available for those classes on their color. In \fref{filpan} the color intensity of a class is proportional to the FANOUT of that class. 
-With such a view one can discover the classes that control the logic in the system. In the ArgoUML case study two classes stand out: the \cd{ProjectBrowser} (labeled 2) and the \cd{UmlDiagramRenderer} (labeled 3); the first is the main window of the application and the second is a Factory for figures representing UML elements.
+When the modules are represented with a modified treemap view the user can see all the classes in the system at once and map various metrics on the color of the classes. In \fref{filpan} the color intensity of a class is proportional to the FANOUT of that class. 
+With such a view one can discover the hot spots of the system. In the ArgoUML case study the figure shows two classes which stand out: the \cd{ProjectBrowser} (labeled 2) and the \cd{UmlDiagramRenderer} (labeled 3); the first is the main window of the application and the second is a Factory for figures representing UML elements.
 
 % -- the number of outgoing calls from that class to other classes in the system.
 
@@ -406,7 +405,7 @@ With such a view one can discover the classes that control the logic in the syst
 \subsection {Details-on-Demand} \slab{dod}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The elements of every architectural view in Softwarenaut are nodes that represent modules and edges that represent relationships between them. To {\em understand} such a view the user needs to understand the role of the nodes and the meaning and reason for the existence of the edges. Metaphorically, if the view were a phrase, the nodes would be the nouns and the edges would be the verbs. One can understand the message only when one has understood all the nouns and the verbs.
+The elements of every architectural view in Softwarenaut are nodes representing modules and edges representing relationships between them. To {\em understand} such a view the user needs to understand the role of the nodes and the meaning and reason for the existence of the edges. Metaphorically, if the view was a phrase, the nodes would be the nouns and the edges would be the verbs. One can understand the message only when one has understood all the nouns and the verbs.
 
 The Inspector panel enables the analysis of individual elements in an architectural view. When one artifact is selected in the architectural view the available inspectors are loaded as tabs in the Inspector panel. There are different inspectors for modules and relationships. 
 
@@ -418,13 +417,13 @@ The Inspector panel enables the analysis of individual elements in an architectu
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % The detail views for modules present various details of a module under focus. Softwarenaut provides a variated set of detail views for nodes that allow understanding the module under focus. 
-The modules presented in the architectural view are abstractions of large number of elements. The inspectors for modules have the responsibility of shedding light on two aspects regarding these elements:
+The modules presented in the architectural view are abstractions of large number of elements. The inspectors for modules have the responsibility of shedding light on the role of a module in a system. There are two types of module inspectors: 
 
 %Understanding and being able to inspect individual modules is part of understanding an architectural view. Softwarenaut provides a series of predefined inspectors for modules. \fref{moduledetails} presents two example views: 
 
 \begin{itemize}
 
-\item {\em Detailing the internals of a module.} Such inspectors can either summarize the contents of a module or present them in a more detailed form than is possible in the architectural view. The Class Metrics inspector shows metrics for all the classes contained in a module and its submodules. 
+\item {\em Inspectors that detail the internals of a module.} They summarize the contents of a module or present them in a more detailed form than is possible in the architectural view. The Class Metrics inspector shows metrics for all the classes contained in a module and its submodules. 
 
 The left part of \fref{moduledetails} presents the Class Metrics inspector for the \cd{cognitive} module\footnote{The module is labeled (1) in \fref{sos}}. The module abstracts 73 classes and for each the view displays the number of methods (NOM). Some of the largest classes in the module are: \cd{ToDoList}, \cd{Designer}, \cd{ToDoItem}. %The module contains the classes that model the corresponding concepts.
 The names of the classes {reveal} the functionality of the module: providing cognitive support for task management.
@@ -432,15 +431,15 @@ The names of the classes {reveal} the functionality of the module: providing cog
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=\linewidth]{images/ModuleDetails}
+\includegraphics[width=\linewidth]{ModuleDetails}
 \caption{Two Inspectors: The Class Metrics (left) and the Module Interface (right) present two complementary aspects of the {\em cognitive} module from ArgoUML} 
 \flabel{moduledetails}
 \end{center}
 \end{figure}
 
-\item {\em Detailing the interaction of a module with the rest of the system.} Such inspectors summarize the relationships of a module. They are required since the architectural views only present individual relationships between pairs of modules and although these individual relationships can be inspected there is no way of analyzing all of them at once. The Module Interface inspector presents a dependency matrix between the classes from the module (rows in the matrix) and the other modules in the architectural view (columns in the matrix). The cells in the matrix have the color shade proportional to the number of dependencies.
+\item {\em Inspectors that detail the interaction of a module with the rest of the system.} Such inspectors summarize the relationships of a module. They are required since the architectural views only present individual relationships between pairs of modules and although these individual relationships can be inspected there is no way of analyzing all of them at once. The Module Interface inspector presents a dependency matrix between the classes from the module (rows in the matrix) and the other modules in the architectural view (columns in the matrix). The cells in the matrix have the color shade proportional to the number of dependencies.
 
-The right part of \fref{moduledetails} presents the Module Interface for \cd{cognitive}. First observation is that some of the classes are widely used by the other modules (\eg the \cd{Designer} and \cd{ToDoItem}) while others are only used by one of the modules (\eg \cd{Critic}). The second is that only 28 of all the 73 classes are used by the other modules in the system; of these 28 about half are used rarely as the white coloring of the matrix cells show.
+The right part of \fref{moduledetails} presents the Module Interface for \cd{cognitive}. The first observation is that some of the classes are widely used by the other modules (\eg the \cd{Designer} and \cd{ToDoItem}) while others are only used by one of the modules (\eg \cd{Critic}). The second is that only 28 of all the 73 classes are used by the other modules in the system; of these 28 about half are used rarely as the white coloring of the matrix cells show.
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -475,7 +474,7 @@ The two main roles of relationship inspectors are:
 
 
 
-\item {\em Providing information about the evolutionary dynamics of a relationship}. The Relationship Evolution Filmstrip inspector presents the evolution of the given relationship in all the versions of the system that are available for analysis. \fref{evostrip} presents such a view. The two modules and the associated relationship are represented in every analyzed version with metrics providing information about the dynamics of the relationship. Section \ref{sec:evol} presents more details about the Evolution Filmstrip while discussing evolutionary aspects of the tool.
+\item {\em Providing information about the evolutionary dynamics of a relationship}. The Relationship Evolution Filmstrip inspector presents the evolution of the given relationship in all the versions of the system that are available for analysis. \fref{evostrip} presents such a view: the two modules and the associated relationship are represented in every analyzed version with metrics providing information about the dynamics of the relationship. Section \ref{sec:evol} presents more details about the Evolution Filmstrip while discussing evolutionary aspects of the tool.
 
 \end{description}
 
@@ -494,7 +493,7 @@ To support multi-version analysis Softwarenaut requires that models of multiple 
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.9\linewidth]{images/MultiVersionAnalysis}
+\includegraphics[width=0.9\linewidth]{MultiVersionAnalysis}
 \caption{In multi-version analysis each version considered has a corresponding hierarchical graph}
 \flabel{fig:mva}
 \end{center}
@@ -516,7 +515,7 @@ One of the applications of multi-version analysis is the {\em Relationship Evolu
 
 \begin{figure}[ht!]
 \begin{center}
-\includegraphics[width=0.35\linewidth]{images/Filmstrip}
+\includegraphics[width=0.35\linewidth]{Filmstrip}
 \caption{The Relationship Evolution Filmstrip presents the evolution of a given relationship through the multiple versions of the system available for analysis.}
 \flabel{evostrip}
 \end{center}
@@ -533,7 +532,7 @@ The {\em Module Evolution Filmstrip} presents the evolution of a given module wh
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.45\linewidth]{images/ModuleFilmstrip}
+\includegraphics[width=0.45\linewidth]{ModuleFilmstrip}
 \caption{The evolution of the \cd{persistence} module in ArgoUML shows that the system migrated from a database serialization policy to a file-based one between 2003 and 2005}
 \flabel{modulestrip}
 \end{center}
@@ -552,7 +551,7 @@ Filters for relationships and modules are a powerful mechanism for coping with t
 \item {\em Dynamics-based} filters take into account the dynamics of the relationships and modules across versions. {\em Stable relationships} do not change much during the evolution of the system, {\em Unstable relationships} change frequently during the history of the system.
 \end{description}
 
-Evolutionary filters assume that not all the entities are equally relevant for the task at hand. Different types of evolutionary filters support different goals of analysis. Two such goals and the corresponding filters are:
+Evolutionary filters assume that not all the entities are equally relevant for the task at hand. Different types of evolutionary filters support different goals of analysis. Two such goals, and their corresponding filters are:
 
 \begin{enumerate}
 
@@ -580,7 +579,7 @@ The usefulness of the filters is hinted by the fact that in the second view the 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Traditionally software analysis tools were designed with a {\em analysis-in-one-sitting} attitude  in mind. One was supposed to start the analysis, arrive at some results, and then conclude the analysis. In Softwarenaut we want to enable the interruption and continuation of the analysis, and the reuse of the results of the analysis between sessions. Moreover, traditional software analysis never reuses the information that one user has gained about a certain version of the system. This is {unfortunate} since once published a version never changes and therefore the results of one analysis can {contribute to} further analyses. In Softwarenaut these two problems are addressed with the help of {\em first-class views} and the concept of a {\em Global View Repository}, a mechanism for publishing and discovering existing views.
+Traditionally software analysis tools were designed with a {\em analysis-in-one-sitting} attitude  in mind. One was supposed to start the analysis, arrive at some results, and then discard all the data such that if he had to start again, he would start from scratch. In Softwarenaut we want to enable the interruption and continuation of the analysis, and the reuse of the results of the analysis between sessions. Moreover, traditional software analysis never reuses the information that one user has gained about a certain version of the system when another user analyzes the same system. This is {unfortunate} since once published a version of a system never changes and therefore the results of one analysis can {contribute to} further analyses. In Softwarenaut these two problems are addressed with the help of {\em first-class views} and the concept of a {\em Global View Repository}, a service for sharing recovered architectural views.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection {First-Class Views}
@@ -588,7 +587,7 @@ Traditionally software analysis tools were designed with a {\em analysis-in-one-
 
 The designers of a system use multiple diagrams for the specification of the architecture of a system. In the same way, during architecture recovery they need to recover multiple views to capture various aspects of the structure of the system. 
 
-Views are first-class entities in Softwarenaut: one can save and restore any view during the exploration. During an exploration session, each time the analyst encounters a view which presents a relevant perspective on the system he can save it for later reference. The result of a Softwarenaut analysis is therefore a {\em set of architectural views}.
+Views are first-class entities in Softwarenaut: one can save and restore any view during the exploration. During an exploration session, each time the analyst encounters a view that presents a relevant perspective on the system he can save it for later reference or for sharing with others. The result of a Softwarenaut analysis session is therefore a {\em set of architectural views}.
 
 The view persistence mechanism can be used also as a way of conquering the complexity of top-down exploration. When the architectural view under analysis becomes too complex, the user can save it and then explore different sub-parts of it. This is addressed partially in other tools by the use of semantic zooming techniques \cite{storey-shrimp}. 
 
@@ -608,11 +607,11 @@ The model of the system is not saved together with the view. We assume that mode
 \subsection {Sharing and Discovering Architectural Views}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Once published, a given version of a system never changes. It makes therefore sense to make public all the analysis results regarding that version, so that when other users analyze the same system they can corroborate results and benefit from the previous insights. In the context of architectural view recovery this means discovering architectural views that others have already defined. 
+Once published, a given version of a system never changes. Therefore all the analysis results regarding that version should be made public so that other users can discover previous results and corroborate their findings. In the context of architectural view recovery this means discovering architectural views that others have previously recovered.
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=0.7\linewidth]{images/CollaborationConcept}
+\includegraphics[width=0.7\linewidth]{CollaborationConcept}
 \caption{Architectural Views are stored in the Global View Repository. This enables collaboration through knowledge sharing and discovery}
 \flabel{fig:gvr}
 \end{center}
@@ -622,7 +621,7 @@ Once published, a given version of a system never changes. It makes therefore se
 To support sharing and discovering architectural views we have created the {\em Global Architectural View Repository} (GVR) -- a public repository that indexes architectural views. \fref{fig:gvr} presents the concept behind the GVR through a simplified example. While analyzing system Z, users A and B publish views $v1$ and $v2$\footnote{The $publish(v1,Z)$ notation means publishing to the GVR the view $v1$ for system $Z$}. When later user M analyzes the same system, he can already benefit from the previous knowledge by discovering the views that users A and B have published. 
 
 
-The architectural views as saved in the GVR can serve as the basis for monitoring the architectural evolution of the system. After the publication of a new version of the system, Softwarenaut can automatically detect the views affected by the new changes, and present a {\em visual diff} on top of the view retrieved from the GVR between the state of the system at the moment the view was created and the latest commit.
+In the future, the architectural views as saved in the GVR can serve as the basis for monitoring the architectural evolution of the system. After the publication of a new version of the system, Softwarenaut would automatically detect the views affected by the new changes, and present a {\em visual diff} which would make explicit the differences between the state of the system at the moment when the view was created and the latest system version.
 
 \begin{figure}[ht]
 \begin{center}
@@ -681,7 +680,7 @@ Many of the features of the tool are discovered at run-time through {reflection}
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=10cm]{images/filmstrip-sample}
+\includegraphics[width=10cm]{filmstrip-sample}
 \caption{Two methods enable the runtime discovery of inspectors}
 \flabel{filmstrip-sample}
 \end{center}
@@ -691,7 +690,7 @@ Many of the features of the tool are discovered at run-time through {reflection}
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=10cm]{images/filter-sample}
+\includegraphics[width=10cm]{filter-sample}
 \caption{Annotating methods in the Filter classes enables run-time discovery}
 \flabel{filter-sample}
 \end{center}
@@ -772,10 +771,9 @@ We have often used Softwarenaut to analyze Softwarenaut itself, and this has det
 \end{center}
 \end{table}
 
-In the second year of using the tool in the Software Evolution course we decided to have an exploratory study to evaluate the usability and usefulness of the tool. We asked the students to analyze a large software system they have never seen before with the help of Softwarenaut and to produce an architectural report. Our main goal in organizing the experiment was to get feedback on the usability of the tool; our second goal was to collect anecdotal evidence on its usefulness for architecture recovery.
+In the second year of using the tool in the Software Evolution course we decided to have an exploratory study to evaluate the usability and usefulness of the tool. We asked the students to analyze a large software system they have never seen before with the help of Softwarenaut and to produce an architectural report. Our main goal in organizing the experiment was to get feedback on the usability of the tool; our secondary goal was to collect anecdotal evidence on its usefulness for architecture recovery.
 
-Eight users, one PhD and seven master students participated in the experiment. We presented the tool during one hour. Then they had two hours to perform the tasks presented in \tref{questions}. The case study was ArgoUML. We had them work in teams of two and asked them to provide us with a report of their findings. After providing us with the report, they were asked to respond to a questionnaire on the usability of the tool. 
-
+Eight users, one PhD and seven master students participated in the experiment. We presented the tool during one hour. Then the users had two hours to perform the tasks presented in \tref{questions}. The case study was ArgoUML. They worked in teams of two, and provided us with a report of their findings. After finalizing the report, they answered a questionnaire on the usability of the tool. 
 
 By analyzing their reports we observed several things:
 
@@ -786,9 +784,9 @@ By analyzing their reports we observed several things:
 \item For the questions regarding dependencies (4,8) all the users preferred the tool to reading the code or online documentation.
 \end{itemize}
 
-After they submitted their reports we asked the users to fill a questionnaire and evaluate the usability of the tool. 
+%After they submitted their reports we asked the users to fill a questionnaire and evaluate the usability of the tool. 
 
-The first part of the questionnaire contained several assertions. The users had to mark the strength of their agreement with each assertion on a scale from 1 to 5. \tref{postsurvey} presents the assertions together with the average agreement level. Although not statistically relevant the results show that the tool was easy to use, the participants felt confident that the results they provided were reliable.%, and they found the dependency analysis easy to use. 
+The first part of the usability questionnaire contained several assertions. The users had to mark the strength of their agreement with each assertion on a scale from 1 to 5. \tref{postsurvey} presents the assertions together with the average agreement level. Although not statistically relevant the results show that the tool was easy to use, the participants felt confident that the results they provided were reliable.%, and they found the dependency analysis easy to use. 
  There was less agreement on whether the user interface was intuitive and whether ArgoUML was an appropriate case study. We believe that these two last answers were due to the limited time they had at disposition. %to accommodate themselves with the tool and the difficulty of ArgoUML as a case study.
 
 \begin{table}[ht]
@@ -806,7 +804,7 @@ The first part of the questionnaire contained several assertions. The users had 
 \end{center}
 \end{table}
 
-The second part of the questionnaire were open questions. We first asked the participants what were the capabilities of the tool that they found the most useful during their analysis. Two of the teams answered with {\em "all the features we have used"} and {\em "many features, you can do a lot"}. \tref{useful} shows that the others were content with the dependency analysis and the exploration operations.
+The second part of the usability questionnaire consisted of open questions. We first asked the participants what were the capabilities of the tool that they found the most useful during their analysis. Two of the teams answered with {\em "all the features we have used"} and {\em "many features, you can do a lot"}. \tref{useful} shows that the others were content with the dependency analysis and the exploration operations.
 
 \begin{table}[ht]
 \begin{center}
@@ -878,9 +876,9 @@ There is an extended tradition of architecture recovery tools in software engine
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection {Exploration and Navigation} 
 
-The first architectural visualization prototype was Rigi, a programmable reverse engineering environment which emphasizes visualization and interaction \cite{muller-revengenv}. Rigi  visualizes the data as hierarchical typed graphs and provides a Tcl interpreter for manipulating the graph data. The reconstruction process is based on a bottom-up process of grouping  software elements into clusters by manually selecting the nodes and collapsing them. The approach does not scale when analyzing very large systems because the number of low-level artifacts is too large. In Softwarenaut we automatically aggregate low-level relations and let the user navigate down from the highest abstraction level.
+The first architectural visualization tool was Rigi, which emphasizes visualization and interaction \cite{muller-revengenv}. Rigi visualizes the data as hierarchical typed graphs and provides a Tcl interpreter for manipulating the graph data. The reconstruction process is based on a bottom-up process of grouping  software elements into clusters by manually selecting the nodes and collapsing them. The approach does not scale well when analyzing very large systems . In Softwarenaut we automatically aggregate low-level relations and let the user navigate down from the highest abstraction level. 
 
-One of the projects inspired by Rigi was the SHriMP tool \cite{storey-shrimp} and its Eclipse-based continuation Creole \cite{lintern-creole}. SHriMP and Creole display architectural diagrams using nested graphs. Their user interface embeds source code inside the graph nodes and integrates a hypertext metaphor for following low-level dependencies with animated panning, zooming, and fisheye-view actions for viewing high-level structures. The difference to Creole is that Softwarenaut can also perform evolutionary analysis.
+The SHriMP tool \cite{storey-shrimp} and its Eclipse-based continuation Creole \cite{lintern-creole} display architectural diagrams using nested graphs. Their user interface embeds source code inside the graph nodes and integrates a hypertext metaphor for following low-level dependencies with animated panning, zooming, and fisheye-view actions for viewing high-level structures. Relo \cite{sinh-relo} provides an exploration approach in which a users starts with a given artifact and explores further on an as-needed basis. One difference between SHriMP, Creole, Relo and Softwarenaut is that the latter can also perform evolutionary analysis.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -888,7 +886,7 @@ One of the projects inspired by Rigi was the SHriMP tool \cite{storey-shrimp} an
  
 YARN \cite{hindle-yarn} animates the evolution of dependencies between the modules of a system. We represent evolution by building complete models of several system versions (just like CodeCity) while YARN uses an evolutionary model and analyze the information in each commit. The disadvantages of YARN is that watching an animation can be time-consuming and it does not support interactive exploration operations such as filtering. 
 
-CodeCity of Wettel \cite{wettel-icse11} visualizes software systems using a city metaphor and also provides visualizations of the evolution of the systems. The main advantage of our approach over  Wettel's is the fact that we present relationships while he does not. %However, one advantage of his work is that his views are always clean while in our case sometimes too many relationships clutter the view.
+CodeCity of Wettel \cite{wettel-icse11} visualizes software systems using a city metaphor and also provides visualizations of the evolution of the systems. The main advantage of our approach over Wettel's is the fact that we present relationships while he does not. %However, one advantage of his work is that his views are always clean while in our case sometimes too many relationships clutter the view.
 
 Pinzger proposed the ArchView approach \cite{pinzger-thesis} which provides visualizations that present the evolution of the modules in a system. His evolution analysis takes into account the annotations from the versioning system repository. However, there is no support for first-class views in ArchView and the dependencies between the modules are only based on logical coupling. 
 
@@ -921,9 +919,415 @@ One of our main future research directions is exploring ways in which the recove
 %the publication of a new version of the system, Softwarenaut can automatically detect the views affected by the new changes, and visualize these changes on them.
 
 
-\paragraph{Acknowledgements} We would like to thank Fabrizio Perin and Niko Schwarz for feedback on earlier drafts of this paper. We would like to acknowledge Joel Ossher and Crista Lopes from UC Irvine for the collaboration in integrating Softwarenaut with the Sourcerer database. We would also like to thank the anonymous reviewers for their constructive feedback and patience while reading the first version of this article and trying out Softwarenaut. Lanza acknowledges the financial support of the SNF through project SOSYA (SNF Project No. 132175).
+\paragraph{Acknowledgements} We would like to thank Fabrizio Perin for feedback on earlier drafts of this paper. We would like to thank the anonymous reviewers for their qualitative feedback. We would also like to acknowledge Joel Ossher and Crista Lopes from UC Irvine for the collaboration in integrating Softwarenaut with the Sourcerer database. We would also like to thank the anonymous reviewers for their constructive feedback and patience while reading the first version of this article and trying out Softwarenaut. Lanza acknowledges the financial support of the SNF through project SOSYA (SNF Project No. 132175).
 
 \bibliographystyle{model1-num-names}
-\bibliography{scg,mircea}
+%\bibliography{scg,mircea}
+\begin{thebibliography}{49}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\bibinfo}[2]{#2}
+\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Article
+\bibitem[{Lehman(1980)}]{lehman-softev}
+\bibinfo{author}{M.~Lehman},
+\newblock \bibinfo{title}{Programs, life cycles, and laws of software
+  evolution},
+\newblock \bibinfo{journal}{Proceedings of the IEEE} \bibinfo{volume}{68}
+  (\bibinfo{year}{Sept. 1980}) \bibinfo{pages}{1060--1076}.
+%Type = Article
+\bibitem[{Ducasse and Pollet(2009)}]{Duca09c}
+\bibinfo{author}{S.~Ducasse}, \bibinfo{author}{D.~Pollet},
+\newblock \bibinfo{title}{Software architecture reconstruction: A
+  process-oriented taxonomy},
+\newblock \bibinfo{journal}{IEEE Transactions on Software Engineering}
+  \bibinfo{volume}{35} (\bibinfo{year}{2009}) \bibinfo{pages}{573--591}.
+%Type = Inproceedings
+\bibitem[{Pollet et~al.(2007)Pollet, Ducasse, Poyet, Alloui, C\^impan, and
+  Verjus}]{pollet-sar}
+\bibinfo{author}{D.~Pollet}, \bibinfo{author}{S.~Ducasse},
+  \bibinfo{author}{L.~Poyet}, \bibinfo{author}{I.~Alloui},
+  \bibinfo{author}{S.~C\^impan}, \bibinfo{author}{H.~Verjus},
+\newblock \bibinfo{title}{Towards a process-oriented software architecture
+  reconstruction taxonomy},
+\newblock in: \bibinfo{editor}{R.~Krikhaar}, \bibinfo{editor}{C.~Verhoef},
+  \bibinfo{editor}{G.~Di~Lucca} (Eds.), \bibinfo{booktitle}{Proceedings of 11th
+  European Conference on Software Maintenance and Reengineering (CSMR'07)},
+  \bibinfo{publisher}{IEEE Computer Society}, \bibinfo{year}{2007}, pp.
+  \bibinfo{pages}{137--148}. \bibinfo{note}{Best Paper Award}.
+%Type = Book
+\bibitem[{Bass et~al.(1997)Bass, Clements, and Kazman}]{bass-architecture}
+\bibinfo{author}{L.~Bass}, \bibinfo{author}{P.~Clements},
+  \bibinfo{author}{R.~Kazman}, \bibinfo{title}{Software Architecture in
+  Practice}, \bibinfo{publisher}{{Addison-Wesley Professional}},
+  \bibinfo{year}{1997}.
+%Type = Article
+\bibitem[{Kruchten(1995)}]{kruchten-4plus}
+\bibinfo{author}{P.~Kruchten},
+\newblock \bibinfo{title}{The 4+1 view model of architecture},
+\newblock \bibinfo{journal}{IEEE Softw.} \bibinfo{volume}{12}
+  (\bibinfo{year}{1995}) \bibinfo{pages}{42--50}.
+%Type = Book
+\bibitem[{Hofmeister et~al.(2000)Hofmeister, Nord, and Soni}]{hof-apparch}
+\bibinfo{author}{C.~Hofmeister}, \bibinfo{author}{R.~Nord},
+  \bibinfo{author}{D.~Soni}, \bibinfo{title}{Applied Software Architecture},
+  \bibinfo{publisher}{Addison-Wesley}, \bibinfo{year}{2000}.
+%Type = Article
+\bibitem[{Perry and Wolf(1992)}]{perry-foundations}
+\bibinfo{author}{D.~E. Perry}, \bibinfo{author}{A.~L. Wolf},
+\newblock \bibinfo{title}{Foundations for the study of software architecture},
+\newblock \bibinfo{journal}{SIGSOFT Softw. Eng. Notes} \bibinfo{volume}{17}
+  (\bibinfo{year}{1992}) \bibinfo{pages}{40--52}.
+%Type = Article
+\bibitem[{Garlan et~al.(2009)Garlan, Allen, and Ockerbloom}]{garlan-mismatch}
+\bibinfo{author}{D.~Garlan}, \bibinfo{author}{R.~Allen},
+  \bibinfo{author}{J.~Ockerbloom},
+\newblock \bibinfo{title}{Architectural mismatch: Why reuse is still so hard},
+\newblock \bibinfo{journal}{IEEE Softw.} \bibinfo{volume}{26}
+  (\bibinfo{year}{2009}) \bibinfo{pages}{66--69}.
+%Type = Inproceedings
+\bibitem[{Jazayeri(2002)}]{jaza-archevo}
+\bibinfo{author}{M.~Jazayeri},
+\newblock \bibinfo{title}{On architectural stability and evolution},
+\newblock in: \bibinfo{booktitle}{Reliable Software Technlogies-Ada-Europe
+  2002.}, \bibinfo{publisher}{Springer}, \bibinfo{year}{2002}, pp.
+  \bibinfo{pages}{304--315}.
+%Type = Inproceedings
+\bibitem[{Murphy et~al.(1995)Murphy, Notkin, and Sullivan}]{murphy-reflexion}
+\bibinfo{author}{G.~Murphy}, \bibinfo{author}{D.~Notkin},
+  \bibinfo{author}{K.~Sullivan},
+\newblock \bibinfo{title}{Software reflexion models: Bridging the gap between
+  source and high-level models},
+\newblock in: \bibinfo{booktitle}{Proceedings of SIGSOFT '95, Third ACM SIGSOFT
+  Symposium on the Foundations of Software Engineering},
+  \bibinfo{publisher}{ACM Press}, \bibinfo{year}{1995}, pp.
+  \bibinfo{pages}{18--28}.
+%Type = Article
+\bibitem[{Muller and Klashinsky(1988)}]{muller-rigi}
+\bibinfo{author}{H.~Muller}, \bibinfo{author}{K.~Klashinsky},
+\newblock \bibinfo{title}{Rigi: a system for programming-in-the-large},
+\newblock \bibinfo{journal}{Software Engineering, 1988., Proceedings of the
+  10th International Conference on}  (\bibinfo{year}{1988})
+  \bibinfo{pages}{80--86}.
+%Type = Inproceedings
+\bibitem[{Storey and M{\"u}ller(1995)}]{storey-shrimp}
+\bibinfo{author}{M.-A.~D. Storey}, \bibinfo{author}{H.~A. M{\"u}ller},
+\newblock \bibinfo{title}{Manipulating and documenting software structures
+  using {SHriMP} {Views}},
+\newblock in: \bibinfo{booktitle}{Proceedings of ICSM '95 (International
+  Conference on Software Maintenance)}, \bibinfo{publisher}{IEEE Computer
+  Society Press}, \bibinfo{year}{1995}, pp. \bibinfo{pages}{275--284}.
+%Type = Inproceedings
+\bibitem[{Shneiderman(1996)}]{shneid-eyes}
+\bibinfo{author}{B.~Shneiderman},
+\newblock \bibinfo{title}{The eyes have it: {A} task by data type taxonomy for
+  information visualizations},
+\newblock in: \bibinfo{booktitle}{IEEE Visual Languages},
+  \bibinfo{address}{College Park, Maryland 20742, U.S.A.}, pp.
+  \bibinfo{pages}{336--343}.
+%Type = Article
+\bibitem[{Gallagher et~al.(2008)Gallagher, Hatch, and
+  Munro}]{gallagher-archvis}
+\bibinfo{author}{K.~Gallagher}, \bibinfo{author}{A.~Hatch},
+  \bibinfo{author}{M.~Munro},
+\newblock \bibinfo{title}{Software architecture visualization: An evaluation
+  framework and its application},
+\newblock \bibinfo{journal}{IEEE Transactions on Software Engineering}
+  \bibinfo{volume}{34} (\bibinfo{year}{2008}) \bibinfo{pages}{260--270}.
+%Type = Inproceedings
+\bibitem[{Buchsbaum and Westbrook(2000)}]{buchsbaum-hierarchicalgraphs}
+\bibinfo{author}{A.~L. Buchsbaum}, \bibinfo{author}{J.~R. Westbrook},
+\newblock \bibinfo{title}{Maintaining hierarchical graph views},
+\newblock in: \bibinfo{booktitle}{Proceedings of the eleventh annual ACM-SIAM
+  symposium on Discrete algorithms}, SODA '00, \bibinfo{publisher}{Society for
+  Industrial and Applied Mathematics}, \bibinfo{address}{Philadelphia, PA,
+  USA}, \bibinfo{year}{2000}, pp. \bibinfo{pages}{566--575}.
+%Type = Article
+\bibitem[{Lanza and Ducasse(2003)}]{lanza-pv}
+\bibinfo{author}{M.~Lanza}, \bibinfo{author}{S.~Ducasse},
+\newblock \bibinfo{title}{Polymetric views - a lightweight visual approach to
+  reverse engineering},
+\newblock \bibinfo{journal}{Software Engineering, IEEE Transactions on}
+  \bibinfo{volume}{29} (\bibinfo{year}{2003}) \bibinfo{pages}{782--795}.
+%Type = Phdthesis
+\bibitem[{Wong(2000)}]{wong-thesis}
+\bibinfo{author}{K.~Wong}, \bibinfo{title}{The reverse engineering notebook},
+  Ph.D. thesis, University of Victoria, \bibinfo{address}{Victoria, B.C.,
+  Canada, Canada}, \bibinfo{year}{2000}.
+%Type = Inproceedings
+\bibitem[{Storey et~al.(2005)Storey, Cubrani\'{c}, and
+  German}]{storey-awareness}
+\bibinfo{author}{M.-A.~D. Storey}, \bibinfo{author}{D.~Cubrani\'{c}},
+  \bibinfo{author}{D.~M. German},
+\newblock \bibinfo{title}{On the use of visualization to support awareness of
+  human activities in software development: a survey and a framework},
+\newblock in: \bibinfo{booktitle}{SoftVis '05: Proceedings of the 2005 ACM
+  symposium on Software visualization}, \bibinfo{publisher}{ACM},
+  \bibinfo{address}{New York, NY, USA}, \bibinfo{year}{2005}, pp.
+  \bibinfo{pages}{193--202}.
+%Type = Manual
+\bibitem[{1471-2000(2000)}]{ieee-arch}
+\bibinfo{author}{I.~S. 1471-2000}, \bibinfo{title}{IEEE Std 1471-2000. IEEE
+  recommended practice for architectural description of software-intensive
+  systems.}, \bibinfo{organization}{IEEE Architecture Working Group},
+  \bibinfo{year}{2000}.
+%Type = Inproceedings
+\bibitem[{Robertson et~al.(1991)Robertson, Mackinlay, and
+  Card}]{robertson-conetrees}
+\bibinfo{author}{G.~G. Robertson}, \bibinfo{author}{J.~D. Mackinlay},
+  \bibinfo{author}{S.~K. Card},
+\newblock \bibinfo{title}{Cone trees: animated 3d visualizations of
+  hierarchical information},
+\newblock in: \bibinfo{booktitle}{CHI '91: Proceedings of the SIGCHI conference
+  on Human factors in computing systems}, \bibinfo{publisher}{ACM Press},
+  \bibinfo{address}{New York, NY, USA}, \bibinfo{year}{1991}, pp.
+  \bibinfo{pages}{189--194}.
+%Type = Article
+\bibitem[{Mitchell and Mancoridis(2006)}]{mitchell-bunch}
+\bibinfo{author}{B.~S. Mitchell}, \bibinfo{author}{S.~Mancoridis},
+\newblock \bibinfo{title}{On the automatic modularization of software systems
+  using the bunch tool},
+\newblock \bibinfo{journal}{IEEE Trans. Softw. Eng.} \bibinfo{volume}{32}
+  (\bibinfo{year}{2006}) \bibinfo{pages}{193--208}.
+%Type = Techreport
+\bibitem[{Aracic et~al.(2007)Aracic, Schaeffer, Mezini, and
+  Osterman}]{aracic-filtering}
+\bibinfo{author}{I.~Aracic}, \bibinfo{author}{T.~Schaeffer},
+  \bibinfo{author}{M.~Mezini}, \bibinfo{author}{K.~Osterman}, \bibinfo{title}{A
+  Survey on Interactive Grouping and Filtering in Graph-based Software
+  Visualizations}, \bibinfo{type}{Technical Report}, Technische Universit{\"a}t
+  Darmstadt, \bibinfo{year}{2007}.
+%Type = Inproceedings
+\bibitem[{Lungu and Lanza(2007)}]{lungu-relevo}
+\bibinfo{author}{M.~Lungu}, \bibinfo{author}{M.~Lanza},
+\newblock \bibinfo{title}{Exploring inter-module relationships in evolving
+  software systems},
+\newblock in: \bibinfo{booktitle}{Proceedings of CSMR 2007 (11th European
+  Conference on Software Maintenance and Reengineering)},
+  \bibinfo{publisher}{IEEE Computer Society Press}, \bibinfo{address}{Los
+  Alamitos CA}, \bibinfo{year}{2007}, pp. \bibinfo{pages}{91--100}.
+%Type = Inproceedings
+\bibitem[{Lungu and Lanza(2006)}]{lungu-cutedge}
+\bibinfo{author}{M.~Lungu}, \bibinfo{author}{M.~Lanza},
+\newblock \bibinfo{title}{Softwarenaut: cutting edge visualization},
+\newblock in: \bibinfo{booktitle}{SoftVis '06: Proceedings of the 2006 ACM
+  symposium on Software visualization}, \bibinfo{publisher}{ACM},
+  \bibinfo{address}{New York, NY, USA}, \bibinfo{year}{2006}, pp.
+  \bibinfo{pages}{179--180}.
+%Type = Phdthesis
+\bibitem[{G{\^\i}rba(2005)}]{girba-thesis}
+\bibinfo{author}{T.~G{\^\i}rba}, \bibinfo{title}{Modeling History to Understand
+  Software Evolution}, Ph.D. thesis, University of Berne,
+  \bibinfo{address}{Berne}, \bibinfo{year}{2005}.
+%Type = Inproceedings
+\bibitem[{Antoniol et~al.(2004)Antoniol, Di~Penta, and
+  Merlo}]{antoniol-discontinuities}
+\bibinfo{author}{G.~Antoniol}, \bibinfo{author}{M.~Di~Penta},
+  \bibinfo{author}{E.~Merlo},
+\newblock \bibinfo{title}{An automatic approach to identify class evolution
+  discontinuities},
+\newblock in: \bibinfo{booktitle}{IWPSE '04: Proceedings of the Principles of
+  Software Evolution, 7th International Workshop}, \bibinfo{publisher}{IEEE
+  Computer Society}, \bibinfo{address}{Washington, DC, USA},
+  \bibinfo{year}{2004}, pp. \bibinfo{pages}{31--40}.
+%Type = Phdthesis
+\bibitem[{Tichelaar(2001)}]{tichelaar-thesis}
+\bibinfo{author}{S.~Tichelaar}, \bibinfo{title}{Modeling Object-Oriented
+  Software for Reverse Engineering and Refactoring}, Ph.D. thesis, University
+  of Bern, \bibinfo{year}{2001}.
+%Type = Article
+\bibitem[{Mihancea et~al.(2007)Mihancea, Ganea, Verebi, Marinescu, and
+  Marinescu}]{pepi-mcc}
+\bibinfo{author}{P.~F. Mihancea}, \bibinfo{author}{G.~Ganea},
+  \bibinfo{author}{I.~Verebi}, \bibinfo{author}{C.~Marinescu},
+  \bibinfo{author}{R.~Marinescu},
+\newblock \bibinfo{title}{Mcc and mc\#: Unified c++ and c\# design facts
+  extractors tools},
+\newblock \bibinfo{journal}{Symbolic and Numeric Algorithms for Scientific
+  Computing, International Symposium on} \bibinfo{volume}{0}
+  (\bibinfo{year}{2007}) \bibinfo{pages}{101--104}.
+%Type = Article
+\bibitem[{Koschke(2002)}]{koschke-thesis}
+\bibinfo{author}{R.~Koschke},
+\newblock \bibinfo{title}{Atomic architectural component recovery for program
+  understanding and evolution},
+\newblock \bibinfo{journal}{Software Maintenance, 2002. Proceedings.
+  International Conference on}  (\bibinfo{year}{2002})
+  \bibinfo{pages}{478--481}.
+%Type = Inproceedings
+\bibitem[{Lungu et~al.(2005)Lungu, Kuhn, G\^irba, and Lanza}]{Lung05a}
+\bibinfo{author}{M.~Lungu}, \bibinfo{author}{A.~Kuhn},
+  \bibinfo{author}{T.~G\^irba}, \bibinfo{author}{M.~Lanza},
+\newblock \bibinfo{title}{Interactive exploration of semantic clusters},
+\newblock in: \bibinfo{booktitle}{3rd International Workshop on Visualizing
+  Software for Understanding and Analysis (VISSOFT 2005)}, pp.
+  \bibinfo{pages}{95--100}.
+%Type = Article
+\bibitem[{Nierstrasz et~al.(2005)Nierstrasz, Ducasse, and Girba}]{nier-story}
+\bibinfo{author}{O.~Nierstrasz}, \bibinfo{author}{S.~Ducasse},
+  \bibinfo{author}{T.~Girba},
+\newblock \bibinfo{title}{The story of moose: an agile reengineering
+  environment},
+\newblock \bibinfo{journal}{SIGSOFT Soft.Eng. Notes} \bibinfo{volume}{30}
+  (\bibinfo{year}{2005}) \bibinfo{pages}{1--10}.
+%Type = Article
+\bibitem[{Lungu et~al.(2009)Lungu, Lanza, G\^{\i}rba, and Robbes}]{lungu-est}
+\bibinfo{author}{M.~Lungu}, \bibinfo{author}{M.~Lanza},
+  \bibinfo{author}{T.~G\^{\i}rba}, \bibinfo{author}{R.~Robbes},
+\newblock \bibinfo{title}{The small project observatory: Visualizing software
+  ecosystems},
+\newblock \bibinfo{journal}{EST special issue of the Science of Computer
+  Programming}  (\bibinfo{year}{2009}).
+%Type = Phdthesis
+\bibitem[{Lungu(2009)}]{lungu-thesis}
+\bibinfo{author}{M.~Lungu}, \bibinfo{title}{Reverse Engineering Software
+  Ecosystems}, Ph.D. thesis, University of Lugano, \bibinfo{year}{2009}.
+%Type = Article
+\bibitem[{Linstead et~al.(2009)Linstead, Bajracharya, Ngo, Rigor, Lopes, and
+  Baldi}]{linstead-sourcerer}
+\bibinfo{author}{E.~Linstead}, \bibinfo{author}{S.~Bajracharya},
+  \bibinfo{author}{T.~Ngo}, \bibinfo{author}{P.~Rigor},
+  \bibinfo{author}{C.~Lopes}, \bibinfo{author}{P.~Baldi},
+\newblock \bibinfo{title}{Sourcerer: mining and searching internet-scale
+  software repositories},
+\newblock \bibinfo{journal}{Data Mining and Knowledge Discovery}
+  \bibinfo{volume}{18} (\bibinfo{year}{2009}) \bibinfo{pages}{300--336}.
+  \bibinfo{note}{10.1007/s10618-008-0118-x}.
+%Type = Inproceedings
+\bibitem[{Lungu et~al.(2005)Lungu, Kuhn, G\^irba, and Lanza}]{lungu-clust}
+\bibinfo{author}{M.~Lungu}, \bibinfo{author}{A.~Kuhn},
+  \bibinfo{author}{T.~G\^irba}, \bibinfo{author}{M.~Lanza},
+\newblock \bibinfo{title}{Interactive exploration of semantic clusters},
+\newblock in: \bibinfo{booktitle}{3rd International Workshop on Visualizing
+  Software for Understanding and Analysis (VISSOFT 2005)}, pp.
+  \bibinfo{pages}{95--100}.
+%Type = Article
+\bibitem[{Lungu et~al.(2010)Lungu, Lanza, Girba, and Robbes}]{lungu-scico}
+\bibinfo{author}{M.~Lungu}, \bibinfo{author}{M.~Lanza},
+  \bibinfo{author}{T.~Girba}, \bibinfo{author}{R.~Robbes},
+\newblock \bibinfo{title}{The small project observatory: Visualizing software
+  ecosystems},
+\newblock \bibinfo{journal}{Science of Computer Programming, Elsevier}
+  \bibinfo{volume}{75} (\bibinfo{year}{2010}) \bibinfo{pages}{264--275}.
+%Type = Techreport
+\bibitem[{Boeckmann(2010)}]{boeckmann-mars}
+\bibinfo{author}{A.~Boeckmann}, \bibinfo{title}{MARS - Modular Architecture
+  Recommendation System}, \bibinfo{type}{Bachelor's thesis}, University of
+  Lugano, \bibinfo{year}{2010}.
+%Type = Inproceedings
+\bibitem[{Lungu et~al.(2006)Lungu, Lanza, and G\^irba}]{lungu-packages}
+\bibinfo{author}{M.~Lungu}, \bibinfo{author}{M.~Lanza},
+  \bibinfo{author}{T.~G\^irba},
+\newblock \bibinfo{title}{Package patterns for visual architecture recovery},
+\newblock in: \bibinfo{booktitle}{Proceedings of CSMR 2006 (10th European
+  Conference on Software Maintenance and Reengineering)},
+  \bibinfo{publisher}{IEEE Computer Society Press}, \bibinfo{address}{Los
+  Alamitos CA}, \bibinfo{year}{2006}, pp. \bibinfo{pages}{185--196}.
+%Type = Inproceedings
+\bibitem[{M\"{u}ller et~al.(1992)M\"{u}ller, Tilley, Orgun, Corrie, and
+  Madhavji}]{muller-revengenv}
+\bibinfo{author}{H.~A. M\"{u}ller}, \bibinfo{author}{S.~R. Tilley},
+  \bibinfo{author}{M.~A. Orgun}, \bibinfo{author}{B.~D. Corrie},
+  \bibinfo{author}{N.~H. Madhavji},
+\newblock \bibinfo{title}{A reverse engineering environment based on spatial
+  and visual software interconnection models},
+\newblock in: \bibinfo{booktitle}{SDE 5: Proceedings of the fifth ACM SIGSOFT
+  symposium on Software development environments}, \bibinfo{publisher}{ACM},
+  \bibinfo{address}{New York, NY, USA}, \bibinfo{year}{1992}, pp.
+  \bibinfo{pages}{88--98}.
+%Type = Inproceedings
+\bibitem[{Lintern et~al.(2003)Lintern, Michaud, Storey, and
+  Wu}]{lintern-creole}
+\bibinfo{author}{R.~Lintern}, \bibinfo{author}{J.~Michaud},
+  \bibinfo{author}{M.-A. Storey}, \bibinfo{author}{X.~Wu},
+\newblock \bibinfo{title}{Plugging-in visualization: experiences integrating a
+  visualization tool with eclipse},
+\newblock in: \bibinfo{booktitle}{SoftVis '03: Proceedings of the 2003 ACM
+  symposium on Software visualization}, \bibinfo{publisher}{ACM},
+  \bibinfo{address}{New York, NY, USA}, \bibinfo{year}{2003}, pp.
+  \bibinfo{pages}{47--ff}.
+%Type = Article
+\bibitem[{Sinha et~al.(2006)Sinha, Karger, and Miller}]{sinh-relo}
+\bibinfo{author}{V.~Sinha}, \bibinfo{author}{D.~Karger},
+  \bibinfo{author}{R.~Miller},
+\newblock \bibinfo{title}{Relo: Helping users manage context during interactive
+  exploratory visualization of large codebases},
+\newblock \bibinfo{journal}{Visual Languages and Human-Centric Computing, 2006.
+  VL/HCC 2006. IEEE Symposium on}  (\bibinfo{year}{2006})
+  \bibinfo{pages}{187--194}.
+%Type = Article
+\bibitem[{Hindle et~al.(2007)Hindle, Jiang, Koleilat, Godfrey, and
+  Holt}]{hindle-yarn}
+\bibinfo{author}{A.~Hindle}, \bibinfo{author}{Z.~M. Jiang},
+  \bibinfo{author}{W.~Koleilat}, \bibinfo{author}{M.~W. Godfrey},
+  \bibinfo{author}{R.~C. Holt},
+\newblock \bibinfo{title}{Yarn: Animating software evolution},
+\newblock \bibinfo{journal}{Visualizing Software for Understanding and
+  Analysis, International Workshop on} \bibinfo{volume}{0}
+  (\bibinfo{year}{2007}) \bibinfo{pages}{129--136}.
+%Type = Inproceedings
+\bibitem[{Wettel et~al.(2011)Wettel, Lanza, and Robbes}]{wettel-icse11}
+\bibinfo{author}{R.~Wettel}, \bibinfo{author}{M.~Lanza},
+  \bibinfo{author}{R.~Robbes},
+\newblock \bibinfo{title}{Software systems as cities: a controlled experiment},
+\newblock in: \bibinfo{booktitle}{Proceeding of the 33rd international
+  conference on Software engineering}, ICSE '11, \bibinfo{publisher}{ACM},
+  \bibinfo{address}{New York, NY, USA}, \bibinfo{year}{2011}, pp.
+  \bibinfo{pages}{551--560}.
+%Type = Phdthesis
+\bibitem[{Pinzger(2005)}]{pinzger-thesis}
+\bibinfo{author}{M.~Pinzger}, \bibinfo{title}{ArchView - Analyzing Evolutionary
+  Aspects of Complex Software Systems}, Ph.D. thesis, Vienna University of
+  Technology, \bibinfo{year}{2005}.
+%Type = Inproceedings
+\bibitem[{Wierda et~al.(2006)Wierda, Dortmans, and
+  Lou~Somers}]{wierda-clustering}
+\bibinfo{author}{A.~Wierda}, \bibinfo{author}{E.~Dortmans},
+  \bibinfo{author}{L.~Lou~Somers},
+\newblock \bibinfo{title}{Using version information in architectural clustering
+  - a case study},
+\newblock in: \bibinfo{booktitle}{CSMR '06: Proceedings of the Conference on
+  Software Maintenance and Reengineering}, \bibinfo{publisher}{IEEE Computer
+  Society}, \bibinfo{address}{Washington, DC, USA}, \bibinfo{year}{2006}, pp.
+  \bibinfo{pages}{214--228}.
+%Type = Article
+\bibitem[{Rayside et~al.(2003)Rayside, Litoiu, Storey, Best, and
+  Lintern}]{rayside-flow}
+\bibinfo{author}{D.~Rayside}, \bibinfo{author}{M.~Litoiu},
+  \bibinfo{author}{M.-A. Storey}, \bibinfo{author}{C.~Best},
+  \bibinfo{author}{R.~Lintern},
+\newblock \bibinfo{title}{Visualizing flow diagrams in websphere studio using
+  shrimp views},
+\newblock \bibinfo{journal}{Information Systems Frontiers} \bibinfo{volume}{5}
+  (\bibinfo{year}{2003}) \bibinfo{pages}{161--174}.
+  \bibinfo{note}{10.1023/A:1022649506310}.
+%Type = Inproceedings
+\bibitem[{D'Ambros and Lanza(2008)}]{dambros-churrasco}
+\bibinfo{author}{M.~D'Ambros}, \bibinfo{author}{M.~Lanza},
+\newblock \bibinfo{title}{A flexible framework to support collaborative
+  software evolution analysis},
+\newblock in: \bibinfo{booktitle}{Proceedings of CSMR 2008 (12th European
+  Conference on Software Maintenance and Reengineering)},
+  \bibinfo{publisher}{IEEE Computer Society}, \bibinfo{year}{2008}, pp.
+  \bibinfo{pages}{3--12}.
+%Type = Inproceedings
+\bibitem[{Hattori et~al.(2011)Hattori, D'Ambros, Lanza, and
+  Lungu}]{hattori-replay}
+\bibinfo{author}{L.~Hattori}, \bibinfo{author}{M.~D'Ambros},
+  \bibinfo{author}{M.~Lanza}, \bibinfo{author}{M.~Lungu},
+\newblock \bibinfo{title}{Software evolution comprehension: Replay to the
+  rescue},
+\newblock in: \bibinfo{booktitle}{Proceedings of The 19th IEEE International
+  Conference on Program Comprehension}, pp. \bibinfo{pages}{161--170}.
+%Type = Inproceedings
+\bibitem[{Hupfer et~al.(2004)Hupfer, Cheng, Ross, and Patterson}]{hupfer-jazz}
+\bibinfo{author}{S.~Hupfer}, \bibinfo{author}{L.-T. Cheng},
+  \bibinfo{author}{S.~Ross}, \bibinfo{author}{J.~Patterson},
+\newblock \bibinfo{title}{Introducing collaboration into an application
+  development environment},
+\newblock in: \bibinfo{booktitle}{Proceedings of the 2004 ACM conference on
+  Computer supported cooperative work}, CSCW '04, \bibinfo{publisher}{ACM},
+  \bibinfo{address}{New York, NY, USA}, \bibinfo{year}{2004}, pp.
+  \bibinfo{pages}{21--24}.
 
+\end{thebibliography}
 \end{document}
